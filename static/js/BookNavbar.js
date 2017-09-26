@@ -28,6 +28,14 @@ var BookNavbar = React.createClass({
                   <NavItem eventKey={4} href="#">reviews</NavItem>
                   <NavItem eventKey={5} href="#">about</NavItem>
                 </Nav>
+                <Navbar.Form >
+                  <FormGroup bsStyle="sm" validationState="none">
+                  <FormControl type="text" placeholder= "Search"/>
+                  <FormControl.Feedback>
+                    <Glyphicon glyph="search" />
+                  </FormControl.Feedback>
+                  </FormGroup>
+                </Navbar.Form>                
               </Navbar.Collapse>
             </Navbar>
         </div>

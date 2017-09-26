@@ -1,3 +1,10 @@
+/* Font */
+@font-face {
+  font-family: 'PierSans';
+  src: url(../fonts/PierSans/PierSans-Regular.woff);
+  font-weight: normal;
+  font-style: normal;
+}
 
 .carousel-control {
   padding-top:10%;

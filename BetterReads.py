@@ -30,14 +30,14 @@ def book_instance(book_id):
 def books_model():
   global data
   books = data["book"]
-  book_grid = [(book["title"], "/static/book_images"+book["cover_art"]) for book in books]
+  book_grid = [(book["title"], "/static/book_images/"+book["cover_art"]) for book in books]
   return render_template('bookgrid.html', book_grid = book_grid)
 
 @app.route('/authors')
 def authors_model():
   global data
   authors = data["author"]
-  author_grid = [(author["name"], "/static/author_art"+author["author_art"]) for author in authors]
+  author_grid = [(author["name"], "/static/author_art/"+author["author_art"]) for author in authors]
   return render_template('authorgrid.html', author_grid = author_grid)
     
 @app.errorhandler(404)

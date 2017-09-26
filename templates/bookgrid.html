@@ -22,7 +22,7 @@ div.desc {
 </head>
 <body>
 
-{% for title, cover_art in book_grid.items() %}
+{% for title, cover_art in book_grid %}
   <div class ="gallery">
     <a target="_blank" href= {{ cover_art }}>
       <img src= {{ cover_art }} alt={{ title }} >

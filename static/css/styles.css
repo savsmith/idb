@@ -1,3 +1,4 @@
+
 .carousel-control {
   padding-top:10%;
   width:3%;
@@ -12,4 +13,30 @@
   margin: 0 auto;
   padding-top:5%;
   width:90%;
+}
+
+/* Navbar */
+
+.navbar {
+  background-color: #006258;
+  box-shadow: 10px 10px 5px #D3D3D3;
+
+}
+.navbar .navbar-nav li a {
+  font-family: 'PierSans';
+  font-size: 120%;
+  color: #fff;
+}
+.navbar .navbar-brand {
+  font-size: 140%;
+  color: #fff;
+}
+
+.form-inline .form-group{
+  display: inline-block;
+  width: auto;
+}
+
+body {
+  background: #f2f1f0;
 }

@@ -22,23 +22,15 @@ div.desc {
 </head>
 <body>
 
-<div class="gallery">
-  <a target="_blank" href="ove.jpg">
-    <img src="ove.jpg" alt="A Man Called Ove"  height="400">
-  </a>
-</div>
+{% for title, cover_art in book_grid.items() %}
+  <div class ="gallery">
+    <a target="_blank" href= {{ cover_art }}>
+      <img src= {{ cover_art }} alt={{ title }} >
+    </a>
+  </div>
+{% endfor %}
 
-<div class="gallery">
-  <a target="_blank" href="girl.jpg">
-    <img src="girl.jpg" alt="The Girl Who Takes an Eye for an Eye"  height="400">
-  </a>
-</div>
 
-<div class="gallery">
-  <a target="_blank" href="paper.jpg">
-    <img src="paper.jpg" alt="Paper Towns"  height="400">
-  </a>
-</div>
 
 
 </body>

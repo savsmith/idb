@@ -20,23 +20,15 @@ div.desc {
 }
 </style>
 </head>
-<body style="font-family;">
+<body>
 
-<div class="gallery">
-    <img src="fred.jpg" alt="Fredrik Backman"  height="400">
-  <div class="desc">Fredrik Backman</div>
-</div>
+{% for name, author_art in book_grid.items() %}
+  <div class="gallery">
+      <img src={{ author_art }} alt= {{ name }}>
+    <div class="desc"> {{ name }} </div>
+  </div>
+{% endfor %}
 
-<div class="gallery">
-    <img src={{ book_image }} alt="David Lagercrantz"  height="400">
-    <div class="desc" >David Lagercrantz</div>
-</div>
-
-<div class="gallery">
-    <img src="john.jpg" alt="John Green"  height="400">
-    <div class="desc">John Green</div>
-    
-</div>
 
 
 </body>

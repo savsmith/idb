@@ -15,8 +15,11 @@ def book_instance(book_id):
     except IndexError:
         redirect(url_for("page_not_found"))
     
-    ratings = [data["review"][int(b)]["rating"] for b in book["reviews"]]
-    rating = str(sum(ratings)/len(ratings))
+    try:
+        ratings = [data["review"][int(b)]["rating"] for b in book["reviews"]]
+        rating = str(sum(ratings)/len(ratings))
+    except IndexError:
+        rating = "Unrated"
     
    
     return render_template("book_instance.html", 
@@ -31,6 +34,7 @@ def books_model():
   global data
   books = data["book"]
   book_grid = [(book["title"], "/static/book_images/"+book["cover_art"]) for book in books]
+  print(book_grid)
   return render_template('bookgrid.html', book_grid = book_grid)
 
 @app.route('/authors')

@@ -7,6 +7,14 @@
             "author" : 0,
             "series" : 0,
             "reviews": [0]
+        },
+        {
+            "book_id" : 1,
+            "title" : "Harry Potter and the Sorcerer's Stone",
+            "cover_art" : "hp_book1.jpg",
+            "author" : 1,
+            "series" : 1,
+            "reviews": [1]
         }
     ],
     "author": [
@@ -16,7 +24,17 @@
             "books" : [0],
             "description" : "He is a good author.",
             "genres" : ["Science Fiction & Fantasy", "Young Adult"],
-            "series" : [0]
+            "series" : [0],
+            "author_art" : "brandon.jpg"
+        },
+        {
+            "author_id" : 1,
+            "name" : "J.K. Rowling",
+            "books" : [1, 2],
+            "description" : "She is a good author.",
+            "genres" : ["Fantasy", "Young Adult", "Fiction"],
+            "series" : [1],
+            "author_art" : "rowling.jpg"
         } 
     ],
     "series": [
@@ -28,6 +46,15 @@
             "count" : "1",
             "start" : "2010",
             "end" : "Ongoing"
+        },
+        {
+            "series_id" : 1,
+            "title" : "Harry Potter",
+            "books" : [1, 2],
+            "author" : 1,
+            "count" : "2",
+            "start" : "September 1, 1998",
+            "end" : "July 21, 2007"
         }
     ],
     "review": [

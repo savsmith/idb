@@ -1,5 +1,5 @@
-import Hello from './Hello';
+import BookCarousel from './BookCarousel';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<Hello/>, document.getElementById('reactEntry'));
+ReactDOM.render(<BookCarousel/>, document.getElementById('reactEntry'));

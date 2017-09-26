@@ -17,7 +17,8 @@ series = [{"name" : "The Stormlight Archives",
 authors = [{"name" : "Brandon Sanderson",
             "books" : [0],
             "series" : [0],
-            "description" : "He is an author"}]
+            "description" : "He is an author"}
+            "author_art": "brandon.jpg"]
 
 
 books = [{"title" : "The Way of Kings", 
@@ -41,6 +42,19 @@ def book_instance(book_id):
                                                  author = authors[book["author"]]["name"],
                                                  series = series[book["series"]]["name"],
                                                  rating = str(rating))
+
+@app.route('/books')
+def books_model():
+  global books
+  book_grid = [(book["title"], book["cover_art"]) for book in books]
+  return render_template('bookgrid.html', book_grid = book_grid)
+
+@app.route('/authors')
+def books_model():
+  global authors
+  author_grid = [(author["name"], author["author_art"]) for author in authors]
+  return render_template('authorgrid.html', author_grid = author_grid)
+
     
 if __name__ == '__main__':
    app.run(debug = True)

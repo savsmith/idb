@@ -22,9 +22,9 @@ div.desc {
 </head>
 <body>
 
-{% for title, cover_art in series_grid %}
+{% for title, cover_art, series_id in series_grid %}
   <div class ="gallery">
-    <a target="_blank" href= {{ cover_art }}>
+    <a href = {{ url_for('series_instance', series_id) }}>
       <img src= {{ cover_art }} alt={{ title }} border="3" />>
     </a>
   </div>

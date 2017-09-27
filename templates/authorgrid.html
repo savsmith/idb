@@ -54,10 +54,12 @@ div.desc {
                 </div><!-- /.container-fluid -->
         </nav>
 
-{% for name, author_art in author_grid %}
+{% for name, author_art, author_id in author_grid %}
   <div class="gallery">
+    <a href = {{ url_for('author_instance', author_id) }}>
       <img src={{ author_art }} alt= {{ name }}>
     <div class="desc"> {{ name }} </div>
+    </a>
   </div>
 {% endfor %}
 

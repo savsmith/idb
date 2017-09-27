@@ -1,0 +1,154 @@
+<html>
+   <head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <style>
+         table {
+            border-spacing: 15px;
+         }
+      </style>
+   </head>
+
+   <body>
+      <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">betterreads</a>
+                  </div>
+          
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li><a href= {{ url_for('books_model') }} >books</a></li>
+                      <li><a href= {{ url_for('series_model') }} >series</a></li>
+                      <li><a href= {{ url_for('authors_model') }} >authors</a></li>
+                      <li><a href= {{ url_for('review_model') }} >reviews</a></li>
+                      <li class="active"><a href="#">about<span class="sr-only">(current)</span></a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                      </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                  </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+        </nav>
+      <div align="center">
+      <h1> ABOUT </h1>
+      <p> Betterreads is a better site to help readers find their next favorite
+      book. Not only is it good, but it's even better! </p>
+      </br>
+
+      <h1> OUR TEAM </h1>
+      <table style="width:100%">
+         <tr>
+            <th><img src="/static/members/IMG1.jpg" height="200" width="200"></th>
+            <th><img src="/static/members/IMG2.jpg" height="200" width="200"></th>
+            <th><img src="/static/members/IMG.jpg" height="200" width="200"></th>
+         </tr>
+         <tr>
+            <th><h2>Savannah Smith</h2></th>
+            <th><h2>Kevin Vu</h2></th>
+            <th><h2>Manasa Tipparam</h2></th>
+         </tr>
+         <tr>
+            <td align="center">Backend and some Frontend</td>
+            <td align="center">Front End</td>
+            <td align="center">type in your reponsibilities</td>
+         </tr>
+         <tr>
+            <td align="center" width=300px>Fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.</td>
+            <td align="center" width=300px>Kevin is a 4th year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.</td>
+            <td align="center" width=300px>your bio goes here blah blah blah blah blah blah blah blah</td>
+         </tr>
+         <tr>
+            <td align="center">commits: ??</td>
+            <td align="center">commits: ??</td>
+            <td align="center">commits: ??</td>
+         </tr>
+         <tr>
+            <td align="center">issues: ??</td>
+            <td align="center">issues: ??</td>
+            <td align="center">issues: ??</td>
+         </tr>
+         <tr>
+            <td align="center">unit tests: ??</td>
+            <td align="center">unit tests: ??</td>
+            <td align="center">unit tests: ??</td>
+         </tr>
+      </table>
+      </br>
+      <table>
+         <tr>
+            <th><img src="/static/members/IMG.jpg" height="200" width="200"></th>
+            <th><img src="/static/members/IMG5.jpg" height="200" width="200"></th>
+         </tr>
+         <tr>
+            <th><h2>Sabrina Reenan</h2></th>
+            <th><h2>Farnoud Faghihi</h2></th>
+         </tr>
+         <tr>
+            <td align="center">type in your reponsibilities</td>
+            <td align="center">Database & Frontend</td>
+         </tr>
+         <tr>
+            <td align="center" width=300px>your bio goes here blah blah blah blah blah blah blah blah</td>
+            <td align="center" width=300px>Fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.</td>
+         </tr>
+         <tr>
+            <td align="center">commits: ??</td>
+            <td align="center">commits: ??</td>
+         </tr>
+         <tr>
+            <td align="center">issues: ??</td>
+            <td align="center">issues: ??</td>
+         </tr>
+         <tr>
+            <td align="center">unit tests: ??</td>
+            <td align="center">unit tests: ??</td>
+         </tr>
+      </table>
+      </br>
+      </div>
+
+      <h2> STATS </h2>
+      <ul>
+         <li> commits: ??</li>
+         <li> issues: ??</li>
+         <li> unit tests: ??</li>
+         <li><a href="borken for now">Apiary API</a></li>
+         <li><a href="https://github.com/savsmith/idb">GitHub Repo</a></li>
+         <li><a href="https://trello.com/b/8ccrHvSD">Trello</a></li>
+      </ul>
+      </br>
+
+      <h2> DATA </h2>
+      <ul>
+         <li><a href="https://www.goodreads.com/api">Goodreads API</a></li>
+         <li><a href="https://developers.google.com/books/">Google Books API</a></li>
+      </ul>
+      </br>
+
+      <h2> TOOLS </h2>
+      <ul>
+         <li>Bootstrap - Frontend framework to implement the GUI</li>
+         <li>Flask - Web framework for templating and data redirection</li>
+         <li>GitHub - Version control repository</li>
+         <li>Trello - Collaborative issue tracker</li>
+         <li>Slack - Collaborative communcation service</li>
+      </ul>
+
+      </br>
+      <p><a href="">have to add a link to report.pdf hosted on utexas.app.box.com</a></p>
+   </body>
+</html>

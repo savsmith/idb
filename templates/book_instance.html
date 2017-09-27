@@ -1,11 +1,51 @@
+<!DOCTYPE html>
 <html>
-    <body>
-
-        <h1>{{ title }}</h1>
-        <img src={{ cover_art }}> 
-        <strong>Author: <a href="/author/0">{{ author }}</a></strong>
-        <strong>Series: <a href="/author/0">{{ series }}</a></strong>
-        <strong>{{ "Overall Rating: "+ rating }} </strong>
+	<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css?version=10">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.title {
+    padding: 10px;
+    width: 100%;
+}
+.cover {
+    float:left;
+    margin: 10px;
+    margin-right: 0;
+    width: 45%;
+}
+.info {
+    float:right;
+    width: 52.5%;
+    /*border: 3px solid #000000;*/
+    margin: 10px;
+    padding-left: 10px;
+    margin-left: 0px;
+}
+h1 {
+  display: block;
+  font-size: 4em;
+}
+h2 {
+  display: block;
+  font-size: 2em;
+}
+</style>
+</head>
+	<body>
+      <div class="title">
+          <center><h1><b>{{ title }}</b></h1></center>
         
-    </body>
+      </div>
+      <div class="cover">
+          <img src={{ cover_art }} alt="Book Cover Art" width="400" align="right">
+      </div><!-- book_image -->
+      <div class="info">
+        <h2><b>Author: </b>{{ author }}</h2>
+        <h2><b>Series: </b>{{ series }}</h2>
+        <h2><b>Rating: </b>{{ rating }}</h2>
+      </div>
+	</body>
 </html>

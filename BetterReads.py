@@ -36,6 +36,20 @@ def book_instance(book_id):
             series_id = str(book["series"]),
             rating = rating)
 
+@app.route('/review/<int:review_id>')
+def review_instance(review_id):
+     try:
+         reviewf = data["review"][review_id]
+     except IndexError:
+         redirect(url_for("page_not_found"))
+     
+     return render_template("review_instance.html", 
+             userf=reviewf["user"], 
+             cover_art="/static/book_images/"+data["book"][reviewf["book"]]["cover_art"],
+             bookf= (data["book"][reviewf["book"]])["title"],
+             authorf= (data["author"][reviewf["author"]])["name"],
+             ratingf = reviewf["rating"],
+             textf = reviewf["text"])
 
 @app.route('/author/<int:author_id>')
 def author_instance(author_id):

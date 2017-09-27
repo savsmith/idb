@@ -1,3 +1,4 @@
+*.swp
 run.cmd
 venv
 __pycache__

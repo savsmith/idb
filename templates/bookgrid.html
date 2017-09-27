@@ -59,7 +59,7 @@ div.desc {
 
 {% for title, cover_art, book_id in book_grid %}
   <div class ="gallery">
-    <a href = {{ url_for('book_instance', book_id) }}>
+    <a href = {{ url_for('book_instance', book_id=book_id) }}>
       <img src= {{ cover_art }} alt={{ title }} >
     </a>
   </div>

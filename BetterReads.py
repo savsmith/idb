@@ -79,7 +79,7 @@ def series_instance(series_id):
 def books_model():
   global data
   books = data["book"]
-  book_grid = [(book["title"], "/static/book_images/"+book["cover_art"], book[book_id]) for book in books]
+  book_grid = [(book["title"], "/static/book_images/"+book["cover_art"], book["book_id"]) for book in books]
   print(book_grid)
   return render_template('bookgrid.html', book_grid = book_grid)
 
@@ -87,14 +87,14 @@ def books_model():
 def authors_model():
   global data
   authors = data["author"]
-  author_grid = [(author["name"], "/static/author_art/"+author["author_art"], author[author_id]) for author in authors]
+  author_grid = [(author["name"], "/static/author_art/"+author["author_art"], author["author_id"]) for author in authors]
   return render_template('authorgrid.html', author_grid = author_grid)
 
 @app.route('/series')
 def series_model():
   global data
   series = data["series_i"]
-  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"], series[series_id]) for series_i in series]
+  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"], series["series_id"]) for series_i in series]
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')

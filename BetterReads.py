@@ -7,6 +7,10 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, "static/db", "bookDB.json")
 data = json.load(open(json_url))
                    
+@app.route('/')
+def home():
+    return render_template("home.html")
+
 @app.route('/book/<int:book_id>')
 def book_instance(book_id):
     global data

@@ -37,7 +37,6 @@ def book_instance(book_id):
             rating = rating)
 
 
-
 @app.route('/author/<int:author_id>')
 def author_instance(author_id):
     return "Author!"

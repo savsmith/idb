@@ -11,7 +11,7 @@ data = json.load(open(json_url))
 def home():
     return render_template("home.html")
 
-@app.route('/book/<int:book_id>')
+@app.route('/books/<int:book_id>')
 def book_instance(book_id):
     global data
     
@@ -36,13 +36,43 @@ def book_instance(book_id):
             series_id = str(book["series"]),
             rating = rating)
 
+@app.route('/review/<int:review_id>')
+def review_instance(review_id):
+     try:
+         reviewf = data["review"][review_id]
+     except IndexError:
+         redirect(url_for("page_not_found"))
+     
+     return render_template("review_instance.html", 
+             userf=reviewf["user"], 
+             cover_art="/static/book_images/"+data["book"][reviewf["book"]]["cover_art"],
+             bookf= (data["book"][reviewf["book"]])["title"],
+             authorf= (data["author"][reviewf["author"]])["name"],
+             ratingf = reviewf["rating"],
+             textf = reviewf["text"])
+
 @app.route('/author/<int:author_id>')
 def author_instance(author_id):
     return "Author!"
     
 @app.route('/series/<int:series_id>')
 def series_instance(series_id):
-    return "Series!"
+    global data
+
+    try:
+        series = data["series_i"][series_id]
+    except IndexError:
+        redirect(url_for("page_not_found"))
+
+    return render_template("series_instance.html", 
+            title=series["title"], 
+            cover_art="/static/series_art/"+series["series_art"],
+            author = (data["author"][series["author"]])["name"],
+            author_id = str(series["author"]),
+            count = series["count"],
+            start = series["start"],
+            end = series["end"]
+            )
             
 @app.route('/books')
 def books_model():
@@ -63,7 +93,7 @@ def authors_model():
 def series_model():
   global data
   series = data["series_i"]
-  series_grid = [(series_i["name"], "/static/series_art/"+series_i["author_art"]) for series_i in series]
+  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"]) for series_i in series]
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')

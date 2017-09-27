@@ -77,15 +77,20 @@ def review_model():
 def page_not_found(e):
     return "Error 404: Page Not Found"
 
-# Given a rating 0.0 - 5.0, returns the location of the corresponding review image
-def get_review_image(rating):
-    #Replace with actual urls, in ascending order of rating"
-    images = ["one.png", "two.png", "three.png", "four.png", "five.png"]
-    step = 5/len(images)
+def get_review_image(rating, images):
+    """
+    Returns image to use with rating value. Floors rating to a rating divisible by step. So .3 = zero stars. 
+    Expects images to give 0 to max stars. 
+    
+    :param rating: float rating in the range of 0.0-5.0
+    :param images: list of image names, ex: [zero_star.png, five_star.png]
+    """
+    step = 5/(len(images)-1)
+    val = step
     for i in images:
-        if rating < step:
+        if rating < val:
             return i
-        step += step
+        val += step
     
 if __name__ == '__main__':
    app.run(debug = True)

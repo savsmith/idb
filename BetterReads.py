@@ -10,6 +10,8 @@ data = json.load(open(json_url))
 @app.route('/book/<int:book_id>')
 def book_instance(book_id):
     global data
+    
+    #If the user types in an id of a book that doesn't exist -> 404
     try:
         book = data["book"][book_id]
     except IndexError:
@@ -21,14 +23,23 @@ def book_instance(book_id):
     except IndexError:
         rating = "Unrated"
     
-   
     return render_template("book_instance.html", 
             title=book["title"], 
             cover_art="/static/book_images/"+book["cover_art"],
             author = (data["author"][book["author"]])["name"],
+            author_id = str(book["author"]),
             series = (data["series"][book["series"]])["title"],
+            series_id = str(book["series"]),
             rating = rating)
 
+@app.route('/author/<int:author_id>')
+def author_instance(author_id):
+    return "Author!"
+    
+@app.route('/series/<int:series_id>')
+def series_instance(series_id):
+    return "Series!"
+            
 @app.route('/books')
 def books_model():
   global data
@@ -52,16 +63,25 @@ def series_model():
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')
-def series_model():
+def review_model():
   global data
   reviews = data["review"]
-  review_grid = ["/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
+  review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
   return render_template('reviewgrid.html', review_grid = review_grid)
     
 @app.errorhandler(404)
 def page_not_found(e):
     return "Error 404: Page Not Found"
 
+# Given a rating 0.0 - 5.0, returns the location of the corresponding review image
+def get_review_image(rating):
+    #Replace with actual urls, in ascending order of rating"
+    images = ["one.png", "two.png", "three.png", "four.png", "five.png"]
+    step = 5/len(images)
+    for i in images:
+        if rating < step:
+            return i
+        step += step
     
 if __name__ == '__main__':
    app.run(debug = True)

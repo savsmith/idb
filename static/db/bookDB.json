@@ -65,6 +65,14 @@
             "book" : 0,
             "author" : 0,
             "text" : "I got to read an ARC of the book and I really enjoyed it. Sanderson really knows how tell a story and create an interesting world...."
+        },
+        {
+            "review_id" : 1,
+            "user" : "Kat O'Keeffe",
+            "rating" : 5.0,
+            "book" : 1,
+            "author" : 1,
+            "text" : "IT'S HARRY FREAKIN POTTER OF COURSE I LOVE IT\n\n*reread in March 2017 (for the first time in like 5 years)(STILL WONDERFUL)"
         }
     ]
 }

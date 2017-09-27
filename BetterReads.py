@@ -7,6 +7,10 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, "static/db", "bookDB.json")
 data = json.load(open(json_url))
                    
+@app.route('/')
+def home():
+    return render_template("home.html")
+
 @app.route('/book/<int:book_id>')
 def book_instance(book_id):
     global data
@@ -52,10 +56,10 @@ def series_model():
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')
-def series_model():
+def review_model():
   global data
   reviews = data["review"]
-  review_grid = ["/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
+  review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
   return render_template('reviewgrid.html', review_grid = review_grid)
     
 @app.errorhandler(404)

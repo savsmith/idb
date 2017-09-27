@@ -1,5 +1,5 @@
 import BookCarousel from './BookCarousel';
-import BookNavbar from './BookNavbar'
+import BookNavbar from './BookNavbar';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

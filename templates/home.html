@@ -24,17 +24,17 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">betterreads</a>
+                    <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
                   </div>
           
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">books<span class="sr-only">(current)</span></a></li>
-                      <li><a href="#">series</a></li>
-                      <li><a href="#">authors</a></li>
-                      <li><a href="#">reviews</a></li>
-                      <li><a href="#">about</a></li>
+                      <li><a href= {{ url_for('books_model') }} >books</a></li>
+                      <li><a href= {{ url_for('series_model') }} >series</a></li>
+                      <li><a href= {{ url_for('authors_model') }} >authors</a></li>
+                      <li><a href= {{ url_for('review_model') }} >reviews</a></li>
+                      <li><a href= {{ url_for('about_page') }} >about</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                       <div class="form-group">

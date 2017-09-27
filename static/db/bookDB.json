@@ -37,7 +37,7 @@
             "author_art" : "rowling.jpg"
         } 
     ],
-    "series": [
+    "series_i": [
         {
             "series_id" : 0,
             "title" : "The Stormlight Archive",
@@ -45,7 +45,8 @@
             "author" : 0,
             "count" : "1",
             "start" : "2010",
-            "end" : "Ongoing"
+            "end" : "Ongoing",
+            "series_art" : "stormlight_series.png"
         },
         {
             "series_id" : 1,
@@ -54,7 +55,8 @@
             "author" : 1,
             "count" : "2",
             "start" : "September 1, 1998",
-            "end" : "July 21, 2007"
+            "end" : "July 21, 2007",
+            "series_art" : "harrypotter.jpg"
         }
     ],
     "review": [

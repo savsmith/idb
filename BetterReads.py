@@ -26,13 +26,14 @@ def book_instance(book_id):
         rating = str(sum(ratings)/len(ratings))
     except IndexError:
         rating = "Unrated"
+    print(book)
     
     return render_template("book_instance.html", 
             title=book["title"], 
             cover_art="/static/book_images/"+book["cover_art"],
             author = (data["author"][book["author"]])["name"],
             author_id = str(book["author"]),
-            series = (data["series"][book["series"]])["title"],
+            series = (data["series_i"][book["series"]])["title"],
             series_id = str(book["series"]),
             rating = rating)
 
@@ -103,11 +104,16 @@ def review_model():
   review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
   return render_template('reviewgrid.html', review_grid = review_grid)
     
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
+    
+    
 @app.errorhandler(404)
 def page_not_found(e):
     return "Error 404: Page Not Found"
 
-def get_review_image(rating, images):
+def get_review_image(rating, images=["0star.png", "1star.png", "2star.png", "3star.png", "4star.png", "5star.png"]):
     """
     Returns image to use with rating value. Floors rating to a rating divisible by step. So .3 = zero stars. 
     Expects images to give 0 to max stars. 

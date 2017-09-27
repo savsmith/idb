@@ -43,6 +43,20 @@ def authors_model():
   authors = data["author"]
   author_grid = [(author["name"], "/static/author_art/"+author["author_art"]) for author in authors]
   return render_template('authorgrid.html', author_grid = author_grid)
+
+@app.route('/series')
+def series_model():
+  global data
+  series = data["series_i"]
+  series_grid = [(series_i["name"], "/static/series_art/"+series_i["author_art"]) for series_i in series]
+  return render_template('seriesgrid.html', series_grid = series_grid)
+
+@app.route('/reviews')
+def series_model():
+  global data
+  reviews = data["review"]
+  review_grid = ["/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
+  return render_template('reviewgrid.html', review_grid = review_grid)
     
 @app.errorhandler(404)
 def page_not_found(e):

@@ -20,25 +20,16 @@ div.desc {
 }
 </style>
 </head>
-<body style="font-family:helvetica;">
+<body>
 
-<div class="gallery">
-    <img src="4star.png" alt="four star review"  height="400">
-  <div class="desc">A Man Called Ove</div>
-  <div class="desc">Review by Emily May</div>
-</div>
+{% for review_image, rating, book, user in series_grid %}
+  <div class="gallery">
+      <img src="{{ review_image }}" alt="{{ rating }}">
+    <div class="desc"> {{ book }}</div>
+    <div class="desc">Review by {{ user }}</div>
+  </div>
+{% endfor %}
 
-<div class="gallery">
-    <img src="3star.png" alt="three star review"  height="400">
-    <div class="desc" >The Girl Who Takes an Eye for an Eye</div>
-    <div class="desc" >Review by Joao Carlos</div>
-</div>
-
-<div class="gallery">
-    <img src="5star.png" alt="five star review"  height="400">
-    <div class="desc">Paper Towns</div>
-    <div class="desc" >Review by Jamie Felton</div>
-</div>
 
 
 </body>

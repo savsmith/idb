@@ -33,11 +33,9 @@ h2 {
   font-size: 2em;
 }
 #stars {
-  padding-bottom: 10px; 
+  padding-bottom: 10px;
 }
 </style>
-</head>
-	<body>
        <nav class="navbar navbar-default">
                 <div class="container-fluid">
                   <!-- Brand and toggle get grouped for better mobile display -->
@@ -50,7 +48,7 @@ h2 {
                     </button>
                     <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
                   </div>
-          
+
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -69,9 +67,12 @@ h2 {
                   </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
         </nav>
+			</head>
+				<body>
+
       <div class="title">
           <center><h1><b>{{ title }}</b></h1></center>
-        
+
       </div>
       <div class="cover">
           <img src={{ cover_art }} alt="Book Cover Art" width="400" align="right">

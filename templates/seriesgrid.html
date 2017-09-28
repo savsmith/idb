@@ -23,8 +23,6 @@ div.desc {
     text-align: center;
 }
 </style>
-</head>
-<body>
 <nav class="navbar navbar-default">
                 <div class="container-fluid">
                   <!-- Brand and toggle get grouped for better mobile display -->
@@ -37,7 +35,7 @@ div.desc {
                     </button>
                     <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
                   </div>
-          
+
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -56,6 +54,8 @@ div.desc {
                   </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
         </nav>
+      </head>
+      <body>
 
 {% for title, cover_art, series_id in series_grid %}
   <div class ="gallery">

@@ -4,97 +4,97 @@
    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   </head>
-
-   <body>
-      <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                  <!-- Brand and toggle get grouped for better mobile display -->
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
-                  </div>
-
-                  <!-- Collect the nav links, forms, and other content for toggling -->
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                      <li><a href= {{ url_for('books_model') }} >books</a></li>
-                      <li><a href= {{ url_for('series_model') }} >series</a></li>
-                      <li><a href= {{ url_for('authors_model') }} >authors</a></li>
-                      <li><a href= {{ url_for('review_model') }} >reviews</a></li>
-                      <li class="active"><a href="#">about<span class="sr-only">(current)</span></a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </div>
-                      <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                  </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-        </nav>
-      <div align="center">
-      <h1> ABOUT </h1>
-      <p> Betterreads is a better site to help readers find their next favorite
-      book. Not only is it good, but it's even better! </p>
-      </br>
-
-      <h1> OUR TEAM </h1>
-      <div>
-        <div class = "col-md-12">
-          <div class = "col-md-4">
-              <img class ="img-circle" src="/static/members/savannah.jpg" height= "200px" width="200px">
-              <h1>Savannah Smith</h1>
-              <p>Responsibilities: Backend and some Frontend</p>
-              <p>Savannah is a fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.</p>
-              <p>Commits:</p>
-              <p>Issues:</p>
-              <p>Unit Tests:</p>
-          </div>
-          <div class = "col-md-4">
-              <img class ="img-circle" src="/static/members/kevin.jpg" height= "200px" width="200px">
-              <h1>Kevin Vu</h1>
-              <p>Responsibilities: Frontend</p>
-              <p>Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.</p>
-              <p>Commits:</p>
-              <p>Issues:</p>
-              <p>Unit Tests:</p>
-          </div>
-          <div class = "col-md-4">
-              <img class ="img-circle" src="/static/members/manasa.jpg" height= "200px" width="200px">
-              <h1>Manasa Tipparam</h1>
-              <p>Responsibilities: Design and Frontend</p>
-              <p>Manasa is a fourth-year CS student who enjoys photography, music, the outdoors, and reading sci-fi and mystery novels.</p>
-              <p>Commits:</p>
-              <p>Issues:</p>
-              <p>Unit Tests:</p>
-          </div>
+   <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
         </div>
-        <div class = "col-md-12">
-          <div class = "col-md-4">
-              <img class ="img-circle" src="/static/members/sabrina.jpg"height= "200px" width="200px" >
-              <h1>Sabrina Reenan</h1>
-              <p>Responsibilities: Frontend</p>
-              <p>Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs.</p>
-              <p>Commits:</p>
-              <p>Issues:</p>
-              <p>Unit Tests:</p>
-          </div>
-          <div class = "col-md-4">
-              <img class ="img-circle" src="/static/members/farnoud.jpg" height= "200px" width="200px">
-              <h1>Farnoud Faghihi</h1>
-              <p>Responsibilities: Database & Frontend</p>
-              <p>Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.</p>
-              <p>Commits:</p>
-              <p>Issues:</p>
-              <p>Unit Tests:</p>
-          </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href= {{ url_for('books_model') }} >books</a></li>
+            <li><a href= {{ url_for('series_model') }} >series</a></li>
+            <li><a href= {{ url_for('authors_model') }} >authors</a></li>
+            <li><a href= {{ url_for('review_model') }} >reviews</a></li>
+            <li class="active"><a href="#">about<span class="sr-only">(current)</span></a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+        </head>
+
+    <body>
+    <div align="center">
+    <h1> ABOUT </h1>
+    <p> Betterreads is a better site to help readers find their next favorite
+    book. Not only is it good, but it's even better! </p>
+    </br>
+
+    <h1> OUR TEAM </h1>
+    <div>
+      <div class = "col-md-12">
+        <div class = "col-md-4">
+            <img class ="img-circle" src="/static/members/savannah.jpg" height= "200px" width="200px">
+            <h1>Savannah Smith</h1>
+            <p>Responsibilities: Backend and some Frontend</p>
+            <p>Savannah is a fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.</p>
+            <p>Commits:</p>
+            <p>Issues:</p>
+            <p>Unit Tests:</p>
         </div>
+        <div class = "col-md-4">
+            <img class ="img-circle" src="/static/members/kevin.jpg" height= "200px" width="200px">
+            <h1>Kevin Vu</h1>
+            <p>Responsibilities: Frontend</p>
+            <p>Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.</p>
+            <p>Commits:</p>
+            <p>Issues:</p>
+            <p>Unit Tests:</p>
+        </div>
+        <div class = "col-md-4">
+            <img class ="img-circle" src="/static/members/manasa.jpg" height= "200px" width="200px">
+            <h1>Manasa Tipparam</h1>
+            <p>Responsibilities: Design and Frontend</p>
+            <p>Manasa is a fourth-year CS student who enjoys photography, music, the outdoors, and reading sci-fi and mystery novels.</p>
+            <p>Commits:</p>
+            <p>Issues:</p>
+            <p>Unit Tests:</p>
+        </div>
+      </div>
+      <div class = "col-md-12">
+        <div class = "col-md-4">
+            <img class ="img-circle" src="/static/members/sabrina.jpg"height= "200px" width="200px" >
+            <h1>Sabrina Reenan</h1>
+            <p>Responsibilities: Frontend</p>
+            <p>Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs.</p>
+            <p>Commits:</p>
+            <p>Issues:</p>
+            <p>Unit Tests:</p>
+        </div>
+        <div class = "col-md-4">
+            <img class ="img-circle" src="/static/members/farnoud.jpg" height= "200px" width="200px">
+            <h1>Farnoud Faghihi</h1>
+            <p>Responsibilities: Database & Frontend</p>
+            <p>Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.</p>
+            <p>Commits:</p>
+            <p>Issues:</p>
+            <p>Unit Tests:</p>
+        </div>
+      </div>
       </div>
 
       <h2> STATS </h2>

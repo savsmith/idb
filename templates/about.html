@@ -4,11 +4,6 @@
    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <style>
-         table {
-            border-spacing: 15px;
-         }
-      </style>
    </head>
 
    <body>
@@ -50,105 +45,86 @@
       </br>
 
       <h1> OUR TEAM </h1>
-      <table style="width:100%"> 
-         <tr>
-            <th><img src="/static/members/IMG1.jpg" height="200" width="200"></th>
-            <th><img src="/static/members/IMG2.jpg" height="200" width="200"></th>
-            <th><img src="/static/members/IMG.jpg" height="200" width="200"></th>
-         </tr>
-         <tr>
-            <th><h2>Savannah Smith</h2></th>
-            <th><h2>Kevin Vu</h2></th>
-            <th><h2>Manasa Tipparam</h2></th>
-         </tr>
-         <tr>
-            <td align="center">Backend and some Frontend</td>
-            <td align="center">Front End</td>
-            <td align="center">type in your reponsibilities</td>
-         </tr>
-         <tr>
-            <td align="center" width=300px>Savannah is a ifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.</td>
-            <td align="center" width=300px>Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.</td>
-            <td align="center" width=300px>your bio goes here blah blah blah blah blah blah blah blah</td>
-         </tr>
-         <tr>
-            <td align="center">commits: ??</td>
-            <td align="center">commits: ??</td>
-            <td align="center">commits: ??</td>
-         </tr>
-         <tr>
-            <td align="center">issues: ??</td>
-            <td align="center">issues: ??</td>
-            <td align="center">issues: ??</td>
-         </tr>
-         <tr>
-            <td align="center">unit tests: ??</td>
-            <td align="center">unit tests: ??</td>
-            <td align="center">unit tests: ??</td>
-         </tr>
-      </table>
-      </br>
-      <table>
-         <tr>
-            <th><img src="/static/members/sabrina.jpg" height="200" width="200"></th>
-            <th><img src="/static/members/IMG5.jpg" height="200" width="200"></th>
-         </tr>
-         <tr>
-            <th><h2>Sabrina Reenan</h2></th>
-            <th><h2>Farnoud Faghihi</h2></th>
-         </tr>
-         <tr>
-            <td align="center">Frontend</td>
-            <td align="center">Database & Frontend</td>
-         </tr>
-         <tr>
-            <td align="center" width=300px>Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs.</td>
-            <td align="center" width=300px>Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.</td>
-         </tr>
-         <tr>
-            <td align="center">commits: ??</td>
-            <td align="center">commits: ??</td>
-         </tr>
-         <tr>
-            <td align="center">issues: ??</td>
-            <td align="center">issues: ??</td>
-         </tr>
-         <tr>
-            <td align="center">unit tests: ??</td>
-            <td align="center">unit tests: ??</td>
-         </tr>
-      </table>
-      </br>
-      </div>
+      <div>
+        <div class = "col-md-12">
+          <div class = "col-md-4">
+              <img class ="img-circle" src="/static/members/savannah.jpg" height= "200px" width="200px">
+              <h1>Savannah Smith</h1>
+              <p>Responsibilities: Backend and some Frontend</p>
+              <p>Savannah is a fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.</p>
+              <p>Commits:</p>
+              <p>Issues:</p>
+              <p>Unit Tests:</p>
+          </div>
+          <div class = "col-md-4">
+              <img class ="img-circle" src="/static/members/kevin.jpg" height= "200px" width="200px">
+              <h1>Kevin Vu</h1>
+              <p>Responsibilities: Frontend</p>
+              <p>Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.</p>
+              <p>Commits:</p>
+              <p>Issues:</p>
+              <p>Unit Tests:</p>
+          </div>
+          <div class = "col-md-4">
+              <img class ="img-circle" src="/static/members/img.jpg" height= "200px" width="200px">
+              <h1>Manasa Tipparam</h1>
+              <p>Bio: blah blah</p>
+              <p>Responsibilities:</p>
+              <p>Commits:</p>
+              <p>Issues:</p>
+              <p>Unit Tests:</p>
+          </div>
+        </div>
+        <div class = "col-md-12">
+          <div class = "col-md-4">
+              <img class ="img-circle" src="/static/members/sabrina.jpg"height= "200px" width="200px" >
+              <h1>Sabrina Reenan</h1>
+              <p>Responsibilities: Frontend</p>
+              <p>Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs.</p>
+              <p>Commits:</p>
+              <p>Issues:</p>
+              <p>Unit Tests:</p>
+          </div>
+          <div class = "col-md-4">
+              <img class ="img-circle" src="/static/members/farnoud.jpg" height= "200px" width="200px">
+              <h1>Farnoud Faghihi</h1>
+              <p>Responsibilities: Database & Frontend</p>
+              <p>Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.</p>
+              <p>Commits:</p>
+              <p>Issues:</p>
+              <p>Unit Tests:</p>
+          </div>
+        </div>
+      </div> 
 
       <h2> STATS </h2>
-      <ul>
-         <li> commits: ??</li>
-         <li> issues: ??</li>
-         <li> unit tests: ??</li>
-         <li><a href="borken for now">Apiary API</a></li>
-         <li><a href="https://github.com/savsmith/idb">GitHub Repo</a></li>
-         <li><a href="https://trello.com/b/8ccrHvSD">Trello</a></li>
+      <ul class = "list-group">
+         <li class= "list-group-item"> commits: ??</li>
+         <li class= "list-group-item"> issues: ??</li>
+         <li class= "list-group-item"> unit tests: ??</li>
+         <li class= "list-group-item"><a href="borken for now">Apiary API</a></li>
+         <li class= "list-group-item"><a href="https://github.com/savsmith/idb">GitHub Repo</a></li>
+         <li class= "list-group-item"><a href="https://trello.com/b/8ccrHvSD">Trello</a></li>
       </ul>
       </br>
 
       <h2> DATA </h2>
-      <ul>
-         <li><a href="https://www.goodreads.com/api">Goodreads API</a></li>
-         <li><a href="https://developers.google.com/books/">Google Books API</a></li>
+      <ul class = "list-group">
+         <li class= "list-group-item"><a href="https://www.goodreads.com/api">Goodreads API</a></li>
+         <li class= "list-group-item"><a href="https://developers.google.com/books/">Google Books API</a></li>
       </ul>
       </br>
 
       <h2> TOOLS </h2>
-      <ul>
-         <li>Bootstrap - Frontend framework to implement the GUI</li>
-         <li>Flask - Web framework for templating and data redirection</li>
-         <li>GitHub - Version control repository</li>
-         <li>Trello - Collaborative issue tracker</li>
-         <li>Slack - Collaborative communcation service</li>
+      <ul class = "list-group">
+         <li class= "list-group-item">Bootstrap - Frontend framework to implement the GUI</li>
+         <li class= "list-group-item">Flask - Web framework for templating and data redirection</li>
+         <li class= "list-group-item">GitHub - Version control repository</li>
+         <li class= "list-group-item">Trello - Collaborative issue tracker</li>
+         <li class= "list-group-item">Slack - Collaborative communcation service</li>
       </ul>
 
       </br>
-      <p><a href="">have to add a link to report.pdf hosted on utexas.app.box.com</a></p>
+      <p><a href="https://utexas.box.com/s/rz0mceaa57mip4gvs7kte9rmk8ryo2en">Technical Document hosted on UT Box</a></p>
    </body>
 </html>

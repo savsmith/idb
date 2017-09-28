@@ -84,7 +84,9 @@ def series_instance(series_id):
             author_id = str(series["author"]),
             count = series["count"],
             start = series["start"],
-            end = series["end"]
+            end = series["end"],
+            book = (data["book"][series["books"][0]])["title"],
+            book_id = str(series["books"][0])
             )
 
 @app.route('/books')

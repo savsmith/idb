@@ -15,6 +15,14 @@
             "author" : 1,
             "series" : 1,
             "reviews": [1]
+        },
+        {
+            "book_id" : 2,
+            "title" : "The Bad Beginning",
+            "cover_art" : "the_bad_beginning.jpg",
+            "author" : 2,
+            "series" : 2,
+            "reviews": [2]
         }
     ],
     "author": [
@@ -30,11 +38,20 @@
         {
             "author_id" : 1,
             "name" : "J.K. Rowling",
-            "books" : [1, 2],
+            "books" : [1],
             "description" : "She is a good author.",
             "genres" : ["Fantasy", "Young Adult", "Fiction"],
             "series" : [1],
             "author_art" : "rowling.jpg"
+        } ,
+        {
+            "author_id" : 2,
+            "name" : "Lemony Snicket",
+            "books" : [2],
+            "description" : "He is really Daniel Handler.",
+            "genres" : ["Children", "Fiction"],
+            "series" : [2],
+            "author_art" : "lemony_snicket.jpg"
         } 
     ],
     "series_i": [
@@ -51,12 +68,22 @@
         {
             "series_id" : 1,
             "title" : "Harry Potter",
-            "books" : [1, 2],
+            "books" : [1],
             "author" : 1,
-            "count" : "2",
+            "count" : "7",
             "start" : "September 1, 1998",
             "end" : "July 21, 2007",
             "series_art" : "harrypotter.jpg"
+        },
+        {
+            "series_id" : 2,
+            "title" : "A Series of Unfortunate Events",
+            "books" : [2],
+            "author" : 2,
+            "count" : "13",
+            "start" : "September 30, 1999",
+            "end" : "October 13, 2006",
+            "series_art" : "unfortunate_events.jpg"
         }
     ],
     "review": [
@@ -77,6 +104,15 @@
             "book_title" : "Harry Potter and the Sorcerer's Stone",
             "author" : 1,
             "text" : "IT'S HARRY FREAKIN POTTER OF COURSE I LOVE IT\n\n*reread in March 2017 (for the first time in like 5 years)(STILL WONDERFUL)"
+        },
+        {
+            "review_id" : 2,
+            "user" : "Catriona (LittleBookOwl)",
+            "rating" : 4.0,
+            "book" : 2,
+            "book_title" : "A Bad Beginning",
+            "author" : 2,
+            "text" : "For some reason I had the sudden urge to re-read these books... so I decided to..."
         }
     ]
 }

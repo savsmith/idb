@@ -60,7 +60,8 @@ div.desc {
 {% for title, cover_art, series_id in series_grid %}
   <div class ="gallery">
     <a href = {{ url_for('series_instance', series_id=series_id) }}>
-      <img src= {{ cover_art }} alt={{ title }} border="3" />>
+      <img src= {{ cover_art }} alt={{ title }}/>>
+      <div class="desc"> {{ title }} </div>
     </a>
   </div>
 {% endfor %}

@@ -23,9 +23,9 @@ def book_instance(book_id):
     
     try:
         ratings = [data["review"][int(b)]["rating"] for b in book["reviews"]]
-        rating = str(sum(ratings)/len(ratings))
+        rating = "/static/review_stars/" + get_review_image(sum(ratings)/len(ratings))
     except IndexError:
-        rating = "Unrated"
+        rating = "unrated"
     print(book)
     
     return render_template("book_instance.html", 
@@ -94,7 +94,7 @@ def authors_model():
 def series_model():
   global data
   series = data["series_i"]
-  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"], series["series_id"]) for series_i in series]
+  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"], series_i["series_id"]) for series_i in series]
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')

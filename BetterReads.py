@@ -35,7 +35,10 @@ def book_instance(book_id):
             author_id = str(book["author"]),
             series = (data["series_i"][book["series"]])["title"],
             series_id = str(book["series"]),
-            rating = rating)
+            rating = rating,
+            review = (data["review"][book["reviews"][0]])["user"], 
+            review_id = str(book["reviews"][0])
+            )
 
 
 @app.route('/review/<int:review_id>')

@@ -2,7 +2,7 @@
 <html>
 	<head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css?version=10">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
@@ -51,7 +51,7 @@ h2 {
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                      <li><a href= {{ url_for('books_model') }} >books</a></li>
+                      <li class="active"><a href="#">books<span class="sr-only">(current)</span></a></li>
                       <li><a href= {{ url_for('series_model') }} >series</a></li>
                       <li><a href= {{ url_for('authors_model') }} >authors</a></li>
                       <li><a href= {{ url_for('review_model') }} >reviews</a></li>

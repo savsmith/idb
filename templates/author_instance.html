@@ -50,6 +50,7 @@
         <h2><b>Description: </b>{{ description }}</h2>
         <h2><b>Series: </b><a href={{ url_for('series_instance', series_id=series_id) }}>{{ series }}</a></h2>
         <h2><b>Books: </b><a href={{ url_for('book_instance', book_id=book_id) }}>{{ book }}</a></h2>
-      </div>
+				<h2><b>Genres: </b>{{ genre }}</h2>
+			</div>
 	</body>
 </html>

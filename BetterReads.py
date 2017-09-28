@@ -39,7 +39,7 @@ def book_instance(book_id):
             series = (data["series_i"][book["series"]])["title"],
             series_id = str(book["series"]),
             rating = rating,
-            review = (data["review"][book["reviews"][0]])["user"], 
+            review = (data["review"][book["reviews"][0]])["user"],
             review_id = str(book["reviews"][0])
             )
 
@@ -75,7 +75,8 @@ def author_instance(author_id):
             series=(data["series_i"][author["series"][0]])["title"],
             series_id=str(author["series"][0]),
             book_id=str(author["books"][0]),
-            book=(data["book"][author["books"][0]])["title"]
+            book=(data["book"][author["books"][0]])["title"],
+            genre=author["genres"][0]
             )
 
 

@@ -61,64 +61,19 @@ body {
   background: #f2f1f0;
 }
 
+.parallax {
+  color: #fff;
+  background-image: url("/static/misc/atx_skyline.jpg");
 
+  min-height: 400px;
 
-/* ------------------ PARALLAX STUFF ------------------
-
-
-html {
-  height: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-body {
-  margin:0;
-  padding:0;
-	-webkit-perspective: 1px;
-	perspective: 1px;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-header {
-  box-sizing: border-box;
-  min-height: 40vw;
-  padding: 30vw 0 5vw;
-  position: relative;
-  -webkit-transform-style: inherit;
-  transform-style: inherit;
-  width: 100vw;
-}
-header, header:before {
-  background-position: 50% 50%;
-  background-size: 100% 50%;
-}
-header::before {
-  bottom: 0;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-	display: block;
-	background-color: #8a8;
-  background-image: url(/static/misc/atx_skyline.jpg);
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
-  -webkit-transform-origin: center center 0;
-  -webkit-transform: translateZ(-1px) scale(2);
-  transform-origin: center center 0;
-  transform: translateZ(-1px) scale(2);
-  z-index: -1;
-  min-height: 100vh;
-}
-header * {
-  font-weight: normal;
-  letter-spacing: 0.2em;
-  text-align: center;
-  margin: 0;
-	padding: 1em 0;
 }
 
-*/
+.parallax p {
+  font-size: 120%;
+}

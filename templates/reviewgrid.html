@@ -57,10 +57,10 @@ div.desc {
                 </div><!-- /.container-fluid -->
         </nav>
 
-{% for review_image, rating, book, user, review_id in series_grid %}
+{% for review_image, rating, book, user, review_id in review_grid %}
   <div class="gallery">
     <a href = {{ url_for('review_instance', review_id=review_id) }}>
-      <img src="{{ review_image }}" alt="{{ rating }}">
+      <img src={{ review_image }} alt="{{ rating }}">
     <div class="desc"> {{ book }}</div>
     <div class="desc">Review by {{ user }}</div>
   </a>

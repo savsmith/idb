@@ -113,7 +113,7 @@ def series_model():
 def review_model():
   global data
   reviews = data["review"]
-  review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"], review[review_id]) for review in reviews]
+  review_grid = [("/static/review_stars/" + get_review_image(review["rating"]), review["rating"], review["book_title"], review["user"], review["review_id"]) for review in reviews]
   return render_template('reviewgrid.html', review_grid = review_grid)
 
 @app.route('/about')

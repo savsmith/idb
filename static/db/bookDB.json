@@ -65,6 +65,7 @@
             "user" : "Patrick",
             "rating" : 5.0,
             "book" : 0,
+            "book_title" : "The Way of Kings",
             "author" : 0,
             "text" : "I got to read an ARC of the book and I really enjoyed it. Sanderson really knows how tell a story and create an interesting world...."
         },
@@ -73,6 +74,7 @@
             "user" : "Kat O'Keeffe",
             "rating" : 5.0,
             "book" : 1,
+            "book_title" : "Harry Potter and the Sorcerer's Stone",
             "author" : 1,
             "text" : "IT'S HARRY FREAKIN POTTER OF COURSE I LOVE IT\n\n*reread in March 2017 (for the first time in like 5 years)(STILL WONDERFUL)"
         }

@@ -1,0 +1,46 @@
+Phase 1:
+
+1. Design the about page listing all of our information and the necessary statistics.
+Average Time Estimated: 5 hours
+Time to complete: 2 hours
+
+2. Design the home page with a carousel of award-winning books. Display relevant information
+Average Time Estimated: 5 hours
+Time to complete: 3 hours
+
+3. Implement the instance book page. A book cover image will be on the left with relevant information
+to the book is on the right of the book.
+Average Time Estimated: 3 hours
+Time to complete: 3 hours
+
+4. Implement the instance author page. An image of the author will be on the left and relevant information
+to the author is on the right.
+Average Time Estimated: 3 hours
+Time to complete: 3 hours
+
+5. Implement the instance series page. A carousel of book covers with the author on the and other attributes
+to the right.
+Average Time Estimated: 3 hours
+Time to complete: 3 hours
+
+6. Implement the instance review page. A book cover image will be on the left with the reviews of the book
+on the right with name of reviewer and other relevant information
+Average Time Estimated: 3 hours
+Time to complete: 3 hours
+
+7. Implement the book model page. It will feature a grid of book covers.
+Average Time Estimated 1 hour
+Time to complete: 1 hour
+
+8. Implement the author model page. It will feature a grid of authors with their books.
+Average Time Estimated 1 hour
+Time to complete: 1 hour
+
+9. Implement the series model page. It will feature a grid of the first in the series book cover and 
+a silhouette to show the series.
+Average Time Estimated 1 hour
+Time to complete: 1 hour
+
+10. Implement the reviews model page. It will feature a grid of reviews along with the review and book
+Average Time Estimated 1 hour
+Time to complete: 1 hour

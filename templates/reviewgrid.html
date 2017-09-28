@@ -35,7 +35,7 @@ div.desc {
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">betterreads</a>
+                    <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
                   </div>
           
                   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -57,11 +57,13 @@ div.desc {
                 </div><!-- /.container-fluid -->
         </nav>
 
-{% for review_image, rating, book, user in series_grid %}
+{% for review_image, rating, book, user, review_id in series_grid %}
   <div class="gallery">
+    <a href = {{ url_for('review_instance', review_id=review_id) }}>
       <img src="{{ review_image }}" alt="{{ rating }}">
     <div class="desc"> {{ book }}</div>
     <div class="desc">Review by {{ user }}</div>
+  </a>
   </div>
 {% endfor %}
 

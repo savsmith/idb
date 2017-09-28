@@ -23,9 +23,9 @@ def book_instance(book_id):
 
     try:
         ratings = [data["review"][int(b)]["rating"] for b in book["reviews"]]
-        rating = str(sum(ratings)/len(ratings))
+        rating = "/static/review_stars/" + get_review_image(sum(ratings)/len(ratings))
     except IndexError:
-        rating = "Unrated"
+        rating = "unrated"
     print(book)
 
     return render_template("book_instance.html",
@@ -91,7 +91,7 @@ def series_instance(series_id):
 def books_model():
   global data
   books = data["book"]
-  book_grid = [(book["title"], "/static/book_images/"+book["cover_art"]) for book in books]
+  book_grid = [(book["title"], "/static/book_images/"+book["cover_art"], book["book_id"]) for book in books]
   print(book_grid)
   return render_template('bookgrid.html', book_grid = book_grid)
 
@@ -99,21 +99,21 @@ def books_model():
 def authors_model():
   global data
   authors = data["author"]
-  author_grid = [(author["name"], "/static/author_art/"+author["author_art"]) for author in authors]
+  author_grid = [(author["name"], "/static/author_art/"+author["author_art"], author["author_id"]) for author in authors]
   return render_template('authorgrid.html', author_grid = author_grid)
 
 @app.route('/series')
 def series_model():
   global data
   series = data["series_i"]
-  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"]) for series_i in series]
+  series_grid = [(series_i["title"], "/static/series_art/"+series_i["series_art"], series_i["series_id"]) for series_i in series]
   return render_template('seriesgrid.html', series_grid = series_grid)
 
 @app.route('/reviews')
 def review_model():
   global data
   reviews = data["review"]
-  review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"]) for review in reviews]
+  review_grid = [("/static/reviews_art/"+review["review_image"], review["rating"], review["book"], review["user"], review[review_id]) for review in reviews]
   return render_template('reviewgrid.html', review_grid = review_grid)
 
 @app.route('/about')

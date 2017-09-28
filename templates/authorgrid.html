@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 div.gallery {
     margin: 2.5%;
@@ -31,16 +35,15 @@ div.desc {
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">betterreads</a>
+                    <a class="navbar-brand" href="{{ url_for('home') }}">betterreads</a>
                   </div>
 
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                      <li><a href= {{ url_for('books_model') }} >series</a></li>
+                      <li><a href= {{ url_for('books_model') }} >books</a></li>
                       <li><a href= {{ url_for('series_model') }} >series</a></li>
-                      <li><a href= {{ url_for('authors_model') }} >authors</a></li>
-                      <li class="active"><a href="#">authorss<span class="sr-only">(current)</span></a></li>
+                      <li class="active"><a href="#">authors<span class="sr-only">(current)</span></a></li>
                       <li><a href= {{ url_for('review_model') }} >reviews</a></li>
                       <li><a href= {{ url_for('about_page') }} >about</a></li>
                     </ul>
@@ -54,12 +57,13 @@ div.desc {
                 </div><!-- /.container-fluid -->
         </nav>
 
-{% for name, author_art in author_grid %}
+{% for name, author_art, author_id in author_grid %}
   <div class="gallery">
-    <a target="_blank" href= {{ author_art }}>
+    <a href = {{ url_for('author_instance', author_id=author_id) }}>
       <img src={{ author_art }} alt= {{ name }}>
     </a>
     <div class="desc"> {{ name }} </div>
+    </a>
   </div>
 {% endfor %}
 

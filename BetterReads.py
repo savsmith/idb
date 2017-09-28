@@ -49,7 +49,9 @@ def review_instance(review_id):
              userf=reviewf["user"],
              cover_art="/static/book_images/"+data["book"][reviewf["book"]]["cover_art"],
              bookf= (data["book"][reviewf["book"]])["title"],
+             book_id = str(reviewf["book"]),
              authorf= (data["author"][reviewf["author"]])["name"],
+             author_id = str(reviewf["author"]),
              ratingf = reviewf["rating"],
              textf = reviewf["text"])
 
@@ -64,8 +66,11 @@ def author_instance(author_id):
             name=author["name"],
             author_art="/static/author_art/"+author["author_art"],
             description=author["description"],
-            series=(data["series_i"][0])["title"],
-            series_id=str(0))
+            series=(data["series_i"][author["series"][0]])["title"],
+            series_id=str(author["series"][0]),
+            book_id=str(author["books"][0]),
+            book=(data["book"][author["books"][0]])["title"]
+            )
 
 
 @app.route('/series/<int:series_id>')

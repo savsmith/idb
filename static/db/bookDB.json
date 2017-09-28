@@ -33,7 +33,8 @@
             "description" : "He is a good author.",
             "genres" : ["Science Fiction & Fantasy", "Young Adult"],
             "series" : [0],
-            "author_art" : "brandon.jpg"
+            "author_art" : "brandon.jpg",
+            "twitter" : "BrandSanderson"
         },
         {
             "author_id" : 1,
@@ -42,7 +43,8 @@
             "description" : "She is a good author.",
             "genres" : ["Fantasy", "Young Adult", "Fiction"],
             "series" : [1],
-            "author_art" : "rowling.jpg"
+            "author_art" : "rowling.jpg",
+            "twitter" : "jk_rowling"
         } ,
         {
             "author_id" : 2,
@@ -51,8 +53,9 @@
             "description" : "He is really Daniel Handler.",
             "genres" : ["Children", "Fiction"],
             "series" : [2],
-            "author_art" : "lemony_snicket.jpg"
-        } 
+            "author_art" : "lemony_snicket.jpg",
+            "twitter" : "lemonysnicket"
+        }
     ],
     "series_i": [
         {

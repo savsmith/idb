@@ -76,7 +76,8 @@ def author_instance(author_id):
             series_id=str(author["series"][0]),
             book_id=str(author["books"][0]),
             book=(data["book"][author["books"][0]])["title"],
-            genre=author["genres"][0]
+            genre=author["genres"][0],
+            twitter=author["twitter"]
             )
 
 

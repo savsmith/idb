@@ -80,6 +80,7 @@ h2 {
         <h2><b>Author: </b><a href={{ url_for('author_instance', author_id=author_id) }}>{{ author }}</a></h2>
         <h2><b>Series: </b><a href={{ url_for('series_instance', series_id=series_id) }}>{{ series }}</a></h2>
         <h2><b>Rating: </b><img id="stars" src={{ rating }} alt="rating" height="50"></h2>
+	<h2><b>Review: </b><a href={{ url_for('review_instance', review_id=review_id) }}>{{ review }}</a></h2>
       </div>
 	</body>
 </html>

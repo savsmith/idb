@@ -133,10 +133,12 @@ def review_model():
 def about_page():
     global gitCommits
     commits = []
+    totalCommits = 0
     for user in range(0,6):
         commits.append(gitCommits[user]["contributions"])
+        totalCommits += commits[user]
     commits[0] = commits[0] + commits[4]
-    return render_template('about.html',commits = commits)
+    return render_template('about.html', commits = commits, totalCommits = totalCommits)
 
 
 @app.errorhandler(404)

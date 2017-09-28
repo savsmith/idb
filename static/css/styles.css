@@ -80,3 +80,11 @@ body {
 .parallax p {
   font-size: 120%;
 }
+
+#parallax-header {
+  position: absolute;
+  left: 50%;
+  top: 27%;
+  -webkit-transform: translate(-50%, -27%);
+  transform: translate(-50%, -27%);
+} 

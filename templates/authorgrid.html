@@ -59,7 +59,7 @@ div.desc {
 
 {% for name, author_art, author_id in author_grid %}
   <div class="gallery">
-    <a href = {{ url_for('author_instance', author_id) }}>
+    <a href = {{ url_for('author_instance', author_id=author_id) }}>
       <img src={{ author_art }} alt= {{ name }}>
     <div class="desc"> {{ name }} </div>
     </a>

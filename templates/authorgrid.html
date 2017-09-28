@@ -33,7 +33,7 @@ div.desc {
                     </button>
                     <a class="navbar-brand" href="#">betterreads</a>
                   </div>
-          
+
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -56,7 +56,9 @@ div.desc {
 
 {% for name, author_art in author_grid %}
   <div class="gallery">
+    <a target="_blank" href= {{ author_art }}>
       <img src={{ author_art }} alt= {{ name }}>
+    </a>
     <div class="desc"> {{ name }} </div>
   </div>
 {% endfor %}

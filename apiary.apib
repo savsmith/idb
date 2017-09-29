@@ -1,80 +1,169 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://betterreads.me.api/
 
-# savsmith
+# Betterreads
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Betterreads is an API for viewing and scraping book data
 
-## Questions Collection [/questions]
+## All Books [/books]
 
-### List All Questions [GET]
+### View All Books [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "book": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "book_id" : 0,
+                        "title" : "The Way of Kings",
+                        "cover_art" : "the_way_of_kings_cover_art.jpg",
+                        "author" : 0,
+                        "series" : 0,
+                        "reviews": [0]
+                    },
+                    {
+                        "book_id" : 1,
+                        "title" : "Harry Potter and the Sorcerer's Stone",
+                        "cover_art" : "hp_book1.jpg",
+                        "author" : 1,
+                        "series" : 1,
+                        "reviews": [1]
+                    },
+                    {
+                        "book_id" : 2,
+                        "title" : "The Bad Beginning",
+                        "cover_art" : "the_bad_beginning.jpg",
+                        "author" : 2,
+                        "series" : 2,
+                        "reviews": [2]
                     }
                 ]
             }
         ]
 
-### Create a New Question [POST]
+## All Authors [/authors]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### View All Authors [GET]
 
-+ Request (application/json)
++ Response 200 (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
+        [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "author": [
                     {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
+                        "author_id" : 0,
+                        "name" : "Brandon Sanderson",
+                        "books" : [0],
+                        "description" : "He is a good author.",
+                        "genres" : ["Science Fiction & Fantasy", "Young Adult"],
+                        "series" : [0],
+                        "author_art" : "brandon.jpg",
+                        "twitter" : "BrandSanderson"
+                    },
+                    {
+                        "author_id" : 1,
+                        "name" : "J.K. Rowling",
+                        "books" : [1],
+                        "description" : "She is a good author.",
+                        "genres" : ["Fantasy", "Young Adult", "Fiction"],
+                        "series" : [1],
+                        "author_art" : "rowling.jpg",
+                        "twitter" : "jk_rowling"
+                    },
+                    {
+                        "author_id" : 2,
+                        "name" : "Lemony Snicket",
+                        "books" : [2],
+                        "description" : "He is really Daniel Handler.",
+                        "genres" : ["Children", "Fiction"],
+                        "series" : [2],
+                        "author_art" : "lemony_snicket.jpg",
+                        "twitter" : "lemonysnicket"
                     }
                 ]
             }
+        ]
+
+## All Series [/series]
+
+### View All Series [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "series_i": [
+                    {
+                        "series_id" : 0,
+                        "title" : "The Stormlight Archive",
+                        "books" : [0],
+                        "author" : 0,
+                        "count" : "1",
+                        "start" : "2010",
+                        "end" : "Ongoing",
+                        "series_art" : "stormlight_series.png"
+                    },
+                    {
+                        "series_id" : 1,
+                        "title" : "Harry Potter",
+                        "books" : [1],
+                        "author" : 1,
+                        "count" : "7",
+                        "start" : "September 1, 1998",
+                        "end" : "July 21, 2007",
+                        "series_art" : "harrypotter.jpg"
+                    },
+                    {
+                        "series_id" : 2,
+                        "title" : "A Series of Unfortunate Events",
+                        "books" : [2],
+                        "author" : 2,
+                        "count" : "13",
+                        "start" : "September 30, 1999",
+                        "end" : "October 13, 2006",
+                        "series_art" : "unfortunate_events.jpg"
+                    }
+                ]
+            }
+        ]
+        
+## All Reviews [/reviews]
+
+### View All Reivews [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "review": [
+                    {
+                        "review_id" : 0,
+                        "user" : "Patrick",
+                        "rating" : 5.0,
+                        "book" : 0,
+                        "book_title" : "The Way of Kings",
+                        "author" : 0,
+                        "text" : "I got to read an ARC of the book and I really enjoyed it. Sanderson really knows how tell a story and create an interesting world...."
+                    },
+                    {
+                        "review_id" : 1,
+                        "user" : "Kat O'Keeffe",
+                        "rating" : 5.0,
+                        "book" : 1,
+                        "book_title" : "Harry Potter and the Sorcerer's Stone",
+                        "author" : 1,
+                        "text" : "IT'S HARRY FREAKIN POTTER OF COURSE I LOVE IT\n\n*reread in March 2017 (for the first time in like 5 years)(STILL WONDERFUL)"
+                    },
+                    {
+                        "review_id" : 2,
+                        "user" : "Catriona (LittleBookOwl)",
+                        "rating" : 4.0,
+                        "book" : 2,
+                        "book_title" : "A Bad Beginning",
+                        "author" : 2,
+                        "text" : "For some reason I had the sudden urge to re-read these books... so I decided to..."
+                    }
+                ]
+            }
+        ]

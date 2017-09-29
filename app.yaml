@@ -10,4 +10,8 @@ handlers:
 
 - url: /.*
   script: BetterReads.app
+
+libraries:
+- name: ssl
+  version: latest
 # [END handlers]

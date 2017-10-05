@@ -1,7 +1,7 @@
 /* Font */
 @font-face {
   font-family: 'PierSans';
-  src: url(fonts/PierSans/PierSans-Regular.otf);
+  src: url(../fonts/PierSans/PierSans-Regular.woff);
   font-weight: normal;
   font-style: normal;
 }
@@ -30,7 +30,7 @@
 
 #awin {
   text-align: center;
-  padding-top: 2%;
+  padding-top: 5%;
 }
 
 .cons {
@@ -60,10 +60,7 @@
   color: #fff;
 }
 
-body {
-  background: #f2f1f0;
-}
-
+/* Parallax - About Page */
 .parallax {
   color: #fff;
   background-image: url("/static/misc/atx_skyline.jpg");
@@ -88,3 +85,18 @@ body {
   -webkit-transform: translate(-50%, -27%);
   transform: translate(-50%, -27%);
 } 
+
+/* Misc. */
+body {
+  background: #f2f1f0;
+}
+
+center-block {
+  display: block;
+  margin: auto;
+}
+
+.badgeColor {
+  color: #ffffff;
+  background-color: #006258;
+}

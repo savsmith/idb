@@ -10,9 +10,10 @@ data = json.load(open(json_url))
 
 #gitCommits = requests.get('https://api.github.com/repos/savsmith/idb/contributors').json()
 
-@app.route('/')
-def home():
-    return render_template("home.html")
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def home(path):
+    return render_template("index.html")
 
 @app.route('/books/<int:book_id>')
 def book_instance(book_id):

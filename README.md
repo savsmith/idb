@@ -4,17 +4,17 @@ Slack integrated
 Trello integrated
 
 ### Phase 2 New Files and Packages
-*npm 
-*babel
-*webpack
-*bundle.js
-*index.html
-*package.json
-*loaders
-*react
-*react-bootstrap
-*react-router-dom
-*app.js
+* npm 
+* babel
+* webpack
+* bundle.js
+* index.html
+* package.json
+* loaders
+* react
+* react-bootstrap
+* react-router-dom
+* app.js
 
 ###### npm
 NPM is a package manager useful for downloading javascript packages and libraries.
@@ -63,7 +63,9 @@ This installs the package and saves it into the package.json file so others can 
 ### Testing the project locally
 
 Whenever you want to test the project code Run the following two commands:
-```$ webpack```
+```
+$ webpack
+```
 ```
 $ python betterreads.py
 ```

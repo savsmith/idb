@@ -11,7 +11,7 @@ var BookCarousel = React.createClass({
       <h1 id = "awin">Award Winners</h1>
         <div className = "cons">
           <Col md={12}>
-            <Carousel indicators = "false">
+            <Carousel>
                <Carousel.Item>
                 <Row>
                   <Col xs={3} md={3}><Image src="../static/car_img/book1.png" responsive /></Col>

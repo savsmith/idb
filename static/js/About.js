@@ -14,6 +14,7 @@
         },
 
         componentDidMount(){
+            // fetchs from the github API. 
             axios.get("https://api.github.com/repos/savsmith/idb/contributors")
             .then(response => {
                 var commitObj = {}
@@ -117,31 +118,27 @@
         },
 
         membersInfo: function(){
+            // Add responsibilities and background here 
             var members = {
             savannah: [
                 "Backend and some Frontend",
-                "Savannah is a fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking.",
-                3
+                "Savannah is a fifth-year CS student who likes playing tennis, reading sci-fi and fantasy novels, and woodworking."
             ],
             kevin: [
                 "Frontend",
-                "Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts.",
-                2
+                "Kevin is a fourth-year UTCS student who enjoys, reading mystery novels, weightlifting, and practicing martial arts."
             ],
             manasa: [
                 "Design and Frontend",
-                "Manasa is a fourth-year CS student who enjoys photography, music, the outdoors, and reading sci-fi and mystery novels.",
-                1
+                "Manasa is a fourth-year CS student who enjoys photography, music, the outdoors, and reading sci-fi and mystery novels."
             ],
             sabrina: [
                 "Frontend",
-                "Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs.",
-                4
+                "Sabrina is a fourth year UT student who enjoys reading fantasy novels, illustrating, and dogs."
             ],
             farnoud: [
                 "Database & Frontend",
-                "Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology.",
-                5
+                "Farnoud is a fifth-year UT student who likes to read books about philosophy, economics, history, and psychology."
             ]
 
             }

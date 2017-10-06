@@ -60,13 +60,26 @@ $ npm install <package-name> --save
 ```
 This installs the package and saves it into the package.json file so others can install it through npm install.
 
+Next if you haven't already you can set up Flask through a virtual environment. What this means is that we can install python packages that we will need for this project only. In other words it won't be installed through your desktop. To start you can install the virtual environment by doing and start it by running
+
+```
+$ virtualenv venv
+$ source venv/bin/activate
+```
+Next you will want to install the necessary files (Flask and etc.)
+```
+$ pip install -r requirements.txt
+```
+The project is now ready to test locally! Anytime you want to quit the virtual environment you can do
+```
+$ deactivate
+```
+
 ### Testing the project locally
 
 Whenever you want to test the project code Run the following two commands:
 ```
 $ webpack
-```
-```
 $ python betterreads.py
 ```
 

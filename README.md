@@ -77,12 +77,13 @@ $ deactivate
 
 ### Testing the project locally
 
-Whenever you want to test the project code Run the following two commands:
+Whenever you want to test the project code Run the following command:
 ```
-$ webpack
-$ python betterreads.py
+npm start
 ```
+
+you can view the npm script in the package.json file. npm start runs both webpack and python BetterReads.py.
 
 webpack bundles the react and other code (think compiling and building the code) while the latter command runs the server locally.
 
-I'm not sure if theres an easier way around this to where we can run the react code separately or not... (I will look into it) but you will have to run these two commands each and every time you make a change... :(
+~~I'm not sure if theres an easier way around this to where we can run the react code separately or not... (I will look into it) but you will have to run these two commands each and every time you make a change... :(~~

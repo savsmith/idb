@@ -21,7 +21,7 @@ var BookNavbar = React.createClass({
                 <Nav pullRight>
                   <MenuItem href="/books">books</MenuItem>
                   <MenuItem href="/series">series</MenuItem>
-                  <MenuItem href="/author">author</MenuItem>
+                  <MenuItem href="/authors">author</MenuItem>
                   <MenuItem href="/reviews">reviews</MenuItem>
                   
                   <LinkContainer to="/about">

@@ -6,21 +6,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-div.gallery {
-    margin: 2.5%;
-    float: left;
-    width: 180px;
-}
-
-
-div.gallery img {
-    width: 100%;
-    height: auto;
-}
-
 div.desc {
-    padding: 8px;
-    text-align: center;
+  font-size: 1.2em;
+}
+a:visited, a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover, a:active {
+  color: #cfcfcf;
+  text-decoration: none;
 }
 </style>
 <nav class="navbar navbar-default">
@@ -56,15 +52,15 @@ div.desc {
         </nav>
       </head>
       <body>
-
+      <div style="padding-top: 2%;"></div>
 {% for review_image, rating, book, user, review_id in review_grid %}
-  <div class="gallery">
-    <a href = {{ url_for('review_instance', review_id=review_id) }}>
-      <img src={{ review_image }} alt="{{ rating }}">
+  <ul style="list-style-type:none" class="gallery">
+    <li><a href = {{ url_for('review_instance', review_id=review_id) }}>
+      <img style = "width: 5%; height: 5%;" src={{ review_image }} alt="{{ rating }}">
     <div class="desc"> {{ book }}</div>
     <div class="desc">Review by {{ user }}</div>
-  </a>
-  </div>
+  </a></li>
+  </ul>
 {% endfor %}
 
 

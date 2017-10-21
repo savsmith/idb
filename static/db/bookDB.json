@@ -23,6 +23,15 @@
             "author" : 2,
             "series" : 2,
             "reviews": [2]
+        },
+
+        {
+            "book_id" : 3,
+            "title" : "The Hunger Games",
+            "cover_art" : "hunger_games.jpg",
+            "author" : 3,
+            "series" : 3,
+            "reviews": [3]
         }
     ],
     "author": [

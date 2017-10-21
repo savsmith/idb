@@ -86,6 +86,11 @@
   transform: translate(-50%, -27%);
 } 
 
+/* BookPage ... for now */
+.bookPageWrapper {
+  position: relative;
+}
+
 /* Misc. */
 body {
   background: #f2f1f0;

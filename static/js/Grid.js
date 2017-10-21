@@ -1,7 +1,8 @@
 import React from 'react';
 import Pagination from 'react-js-pagination';
-import { Image } from 'react-bootstrap';
+import { Image, Panel, Row, Col } from 'react-bootstrap';
 var axios = require('axios');
+require('../css/Grid.css');
 
 var Grid = React.createClass({
   getInitialState:function(){
@@ -58,22 +59,28 @@ var Grid = React.createClass({
     
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
-        var location = "../static/book_images/"
-        var imgType = "" 
-        var result = location.concat(item['cover_art'],imgType)
+      var location = "../static/book_images/"
+      var imgType = "" 
+      var result = location.concat(item['cover_art'],imgType)
+
         return(
-          <div key={index}>{item['title']}
-            <Image src={result} width="180px"/> 
+          <div key={index}>
+          <Col xs={6} sm={3} className="text-center centerCol">
+              <Image className="slideAndFade grow" src={result} height="260px" width="180px"/> 
+          </Col>
           </div>
         );
       }.bind(this));
 
       return(
-        <div>
-          <ul>
+        <div className="gridwrapper">
+          <Col md={12}>
             {datas}
-          </ul>
-          <Pagination
+          </Col>
+          { /*left pagination has to change based on range we decide. */ }
+
+          <Pagination 
+          className="pagination"
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemPerPage}
           totalItemsCount={this.state.datas.length}

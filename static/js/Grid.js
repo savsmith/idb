@@ -1,6 +1,7 @@
 import React from 'react';
 import Pagination from 'react-js-pagination';
 import { Image, Panel, Row, Col } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 var axios = require('axios');
 require('../css/Grid.css');
 
@@ -62,12 +63,16 @@ var Grid = React.createClass({
       var location = "../static/book_images/"
       var imgType = "" 
       var result = location.concat(item['cover_art'],imgType)
+      
 
         return(
           <div key={index}>
+          <LinkContainer to={"/book/" + item['book_id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height="260px" width="180px"/> 
-          </Col>
+          </Col> 
+          </LinkContainer>
+
           </div>
         );
       }.bind(this));

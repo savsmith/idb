@@ -3,6 +3,8 @@ import BookCarousel from './BookCarousel';
 import BookNavbar from './BookNavbar';
 
 var HomePage = React.createClass({
+
+
   render: function(){
       return(
         <div>

@@ -1,4 +1,5 @@
 import HomePage from './HomePage';
+import BookPage from './BookPage';
 import About from './About';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,6 +12,7 @@ var App = React.createClass({
           <div>
             <Route exact path = "/" component = {HomePage}></Route>
             <Route path = "/about" component = {About} ></Route> 
+            <Route path = "/books" component = {BookPage}></Route>
           </div>
 
         </Router>

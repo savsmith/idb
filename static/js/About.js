@@ -17,8 +17,8 @@
             // fetchs from the github API. 
             axios.get("https://api.github.com/repos/savsmith/idb/contributors")
             .then(response => {
-                var commitObj = {}
-                var totalCommits = 0;
+                let commitObj = {}
+                let totalCommits = 0;
                 for (var i = 0; i < 6; i++){
                     commitObj[response.data[i]["login"]] = response.data[i]["contributions"];
                     totalCommits += response.data[i]["contributions"];

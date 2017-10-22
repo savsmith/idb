@@ -12,10 +12,12 @@
 }
 .cover {
     float:left;
-    margin: 31%;
+    margin: 5%;
     margin-right: 0;
     margin-top: 5%;
-    width: 35%;
+    width: 80%;
+    padding: 0;
+    padding-left: 28%;
 }
 .info {
     float:left;
@@ -111,16 +113,14 @@ hr {
           <img src={{ cover_art }} alt="Book Cover Art" width="310" align="center">
           <h2><b>Rating: </b><img id="stars" src={{ rating }} alt="rating" height="40"></h2>
           <h2><b>Author: </b><a href={{ url_for('author_instance', author_id=author_id) }}>{{ author }}</a></h2>
+          <h2><b>Series: </b><a href={{ url_for('series_instance', series_id=series_id) }}>{{ series }}</a></h2>
       </div><!-- book_image -->
     </section>
 
 
     <section class = "right">
       <div class="info">
-        <h2 style = "background: #e5d6c7; padding: 10px; border-radius: 0px 0px 3% 3%; border-color: #e5d6c7 border-style: solid; 
-    border-top: thick solid #a59482; border-top-width: 8px"><p><b>Summary: </b></p>{{ description }}</h2>
-        <h2><b>Series: </b><a href={{ url_for('series_instance', series_id=series_id) }}>{{ series }}</a></h2>
-       
+        <h2  style = "background: #e5d6c7; padding: 10px; border-radius: 0px 0px 3% 3%; border-color: #e5d6c7 border-style: solid; border-top: thick solid #a59482; border-top-width: 8px"><p><b>Summary: </b></p>{{ description }}</h2>
 	      <h2><b>Review: </b><a href={{ url_for('review_instance', review_id=review_id) }}>{{ review }}</a></h2>
       </div>
     </section>

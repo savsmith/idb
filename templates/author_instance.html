@@ -5,7 +5,57 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+  h1 {
+    isplay: block;
+    font-size: 3em;
+  }
+  h2 {
+    display: block;
+    font-size: 1.7em;
+  }
+  a:visited, a:link {
+    text-decoration: none;
+    color: black;
+  }
 
+  a:hover, a:active {
+   color: #777;
+   text-decoration: underline;
+  }
+  .upper {
+    padding: 10px;
+    width: 100%;
+  }
+  img.author_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .left {
+    width: 60%;
+    float: left; 
+  }
+  .right {
+    width: 40%;
+    float: left;
+  }
+  .left-div {
+    margin: 25%;
+    margin-right: 5%;
+    margin-top: 5%;
+  }
+  hr { 
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-style: inset;
+    border-width: 3px;
+  } 
+</style>
        <nav class="navbar navbar-default">
                 <div class="container-fluid">
                   <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,19 +89,26 @@
         </nav>
 			</head>
 				<body>
-      <div class="name">
+      <section class = "upper">
+          <img class = "author_img" src={{ author_art }} alt="Author Image" width="300" style = "border-radius: 50%;">
           <center><h1><b>{{ name }}</b></h1></center>
-
-      </div>
-      <div class="author_img">
-          <img src={{ author_art }} alt="Author Image" width="200" align="left" hspace="120">
-      </div><!-- author image -->
-      <div class="info">
-        <h2><b>Description: </b>{{ description }}</h2>
+      </section>
+      <hr>
+      <section class="left">
+      <div class="left-div">
+        <h2><b>Genres: </b>{{ genre }}</h2>
+        <div style = "background: #e5d6c7; padding: 10px; padding-top: .5px; border-width: 10px; border-color: #e5d6c7 border-radius: 3%;">
+          <h2 ><p><b>Description: </b></p>{{ description }}</h2>
+        </div>
+			</div>
+      </section>
+      <section class="right">
+        <div class = "right-div">
         <h2><b>Series: </b><a href={{ url_for('series_instance', series_id=series_id) }}>{{ series }}</a></h2>
         <h2><b>Books: </b><a href={{ url_for('book_instance', book_id=book_id) }}>{{ book }}</a></h2>
-				<h2><b>Genres: </b>{{ genre }}</h2>
-				<h2><b>Twitter: </b><a href="https://twitter.com/{{twitter}}"> {{twitter}} </a></h2>
-			</div>
+        <h2><img src="/static/misc/twitter-icon.ico" alt= "Twitter" width="40" ><a href="https://twitter.com/{{twitter}}"> {{twitter}} </a></h2>
+        <h2><b>Review: </b><a href={{ url_for('review_instance', review_id=review_id) }}>{{ review }}</a></h2>
+      </div>
+    </section>
 	</body>
 </html>

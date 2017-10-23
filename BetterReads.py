@@ -41,7 +41,8 @@ def book_instance(book_id):
             series_id = str(book["series"]),
             rating = rating,
             review = (data["review"][book["reviews"][0]])["user"],
-            review_id = str(book["reviews"][0])
+            review_id = str(book["reviews"][0]),
+            description = str(book["description"])
             )
 
 
@@ -52,6 +53,11 @@ def review_instance(review_id):
      except IndexError:
          redirect(url_for("page_not_found"))
 
+     try:
+         rating = "/static/review_stars/" + get_review_image(reviewf["rating"])
+     except IndexError:
+         rating = "no rating"
+
      return render_template("review_instance.html",
              userf=reviewf["user"],
              cover_art="/static/book_images/"+data["book"][reviewf["book"]]["cover_art"],
@@ -60,6 +66,7 @@ def review_instance(review_id):
              authorf= (data["author"][reviewf["author"]])["name"],
              author_id = str(reviewf["author"]),
              ratingf = reviewf["rating"],
+             rating_pic = rating,
              textf = reviewf["text"])
 
 @app.route('/authors/<int:author_id>')
@@ -78,7 +85,9 @@ def author_instance(author_id):
             book_id=str(author["books"][0]),
             book=(data["book"][author["books"][0]])["title"],
             genre=author["genres"][0],
-            twitter=author["twitter"]
+            twitter=author["twitter"],
+            review = (data["review"][author["author_reviews"][0]])["user"],
+            review_id = str(author["author_reviews"][0])
             )
 
 
@@ -100,7 +109,8 @@ def series_instance(series_id):
             start = series["start"],
             end = series["end"],
             book = (data["book"][series["books"][0]])["title"],
-            book_id = str(series["books"][0])
+            book_id = str(series["books"][0]),
+            book_pic = "/static/book_images/"+(data["book"][series["books"][0]])["cover_art"],
             )
 
 @app.route('/books')

@@ -12,26 +12,62 @@
 }
 .cover {
     float:left;
-    margin: 10px;
+    margin: 5%;
     margin-right: 0;
-    width: 45%;
+    margin-top: 5%;
+    width: 80%;
+    padding: 0;
+    padding-left: 28%;
 }
 .info {
-    float:right;
-    width: 52.5%;
+    float:left;
+    width: 80%;
     /*border: 3px solid #000000;*/
     margin: 10px;
     padding-left: 10px;
     margin-left: 0px;
+    padding-right: none;
+    margin-right: 5%;
+
 }
 h1 {
   display: block;
-  font-size: 4em;
+  font-size: 3em;
 }
 h2 {
   display: block;
-  font-size: 2em;
+  font-size: 1.7em;
 }
+
+.left {
+    width: 40%;
+    float: left; 
+}
+.right {
+    width: 60%;
+    float: left;
+}
+
+a:visited, a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover, a:active {
+  color: #777;
+  text-decoration: underline;
+}
+
+hr { 
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-style: inset;
+    border-width: 3px;
+    
+} 
 </style>
       <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -68,17 +104,21 @@ h2 {
 				<body>
 
       <div class="user">
-          <center><h1><b>{{ userf }}</b></h1></center>
-
+          <center><h1><b>Review by {{ userf }}</b></h1></center>
+      <hr>
       </div>
-      <div class="cover">
-          <img src={{ cover_art }} alt="Book Cover Art" width="400" align="right">
-      </div><!-- book_image -->
-      <div class="info">
-        <h2><b>Book: </b><a href={{ url_for('book_instance', book_id=book_id) }}>{{ bookf }}</a></h2>
-        <h2><b>Author: </b><a href={{ url_for('author_instance', author_id=author_id) }}>{{ authorf }}</a></h2>
-        <h2><b>Rating: </b>{{ ratingf }}</h2>
-        <h2><b>Review: </b>{{ textf }}</h2>
-      </div>
+      <section class ="left">
+        <div class="cover">
+          <img src={{ cover_art }} alt="Book Cover Art" width="310" align="center">
+          <h2><b>Book: </b><a href={{ url_for('book_instance', book_id=book_id) }}>{{ bookf }}</a></h2>
+          <h2>by <a href={{ url_for('author_instance', author_id=author_id) }}>{{ authorf }}</a></h2>
+        </div><!-- book_image -->
+      </section>
+      <section class ="right">
+        <div class="info">
+          <h2><b>Rating: </b>{{ ratingf }}  <img id="stars" src={{ rating_pic }} alt="rating" height="28"></h2>
+          <h2 style = "background: #e5d6c7; padding: 10px; border-radius: 3%; border-color: #e5d6c7;"><b>Review: </b>{{ textf }}</h2>
+        </div>
+      </section>
 	</body>
 </html>

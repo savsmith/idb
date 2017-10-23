@@ -22,6 +22,17 @@ div.desc {
     padding: 15px;
     text-align: center;
 }
+
+a:visited, a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover, a:active {
+  color: #777;
+  text-decoration: none;
+}
+
 </style>
 
 <nav class="navbar navbar-default">
@@ -60,9 +71,8 @@ div.desc {
 {% for name, author_art, author_id in author_grid %}
   <div class="gallery">
     <a href = {{ url_for('author_instance', author_id=author_id) }}>
-      <img src={{ author_art }} alt= {{ name }}>
-    </a>
-    <div class="desc"> {{ name }} </div>
+      <img style = "border-radius: 50%;" src={{ author_art }} alt= {{ name }}>
+    <div class="desc" style = "font-size: 1em;"> {{ name }} </div>
     </a>
   </div>
 {% endfor %}

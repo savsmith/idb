@@ -4,6 +4,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Date, Float, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from sqlalchemy.schema import CreateTable
 
 Base = declarative_base()
 
@@ -27,7 +28,7 @@ class Books(Base):
     
     #Relationships
     authors = relationship("author", secondary=books_author_assoc_table, back_populates="books")
-    series_id = Column(Integer, ForeignKey('series.id'), nullable=False)
+    series_id = Column(Integer, ForeignKey('series.id'), nullable=True)
     reviews = relationship('reviews', backref='book')
     
 class Author(Base):
@@ -72,3 +73,17 @@ engine = create_engine('sqlite:///betterreads.db')
 # Create all tables in the engine. This is equivalent to "Create Table"
 # statements in raw SQL.
 Base.metadata.create_all(engine)
+
+with open('betterreads.schema', 'w') as f:
+    print(CreateTable(Books.__table__))
+    print(CreateTable(Author.__table__))
+    print(CreateTable(Series.__table__))
+    print(CreateTable(Reviews.__table__))
+
+    f.write(str(CreateTable(Books.__table__)))
+    f.write(str(CreateTable(Author.__table__)))
+    f.write(str(CreateTable(Series.__table__)))
+    f.write(str(CreateTable(Reviews.__table__)))
+    
+    print('Database Schema can be viewed in betterreads.schema')
+

@@ -21,15 +21,38 @@ class Books(Base):
     
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
-    list = Column(String(250), nullable=False)
-    published_date = Column(Date, nullable=False)
-    isbn13 = Column(String(250), nullable=False)
+    list = Column(String(250), nullable=True)
     description = Column(String(2500), nullable=False)
+    small_img = Column(String(250), nullable=True)
+    large_img = Column(String(250), nullable=True)
+    published_date = Column(String(250), nullable=True)
     
     #Relationships
-    authors = relationship("author", secondary=books_author_assoc_table, back_populates="books")
+    authors = relationship("author", secondary=books_author_assoc_table, back_populates="books", lazy = "dynamic")
     series_id = Column(Integer, ForeignKey('series.id'), nullable=True)
     reviews = relationship('reviews', backref='book')
+    
+    def __init__(self,
+                 id=None,
+                 title=None,
+                 list=None,
+                 description=None,
+                 small_img=None,
+                 large_img=None,
+                 authors=[],
+                 series=None,
+                 reviews=[],
+                 published_date=None):
+        self.id = id
+        self.title = title
+        self.list = list
+        self.description = description
+        self.small_img = small_img
+        self.large_img = large_img
+        self.authors = authors
+        self.series = series
+        self.reviews = reviews
+        self.published_date = published_date
     
 class Author(Base):
     __tablename__ = 'author'
@@ -47,7 +70,7 @@ class Series(Base):
     id = Column(Integer, primary_key=True)
     series_name = Column(String(250), nullable=False)
     count = Column(Integer, nullable=False)
-    start = Column(Date, nullable=False)
+    start = Column(Date, nullable=True)
     end = Column(Date, nullable=True)
     
     #Relationships
@@ -68,7 +91,7 @@ class Reviews(Base):
     
 # Create an engine that stores data in the local directory's
 # sqlalchemy_example.db file.
-engine = create_engine('sqlite:///betterreads.db')
+engine = create_engine('mysql+mysqldb://savel:tiger@localhost/foo')
  
 # Create all tables in the engine. This is equivalent to "Create Table"
 # statements in raw SQL.

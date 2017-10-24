@@ -2,10 +2,11 @@
 CREATE TABLE books (
 	id INTEGER NOT NULL, 
 	title VARCHAR(250) NOT NULL, 
-	list VARCHAR(250) NOT NULL, 
-	published_date DATE NOT NULL, 
-	isbn13 VARCHAR(250) NOT NULL, 
+	list VARCHAR(250), 
 	description VARCHAR(2500) NOT NULL, 
+	small_img VARCHAR(250), 
+	large_img VARCHAR(250), 
+	published_date VARCHAR(250), 
 	series_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(series_id) REFERENCES series (id)
@@ -24,7 +25,7 @@ CREATE TABLE series (
 	id INTEGER NOT NULL, 
 	series_name VARCHAR(250) NOT NULL, 
 	count INTEGER NOT NULL, 
-	start DATE NOT NULL, 
+	start DATE, 
 	"end" DATE, 
 	PRIMARY KEY (id)
 )

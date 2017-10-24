@@ -44,3 +44,45 @@ Time to complete: 1 hour
 10. Implement the reviews model page. It will feature a grid of reviews along with the review and book
 Average Time Estimated 1 hour
 Time to complete: 1 hour
+
+Phase 2:
+
+11. As a developer or a professor, I would like to see technical documentation so that I can see what the web developers use to create their website.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+12. As a developer I should be able to read how they hosted our website so that we can host our own website.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+13. As a book reader I would like to be able to query through a list of books to see which book I want specifically.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+14. As a book reader I would like to be able to query through a list of authors to see who I want specifically.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+15. As a book reader I would like to be able to query through a list of reviews to see which I want specifically.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+16. As a book reader I would like to be able to query through a list of series to see which series I want specifically
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+17. As someone visiting the website when I click on a book on a grid page, I want to be able to return to my place in the grid when I'm done looking at the book
+Average Time Estimated : 1 hour
+Time to complete: 1 hour
+
+18. As a developer I would like to be able to have access to the API so that I can scrape from the database as well.
+Average Time Estimated : 3 hours
+Time to complete: 3 hours
+
+19. As a user I would like to be able to filter books through pagination rather than scrolling through a list of books
+Average Time Estimated : 3 hours
+Time to complete: 5 hours
+
+20. As someone visiting the website when I would like to see books lined up in a grid page. After accessing an item, I would like to go back to the exact same place I left off.
+Average Time Estimated : 1 hour
+Time to complete: 1 hour

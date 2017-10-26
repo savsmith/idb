@@ -4,7 +4,7 @@ import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from createdb import Base, Books, Author, Series, Reviews
+from createdb import Base, books, author, series, reviews, books_author_assoc_table, series_author_assoc_table
 
 import xmltodict
 
@@ -12,6 +12,8 @@ DB_Books = []
 DB_Authors = []
 DB_Series = []
 DB_Reviews = []
+
+MAXINT = 10
 
 API_KEY = {
     'GOODREADS' : 'XPADtthE0OKv71uiqSwa8g',
@@ -37,95 +39,160 @@ def getGoogleInfo(book, info):
     book_details = info['volumeInfo']
     
     return book_details['title']
-
-def populateDB(book, info):
-    if info.status_code == 200:
-        info = xmltodict.parse(info.text)
-        if info['GoodreadsResponse']['search']['total-results'] != "0":
-            
-            #Book
-            book_id = info['GoodreadsResponse']['search']['results']['work']['best_book']['id']['#text']
-            work_id = info['GoodreadsResponse']['search']['results']['work']['id']['#text']
-            
-            #Check if book is already in DB
-            if False:
-                raise BookNotFound()
-            else:
-                book_info = xmltodict.parse(requests.get('https://www.goodreads.com/book/show/'+ book_id +'.xml?key=' + API_KEY['GOODREADS']).text)['GoodreadsResponse']['book']
-                book['title'] = book_info['title']
-                book['description'] = book_info['description']
-                book['small_img'] = book_info['small_image_url']
-                book['large_img'] = book_info['image_url']
-                book['id'] = int(book_id)
-                
-                Books(**book)
-                # -- Other Attributes We Could Add -- #
-                # book['rating'] = float(book_info['average_rating'])
-                # book['rating_count'] = int(book_info['ratings_count'])
-                
-            #Authors
-            # author_id = #TODO
-            # author_info = xmltodict.parse(requests.get('https://www.goodreads.com/author/show/'+ author_id +'?format=xml&key=' + API_KEY['GOODREADS']).text)['GoodreadsResponse']['author']
-            
-            # #Check if author is already in DB
-            # if False:
-                # author = None
-            # else:
-                # author = {}
-                # author['id'] = int(author_id)
-                # author['author'] = book_details['best_book']['author']['name']
-                # author['description'] = author_info['about']
-                
-                # # -- Other Attributes We Could Add -- #
-                # # author['hometown'] = author_info['hometown']
-                # # author['influences'] = author_info['influences']
-                # # author['born_at'] = author_info['born_at']
-                # # author['died_at'] = author_info['died_at']
-                
-                # session.add(author)
-                # session.commit()
-            
-                
-            
-            # #Reviews
-            
-            
-            # #Check if book is already in DB
-            # if False:
-                # book = None
-            # else:
-                # book['title'] = book_details['best_book']['title']
-                # book['author_id'] = int(book_details['best_book']['author']['id']['#text'])
-                
-                # # -- Other Attributes We Could Add -- #
-            
-            
-            #Series
-            # series_info = xmltodict.parse(requests.get('https://www.goodreads.com/work/'+ work_id +'/series?format=xml&key='+ API_KEY['GOODREADS']).text)['GoodreadsResponse']['series_works']
-            # if len(series_info) != 0:
-                # series = {}
-                # series_id = series_info['series_work']['series']['id']
-                # #book['series_position'] = series_info['series_work']['user_position']
-                
-                # #Check if series is already in DB
-                
-                # #Get info of series with series id
-                # series_info = xmltodict.parse(requests.get('https://www.goodreads.com/series/'+ series_id +'/series?format=xml&key='+ API_KEY['GOODREADS']).text)['GoodreadsResponse']['series']
-                
-                # series['id'] = int(series_id)
-                # series['series_name'] = series_info['title']
-                # series['description'] = series_info['description']
-                # series['count'] = series_info['series_works_count']
-                
-                
-            
-            
-        else:
-            raise BookNotFound
-    else:
-        raise BookNotFound
         
-    return book_details['best_book']['title'], author, series
+
+def getGRBookByID(id, author_callee=None, printout=True):
+    book_entry = session.query(books).get(id)
+    if book_entry is None:
+        request = requests.get('https://www.goodreads.com/book/show/'+str(id)+'.xml?key='+API_KEY['GOODREADS'])
+        if request.status_code == 200:
+            data = xmltodict.parse(request.text)['GoodreadsResponse']['book']
+            
+            book = {}
+            book['id'] = int(data['id'])
+            book['title'] = data['title']
+            book['description'] = data['description']
+            book['small_img'] = data['small_image_url']
+            book['large_img'] = data['image_url']
+            book['published_date'] = (data['publication_month'] if data['publication_month'] is not None else "unknown_month"
+                                     +"-"+
+                                     data['publication_day'] if data['publication_day'] is not None else "unknown_day"
+                                     +"-"+
+                                     data['publication_year'] if data['publication_year'] is not None else "unknown_year")
+            book['rating'] = data['average_rating']
+            
+            work_id = data['work']['id']['#text']
+            series_request = xmltodict.parse(requests.get('https://www.goodreads.com/work/'+work_id+'/series?format=xml&key='+API_KEY['GOODREADS']).text)
+            try:
+                book['series'] = int(getGRSeriesByID(series_request['GoodreadsResponse']['series_works']['series_work']['series']['id']))
+            except TypeError:
+                book['series'] = None
+            
+            book_entry = books(**book)
+            for key, author in data['authors'].items():
+                if type(author) is list:
+                    author = author[0]
+                if author_callee is None or author_callee != int(author['id']):
+                    book_entry.authors.append(getGRAuthorByID(int(author['id']), book_callee=id))   
+            session.add(book_entry)
+            session.commit() 
+            
+            if(printout):
+                print(book_entry)
+            
+    return book_entry
+    
+def getGRAuthorByID(id, book_callee=None, printout=True):
+    author_entry = session.query(author).get(id)
+    if author_entry is None:
+        request = requests.get('https://www.goodreads.com/author/show/'+str(id)+'.xml?key='+API_KEY['GOODREADS'])
+        if request.status_code == 200:
+            data = xmltodict.parse(request.text)['GoodreadsResponse']['author']
+            
+            auth = {}
+            auth['id'] = int(data['id'])
+            auth['author'] = data['name']
+            auth['description'] = data['about']
+            auth['hometown'] = data['hometown']
+            auth['small_img'] = data['small_image_url']
+            auth['large_img'] = data['image_url']
+            
+            author_entry = author(**auth)   
+            for key, book in data['books'].items():
+                if type(book) is list:
+                    book = book[0]
+                if book_callee is None or book_callee != int(book['id']['#text']):
+                    author_entry.books.append(getGRBookByID(int(book['id']['#text']), id))
+            session.add(author_entry)
+            session.commit() 
+            
+            if(printout):
+                print(author_entry)
+            
+    return author_entry        
+        
+def getGRSeriesByID(id, printout=True):
+    series_entry = session.query(series).get(id)
+    if series_entry is None:
+        request = requests.get('https://www.goodreads.com/series/'+str(id)+'.xml?key='+API_KEY['GOODREADS'])
+        if request.status_code == 200:
+            data = xmltodict.parse(request.text)['GoodreadsResponse']['series']
+            
+            ser = {}
+            ser['id'] = int(data['id'])
+            ser['series_name'] = data['title']
+            ser['count'] = int(data['series_works_count'])
+            ser['description'] = data['description']
+            
+            series_entry = series(**ser)
+            for key, book in data['series_works'].items():
+                while type(book) is list:
+                    book = book[0]
+                series_entry.books.append(getGRBookByID(int(book['id'])))
+            session.add(series_entry)
+            session.commit()
+            
+            if(printout):
+                print(series_entry)
+            
+    return series_entry
+def getGRReviewByID(id, printout=True):
+    review_entry = session.query(reviews).get(id)
+    if review_entry is None:
+        request = requests.get('https://www.goodreads.com/review/show.xml?id='+ str(id) +'&key='+API_KEY['GOODREADS'])
+        if request.status_code == 200:
+            data = xmltodict.parse(request.text)['GoodreadsResponse']['review']
+            
+            review = {}
+            review['id'] = int(data['id'])
+            review['user'] = data['user']['display_name']
+            review['rating'] = int(data['rating'])
+            review['book'] = getGRBookByID(int(data['book']['id']['#text']))
+            review['review'] = data['body']
+            review['spoiler_flag'] = data['spoiler_flag']
+            review['date_added'] = data['date_added']
+            
+            review_entry = reviews(**review)
+            session.add(review_entry)
+            session.commit()
+            
+            if(printout):
+                print(review_entry)
+    
+    return review_entry
+
+def insertGRReviews(start, step):
+    i = start
+    while i < (start + step):
+        getGRReviewByID(i)
+        i += 1
+    
+def insertGRBooks(start, step):
+    i = start
+    while i < (start + step):
+        getGRBookByID(i)
+        i += 1
+        
+def insertGRAuthors(start, step):
+    i = start
+    while i < (start + step):
+        getGRAuthorByID(i)
+        i += 1
+        
+def insertGRSeries(start, step):
+    i = start
+    while i < (start + step):
+        getGRSeriesByID(i)
+        i += 1
+        
+def populateDB():
+    step = 10
+    for i in range(1,100, step):
+        insertGRBooks(i, i+step)
+        insertGRAuthors(i, i+step)
+        insertGRReviews(i, i+step)
+        insertGRSeries(i, i+step)
+    
 def verify_same_book(*books):
     for b1 in books:
         for b2 in books:
@@ -155,7 +222,7 @@ DBSession = sessionmaker(bind=engine)
 # session.rollback()
 session = DBSession()
 
-# Clear Table Data
+#Clear Table Data
 meta = Base.metadata
 for table in reversed(meta.sorted_tables):
     session.execute(table.delete())
@@ -166,28 +233,21 @@ session.commit()
 #-----------------#
 
 #NYTimes Best Seller Lists
-lists = [lst['list_name_encoded'] for lst in list(requests.get('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=1bfa24a95061415dbc8d4a4f136329a5').json()['results'])]
+# lists = [lst['list_name_encoded'] for lst in list(requests.get('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=1bfa24a95061415dbc8d4a4f136329a5').json()['results'])]
 
 
-#for lst in lists:
-temp_lists = [lists[0]]
-for lst in temp_lists:
-    nytimes_info = requests.get('https://api.nytimes.com/svc/books/v3/lists.json?api-key='+ API_KEY['NYTIMES'] +'&list=' + lst).json()['results']
-    for nyt_info in nytimes_info:
-        book = {}
-        try:
-            isbn = getNyTimesInfo(book, nyt_info)
-            #google_title = getGoogleInfo(book, requests.get('https://www.googleapis.com/books/v1/volumes?key='+ API_KEY['GOOGLE'] +'&q={' + book['isbn13'] + '}&maxResults=1').json())
-            populateDB(book, requests.get('https://www.goodreads.com/search/index.xml?key='+ API_KEY['GOODREADS'] + '&q=' + isbn))
+# #for lst in lists:
+# temp_lists = [lists[0]]
+# for lst in temp_lists:
+    # nytimes_info = requests.get('https://api.nytimes.com/svc/books/v3/lists.json?api-key='+ API_KEY['NYTIMES'] +'&list=' + lst).json()['results']
+    # for nyt_info in nytimes_info:
+        # book = {}
+        # try:
+            # isbn = getNyTimesInfo(book, nyt_info)
             
-            # for item in book.items():
-                # print(item)
-            # for item in author.items():
-                # print(item)
-            # for item in series.items():
-                # print(item)
             
-            #verify_same_book(ny_title, google_title, gr_title)
-        except (BookNotFound, BooksDoNotMatch) as e:
-            print(e)
             
+            # #verify_same_book(ny_title, google_title, gr_title)
+        # except (BookNotFound, BooksDoNotMatch) as e:
+            # print(e)
+insertGRReviews(1, 30)           

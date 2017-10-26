@@ -30,9 +30,7 @@ CREATE TABLE series (
 	series_name VARCHAR(250) NOT NULL, 
 	count INTEGER NOT NULL, 
 	description VARCHAR(2500), 
-	author_id INTEGER, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(author_id) REFERENCES author (id)
+	PRIMARY KEY (id)
 )
 
 

@@ -49,8 +49,8 @@ class TestBetterReadsAPI(TestCase):
             review fields are null. We will check for a rating instead.
             self.assertTrue(item["review"])
             """
-            # Check for a non-empty name in the rating field
-            self.assertTrue(item["rating"])
+            # Check for a non-negative rating
+            self.assertTrue(item["rating"] >= 0.0)
 
     def testAuthorById(self):
         url = "http://localhost:5000/api/authors/1"

@@ -1,0 +1,59 @@
+h1 {
+  display: block;
+  font-size: 3em;
+}
+h2 {
+  display: block;
+  font-size: 1.7em;
+}
+a:visited, a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover, a:active {
+ color: #777;
+ text-decoration: underline;
+}
+.upper {
+  padding: 10px;
+  width: 100%;
+}
+img.author_img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.left {
+  width: 60%;
+  float: left; 
+}
+.right {
+  width: 40%;
+  float: left;
+}
+.left-div {
+  margin: 25%;
+  margin-right: 5%;
+  margin-top: 5%;
+}
+hr { 
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 0;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-style: inset;
+  border-width: 3px;
+} 
+
+.desc {
+  background: #e5d6c7; 
+  padding: 10px; 
+  padding-top: .5px; 
+  border-width: 10px; 
+  border-color: #e5d6c7; 
+  border-radius: 3%;
+}

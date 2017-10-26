@@ -44,14 +44,10 @@ var Grid = React.createClass({
 
     if (pageItems> this.state.datas.length){
 
-        console.log(this.state.datas);
         pageItems = pageItems - (this.state.datas.length % itemPerPage) - 2;
     }
-    console.log(offset); 
-    console.log(pageItems);
     var updatedData = [];
     for (var i=offset; i<pageItems; i++){
-      console.log(updatedData);
       updatedData.push(this.state.datas[i])
     }
 
@@ -83,7 +79,6 @@ var Grid = React.createClass({
       {
         result = "../static/series_art/series.jpg";
       }
-      console.log(result);
 
         return(
           <div key={index}>

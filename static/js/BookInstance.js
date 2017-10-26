@@ -16,7 +16,9 @@ var BookInstance = React.createClass({
       axios.get("http://localhost:5000/api/books")
       .then(datas => {
         var route = this.props.location.pathname;
+
         var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
+        console.log(bookId);
         var length = Object.keys(datas.data).length;
         var book = 0;
         
@@ -36,6 +38,7 @@ var BookInstance = React.createClass({
 
   render: function(){
       var bookObj = this.state.book;
+      console.log(bookObj);
       return(
         <div>
           <BookNavbar/>

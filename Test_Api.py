@@ -1,6 +1,5 @@
 from unittest import main, TestCase
 import requests, simplejson
-import BetterReads
 
 class TestBetterReadsAPI(TestCase):
     def testGetAllAuthors(self):

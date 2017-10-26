@@ -79,9 +79,8 @@ def get_all_reviews():
 
     return resp
 
-@app.errorhandler(404)
-def not_found_error(estr):
-    error = {"error": estr + " id not found"}
+def not_found_error(errorStr):
+    error = {"error": errorStr + " not found"}
 
     resp = jsonify(error)
     resp.status_code = 404
@@ -99,7 +98,7 @@ def get_book_instance(book_id):
         resp = jsonify(book_list[0])
         resp.status_code = 200
     else:
-        return not_found_error("book")
+        return not_found_error("book id")
 
     return resp
 
@@ -114,7 +113,7 @@ def get_author_instance(author_id):
         resp = jsonify(author_list[0])
         resp.status_code = 200
     else:
-        return not_found_error("author")
+        return not_found_error("author id")
 
     return resp
 
@@ -129,7 +128,7 @@ def get_series_instance(series_id):
         resp = jsonify(series_list[0])
         resp.status_code = 200
     else:
-        return not_found_error("series")
+        return not_found_error("series id")
 
     return resp
 
@@ -144,7 +143,7 @@ def get_review_instance(review_id):
         resp = jsonify(review_list[0])
         resp.status_code = 200
     else:
-        return not_found_error("review")
+        return not_found_error("review id")
 
     return resp
 

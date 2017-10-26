@@ -16,7 +16,7 @@ var Grid = React.createClass({
   },
 
   componentDidMount() {
-    let data = require('../db/bookDB.json');
+    let data = require('../../realDB.json');
     let datas = data[this.props.model];
     var length = Object.keys(datas).length;
     var dataArray = [];
@@ -33,6 +33,8 @@ var Grid = React.createClass({
         datas: dataArray,
         currentData: initialData
       });
+
+      
   },
 
   handlePageChange(pageNumber) {
@@ -60,16 +62,14 @@ var Grid = React.createClass({
     
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
-      var location = "../static/book_images/"
-      var imgType = "" 
-      var result = location.concat(item['cover_art'],imgType)
+      var result = item["large_img"] ;
       
 
         return(
           <div key={index}>
-          <LinkContainer to={"/book/" + item['book_id']} >
+          <LinkContainer to={"/book/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
-              <Image className="slideAndFade grow" src={result} height="260px" width="180px"/> 
+              <Image className="slideAndFade grow" src={result} height="250px"/> 
           </Col> 
           </LinkContainer>
 

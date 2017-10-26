@@ -1,17 +1,14 @@
 from unittest import main, TestCase
-import json
-import urllib
+import requests, simplejson
 import BetterReads
 
 class TestBetterReadsAPI(TestCase):
-    def testGetAllBooks(self):
-        response = urlopen("http://localhost:5000/api/books/")
-        data =
-        print(result)
-        obj_list = deserialize_list(result)
-        print("THIS IS THE RESULT\n\n\n")
-        print(len(obj))
-        self.assertTrue(len(obj) > 1)
+    def testGetAllAuthors(self):
+        url = "http://localhost:5000/api/authors"
+        response = requests.get(url)
+        data = response.content
+        authors = simplejson.loads(data)
+        self.assertTrue(len(authors) > 1)
 
 if __name__ == "__main__":
     main()

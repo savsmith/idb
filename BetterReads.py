@@ -1,6 +1,9 @@
-from flask import Flask, redirect, url_for, request, render_template, make_response, json
+from flask import Flask, redirect, url_for, request, render_template, make_response, json, jsonify
 import requests
 import os
+from createdb import Base, books, author, series, reviews
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -10,10 +13,28 @@ data = json.load(open(json_url))
 
 #gitCommits = requests.get('https://api.github.com/repos/savsmith/idb/contributors').json()
 
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def home(path):
     return render_template("index.html")
+
+@app.route('/all', methods = ['GET'])
+def get_db():
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    book_list = [dict(b) for b in conn.execute("select * from books")]
+    author_list = [dict(a) for a in conn.execute("select * from author")]
+    series_list = [dict(s) for s in conn.execute("select * from series")]
+    reviews_list = [dict(r) for r in conn.execute("select * from reviews")]
+
+    resp = jsonify({"books": book_list, "author": author_list, "series_i": series_list, "review": reviews_list})
+    resp.status_code = 200
+    resp.headers['Link'] = 'http://betterreads.me'
+
+    return resp
 
 @app.route('/books/<int:book_id>')
 def book_instance(book_id):

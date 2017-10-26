@@ -22,9 +22,15 @@ var BookNavbar = React.createClass({
                   <LinkContainer to="/books">
                     <MenuItem>books</MenuItem>
                   </LinkContainer>
-                  <MenuItem href="/series">series</MenuItem>
-                  <MenuItem href="/author">author</MenuItem>
-                  <MenuItem href="/reviews">reviews</MenuItem>
+                  <LinkContainer to="/series">
+                    <MenuItem>series</MenuItem>
+                  </LinkContainer>
+                  <LinkContainer to="/author">
+                    <MenuItem>authors</MenuItem>
+                  </LinkContainer>
+                  <LinkContainer to="/reviews">
+                    <MenuItem>reviews</MenuItem>
+                  </LinkContainer>
                   
                   <LinkContainer to="/about">
                     <MenuItem>about</MenuItem>

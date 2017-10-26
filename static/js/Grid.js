@@ -25,7 +25,7 @@ var Grid = React.createClass({
         dataArray.push(datas[i]);
       }
 
-      for (i = 0; i < this.props.itemPerPage; i++){
+      for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
         initialData.push(datas[i]);
       }
 
@@ -67,14 +67,29 @@ var Grid = React.createClass({
     
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
-      var result = item["large_img"] ;
+      var result = result = item["large_img"];;
       var route = this.props.instance;
       var name = this.props.name;
+      var imgSize = 250;
+      if (this.props.model === "review")
+      {
+        var location = "../static/review_stars/"
+        var imgType = "star.png"
+        var review = Math.floor(item["rating"]);
+        var result = location.concat(review,imgType);
+        imgSize = imgSize / 4;
+      }
+      else if (this.props.model === "series_i")
+      {
+        result = "../static/series_art/series.jpg";
+      }
+      console.log(result);
+
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
-              <Image className="slideAndFade grow" src={result} height="250px"/> 
+              <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
               <p>{item[name]}</p>
           </Col> 
           </LinkContainer>

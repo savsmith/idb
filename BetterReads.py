@@ -79,13 +79,13 @@ def get_all_reviews():
 
     return resp
 
-@app.route('/api/review', methods = ['GET'])    
+@app.route('/api/reviews/<int:book_id>', methods = ['GET'])    
 def get_book_reviews(book_id):    
     engine = create_engine('sqlite:///betterreads.db')
     Base.metadata.bind = engine
     conn = engine.connect()
     
-    js = json.dumps([dict(r) for r in conn.execute("select * from reviews where book_id == "+book_id)], indent = 4)
+    js = json.dumps([dict(r) for r in conn.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
     
 def not_found_error(errorStr):

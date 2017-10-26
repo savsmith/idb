@@ -52,5 +52,37 @@ class TestBetterReadsAPI(TestCase):
             # Check for a non-empty name in the rating field
             self.assertTrue(item["rating"])
 
+    def testAuthorById(self):
+        url = "http://localhost:5000/api/authors/1"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 404)
+        url = "http://localhost:5000/api/authors/4"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 200)
+
+    def testBookById(self):
+        url = "http://localhost:5000/api/books/61"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 200)
+        url = "http://localhost:5000/api/authors/20"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 404)
+
+    def testSeriesById(self):
+        url = "http://localhost:5000/api/series/50296"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 200)
+        url = "http://localhost:5000/api/series/1"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 404)
+
+    def testReviewById(self):
+        url = "http://localhost:5000/api/reviews/2"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 200)
+        url = "http://localhost:5000/api/reviews/1"
+        status_code = requests.get(url).status_code
+        self.assertEqual(status_code, 404)
+
 if __name__ == "__main__":
     main()

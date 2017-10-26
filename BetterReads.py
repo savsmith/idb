@@ -88,6 +88,8 @@ def get_book_reviews(book_id):
     js = json.dumps([dict(r) for r in conn.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
     
+    return resp
+    
 def not_found_error(errorStr):
     error = {"error": errorStr + " not found"}
 

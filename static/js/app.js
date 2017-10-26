@@ -5,6 +5,7 @@ import BookInstance from './BookInstance';
 import AuthorPage from './AuthorPage'
 import AuthorInstance from './AuthorInstance';
 import ReviewPage from './ReviewPage'
+import ReviewInstance from './ReviewInstance';
 import SeriesPage from './SeriesPage'
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -23,6 +24,7 @@ var App = React.createClass({
             <Route exact path = "/author" component = {AuthorPage}></Route>
             <Route path = "/author/:author_id" component = {AuthorInstance}></Route>
             <Route exact path = "/reviews" component = {ReviewPage}></Route>
+            <Route path = "/review/:review_id" component = {ReviewInstance}></Route>
             <Route exact path = "/series" component = {SeriesPage}></Route>
           </div>
 

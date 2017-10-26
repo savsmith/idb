@@ -1,9 +1,8 @@
 from flask import Flask, redirect, url_for, request, render_template, make_response, json, jsonify, Response
 import requests
 import os
-from createdb import Base, books, author, series, reviews
+from createdb import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -77,6 +76,75 @@ def get_all_reviews():
 
     js = json.dumps([dict(r) for r in conn.execute("select * from reviews")], indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
+
+    return resp
+
+@app.errorhandler(404)
+def not_found_error(estr):
+    error = {"error": estr + " id not found"}
+
+    resp = jsonify(error)
+    resp.status_code = 404
+
+    return resp
+
+@app.route('/api/books/<int:book_id>', methods = ['GET'])
+def get_book_instance(book_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    book_list = [dict(b) for b in conn.execute("select * from books where id = " + str(book_id))]
+    if book_list:
+        resp = jsonify(book_list[0])
+        resp.status_code = 200
+    else:
+        return not_found_error("book")
+
+    return resp
+
+@app.route('/api/authors/<int:author_id>', methods = ['GET'])
+def get_author_instance(author_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    author_list = [dict(a) for a in conn.execute("select * from author where id = " + str(author_id))]
+    if author_list:
+        resp = jsonify(author_list[0])
+        resp.status_code = 200
+    else:
+        return not_found_error("author")
+
+    return resp
+
+@app.route('/api/series/<int:series_id>', methods = ['GET'])
+def get_series_instance(series_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    series_list = [dict(s) for s in conn.execute("select * from series where id = " + str(series_id))]
+    if series_list:
+        resp = jsonify(series_list[0])
+        resp.status_code = 200
+    else:
+        return not_found_error("series")
+
+    return resp
+
+@app.route('/api/reviews/<int:review_id>', methods = ['GET'])
+def get_review_instance(review_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    review_list = [dict(r) for r in conn.execute("select * from reviews where id = " + str(review_id))]
+    if review_list:
+        resp = jsonify(review_list[0])
+        resp.status_code = 200
+    else:
+        return not_found_error("review")
 
     return resp
 

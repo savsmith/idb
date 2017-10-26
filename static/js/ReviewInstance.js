@@ -75,7 +75,7 @@ var ReviewInstance = React.createClass({
       <section className ="left">
         <div className="cover">
           <img src={bookObj['large_img']} alt="Book Cover Art" width="310" />
-          <h2><b>Book: </b>{ bookObj['title'] }</h2>
+          <h2><b>Book: </b><a href= {"/book/"+ this.state.bookId }>{bookObj['title'] }</a></h2>
           <h2>Date added: {reviewObj['date_added']}</h2>
         </div>
       </section>

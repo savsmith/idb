@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template, make_response, json, jsonify
+from flask import Flask, redirect, url_for, request, render_template, make_response, json, jsonify, Response
 import requests
 import os
 from createdb import Base, books, author, series, reviews
@@ -33,6 +33,50 @@ def get_db():
     resp = jsonify({"books": book_list, "author": author_list, "series_i": series_list, "review": reviews_list})
     resp.status_code = 200
     resp.headers['Link'] = 'http://betterreads.me'
+
+    return resp
+
+@app.route('/api/books', methods = ['GET'])
+def get_all_books():
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    js = json.dumps([dict(b) for b in conn.execute("select * from books")], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+
+    return resp
+
+@app.route('/api/authors', methods = ['GET'])
+def get_all_authors():
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    js = json.dumps([dict(a) for a in conn.execute("select * from author")], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+
+    return resp
+
+@app.route('/api/series', methods = ['GET'])
+def get_all_series():
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    js = json.dumps([dict(s) for s in conn.execute("select * from series")], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+
+    return resp
+
+@app.route('/api/reviews', methods = ['GET'])
+def get_all_reviews():
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    js = json.dumps([dict(r) for r in conn.execute("select * from reviews")], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp
 

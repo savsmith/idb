@@ -96,13 +96,21 @@ def get_book_authors(book_id):
     engine = create_engine('sqlite:///betterreads.db')
     Base.metadata.bind = engine
     conn = engine.connect()
-    
-    DBSession = sessionmaker()
-    DBSession.bind = engine
-    session = DBSession()
-    
+
     author_ids = conn.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))
     js = json.dumps([dict(a) for a in author_ids], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+    
+    return resp
+    
+@app.route('/api/series/<int:series_id>/books', methods = ['GET'])    
+def get_series_books(series_id):    
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+    
+    books = conn.execute("select * from books where series_id == "+str(series_id))
+    js = json.dumps([dict(a) for a in books], indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp

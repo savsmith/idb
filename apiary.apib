@@ -1,13 +1,13 @@
 FORMAT: 1A
-HOST: http://betterreads.me.api/
+HOST: http://betterreads.me/api/
 
 # Betterreads
 
-Betterreads is an API for viewing and scraping book data
+Betterreads is an API for scraping book related data
 
-## All Books [/books]
+## Book Collection [/books]
 
-### View All Books [GET]
+### List all Books [GET]
 
 + Response 200 (application/json)
 
@@ -40,11 +40,37 @@ Betterreads is an API for viewing and scraping book data
                     }
                 ]
             }
-        ]
 
-## All Authors [/authors]
+## Book [/books/{id}]
 
-### View All Authors [GET]
++ Parameters
+    + id (required, Number, `1`) ... `id` of a book to retrieve its data.
+
+### Retrieve a Book [GET]
+
++ Response 200 (application/json)
+
+        {
+            "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com", 
+            "id": 1, 
+            "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg", 
+            "list": null, 
+            "published_date": "9", 
+            "rating": 4.54, 
+            "series_id": null, 
+            "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg", 
+            "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "error": "book id not found"
+        }
+
+## Author Collection [/authors]
+
+### List all Authors [GET]
 
 + Response 200 (application/json)
 
@@ -85,9 +111,33 @@ Betterreads is an API for viewing and scraping book data
             }
         ]
 
-## All Series [/series]
+## Author [/authors/{id}]
 
-### View All Series [GET]
++ Parameters
+    + id (required, Number, `1`) ... `id` of an author to retrieve its data.
+
+### Retrieve an Author [GET]
+
++ Response 200 (application/json)
+
+        {
+            "author": "Douglas Adams", 
+            "description": "Douglas No\u00ebl Adams was an English author, comic radio dramatist, and musician. He is best known as the author of the <i>\n  <a href=\"https://www.goodreads.com/book/show/11.Hitchhiker_s_Guide_to_the_Galaxy\" title=\"Hitchhiker's Guide to the Galaxy\" rel=\"nofollow\">Hitchhiker's Guide to the Galaxy</a>\n</i> series. Hitchhiker's began on radio, and developed into a \"trilogy\" of five books (which sold more than fifteen million copies during his lifetime) as well as a television series, a comic book series, a computer game, and a feature film that was completed after Adams' death. The series has also been adapted for live theatre using various scripts; the earliest such productions used material newly written by Adams. He was known to some fans as Bop Ad (after his illegible signature), or by his initials \"DNA\".<br /><br />In addition to <i>The Hitchhiker's Guide to the Galaxy</i>, Douglas Adams wrote or co-wrote three stories of the science fiction television series Doctor Who and served as Script Editor during the seventeenth season. His other written works include the Dirk Gently novels, and he co-wrote two Liff books and <i>Last Chance to See</i>, itself based on a radio series. Adams also originated the idea for the computer game <i>Starship Titanic</i>, which was produced by a company that Adams co-founded, and adapted into a novel by Terry Jones. A posthumous collection of essays and other material, including an incomplete novel, was published as <i>\n  <a href=\"https://www.goodreads.com/book/show/359.The_Salmon_of_Doubt\" title=\"The Salmon of Doubt\" rel=\"nofollow\">The Salmon of Doubt</a>\n</i> in 2002.<br /><br />His fans and friends also knew Adams as an environmental activist and a lover of fast cars, cameras, the Macintosh computer, and other \"techno gizmos\". <br /><br />Toward the end of his life he was a sought-after lecturer on topics including technology and the environment.", 
+            "hometown": "Cambridge, England", 
+            "id": 4, 
+            "large_img": "https://images.gr-assets.com/authors/1189120061p5/4.jpg", 
+            "small_img": "https://images.gr-assets.com/authors/1189120061p2/4.jpg"
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "error": "author id not found"
+        }
+
+## Series Collection [/series]
+
+### List all Series [GET]
 
 + Response 200 (application/json)
 
@@ -127,10 +177,34 @@ Betterreads is an API for viewing and scraping book data
                 ]
             }
         ]
-        
-## All Reviews [/reviews]
 
-### View All Reviews [GET]
+## Series [/series/{id}]
+
++ Parameters
+    + id (required, Number, `1`) ... `id` of a series to retrieve its data.
+
+### Retrieve a Series [GET]
+
++ Response 200 (application/json)
+
+        {
+            "author_id": null, 
+            "count": 13, 
+            "description": "Orphan Harry learns he is a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School. As a baby, his mother's love protected him and vanquished the villain Voldemort, leaving the child famous as \"The Boy who Lived\". With his friends Hermione and Ron, Harry has to defeat the returned \"One Who Must Not Be Named\".", 
+            "id": 45175, 
+            "series_name": "Harry Potter"
+        }
+
+        
++ Response 404 (application/json)
+
+        {
+            "error": "series id not found"
+        }
+        
+## Reviews Collection [/reviews]
+
+### List all Reviews [GET]
 
 + Response 200 (application/json)
 
@@ -167,3 +241,29 @@ Betterreads is an API for viewing and scraping book data
                 ]
             }
         ]
+        
+## Review [/reviews/{id}]
+
++ Parameters
+    + id (required, Number, `1`) ... `id` of a review to retrieve its data.
+
+### Retrieve a Review [GET]
+
++ Response 200 (application/json)
+
+        {
+            "book_id": 21, 
+            "date_added": "Sat Aug 19 20:01:34 -0700 2006", 
+            "id": 3, 
+            "rating": 5.0, 
+            "review": "A fascinating history of science. Ever curious how everything we know about the world came to be - read this! I loved reading about what old greats like Darwin thought about the world - they were all right about most things, but also very wrong about some things - makes you wonder how much we are...", 
+            "spoiler_flag": "false", 
+            "user": "Otis Chandler"
+        }
+
+        
++ Response 404 (application/json)
+
+        {
+            "error": "review id not found"
+        }

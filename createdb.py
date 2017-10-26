@@ -47,7 +47,7 @@ class author(Base):
     
     #Relationships
     books = relationship("books", secondary=books_author_assoc_table, back_populates="authors")
-    series = relationship("series", backref="author")
+    series = relationship("series", secondary=series_author_assoc_table, back_populates="authors")
     
 class series(Base):
     __tablename__ = 'series'
@@ -58,7 +58,7 @@ class series(Base):
     
     #Relationships
     books = relationship(books, backref='series')
-    author_id = Column(Integer, ForeignKey('author.id'), nullable=True)
+    authors = relationship("author", secondary=series_author_assoc_table, back_populates="series")
     
 class reviews(Base):
     __tablename__ = 'reviews'
@@ -82,11 +82,6 @@ engine = create_engine('sqlite:///betterreads.db')
 Base.metadata.create_all(engine)
 
 with open('betterreads.schema', 'w') as f:
-    print(CreateTable(books.__table__))
-    print(CreateTable(author.__table__))
-    print(CreateTable(series.__table__))
-    print(CreateTable(reviews.__table__))
-
     f.write(str(CreateTable(books.__table__)))
     f.write(str(CreateTable(author.__table__)))
     f.write(str(CreateTable(series.__table__)))

@@ -41,9 +41,14 @@ var Grid = React.createClass({
     var itemPerPage = this.props.itemPerPage;
     var offset = (pageNumber-1) * itemPerPage;
     var pageItems = offset + itemPerPage;
+
     if (pageItems> this.state.datas.length){
-        pageItems = pageItems - (this.state.datas.length % itemPerPage);
+
+        console.log(this.state.datas);
+        pageItems = pageItems - (this.state.datas.length % itemPerPage) - 2;
     }
+    console.log(offset); 
+    console.log(pageItems);
     var updatedData = [];
     for (var i=offset; i<pageItems; i++){
       console.log(updatedData);
@@ -63,13 +68,14 @@ var Grid = React.createClass({
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
       var result = item["large_img"] ;
-      
-
+      var route = this.props.instance;
+      var name = this.props.name;
         return(
           <div key={index}>
-          <LinkContainer to={"/book/" + item['id']} >
+          <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height="250px"/> 
+              <p>{item[name]}</p>
           </Col> 
           </LinkContainer>
 

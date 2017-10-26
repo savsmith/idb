@@ -23,7 +23,7 @@ var BookNavbar = React.createClass({
                     <MenuItem>books</MenuItem>
                   </LinkContainer>
                   <MenuItem href="/series">series</MenuItem>
-                  <MenuItem href="/authors">author</MenuItem>
+                  <MenuItem href="/author">author</MenuItem>
                   <MenuItem href="/reviews">reviews</MenuItem>
                   
                   <LinkContainer to="/about">

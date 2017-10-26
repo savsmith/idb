@@ -59,18 +59,18 @@ Our aim with Betterreads is to provide a database for searching mainly books. We
 
 Searching through the database for a book will provide data on the author and publisher of the book, the reviews on the book, and whether or not the book is a part of a series. Searching through the author model allows users to find books written by a specific author. This allows readers who are familiar with authors to filter through similar authors that may mesh with the reader’s taste. The review model also lets readers decide on whether or not they would like to spend the effort and time to start a book based on the reviews and ratings from different kinds of users.  The series model allows a reader to search for all the books that are in a series that the reader may be interested in or currently reading.  
 
-Each of these models with at least two other models in order to make create a useful interface that allow access of an instance page from several different locations.
+Each of these models will connect with at least two other models in order to make create a useful interface that allow access of an instance page from several different locations.
 
 # Running and Developing
 
-This section details the structure of our project and our workflow. We utilizes all sorts of tools through different phases to run and test the project. During phase one of the project, there were not too many files we had to track and take care of. Since the project required for us to use Flask for the project, minimally, we created static HTML "templates" to render the webpage "view". To build and run the serve all we had to do was to run the command:
+This section details the structure of our project and our workflow. We utilize many different tools through distinct phases to run and test the project. During phase one of the project, there were not too many files we had to track and take care of. Becuase the project required for us to use Flask for the project, minimally, we created static HTML "templates" to render the webpage "view". To build and run the server all we had to do was to run the command:
 
 ```
 $ python BetterReads.py
 ```
 Python will compile, build, and run the server through the BetterReads.py file that hosted that source code for running the Flask server. For a minimum set up: Flask searches for two folders: "static" and "templates". The "static" folder holds all of our static assets and static components of the website. The latter "templates" holds all our static html files to render our view. 
 
-We brought a dramatic change for phase 2 of the project with the introduction of React to the project. This brought on new files we had to set up such as webpack.config.js, index.html, package.json, npm, and App.js. First and foremost, our group had decided to use npm - which was a package manager that installs all the necessary packages that we need. Since npm works alongside the package.json files, we had to define all the packages that we need into the project. This allows us to work on different computers that have npm installed. By running the command:
+We brought a dramatic change for phase 2 of the project with the introduction of React to the project. This brought on new files we had to set up such as webpack.config.js, index.html, package.json, npm, and App.js. First and foremost, our group had decided to use npm - which was a package manager that installs all the necessary packages that we need. Becuase npm works alongside the package.json files, we were required to define all the packages that we need into the project. This allows us to work on different computers that have npm installed. By running the command:
 ```
 $ npm install
 ```
@@ -85,16 +85,19 @@ $ npm start
 ```
 # API
 
-We will scrape from the APIs of Goodreads and Google books.  The APIs will provide json files that we will use to populate our pages through python.
+We will scrape from the APIs of Goodreads and The New York Times.  The APIs will provide json files that we will use to populate our pages through python.
 
 For this phase of the project we currently used manually filled json files to simulate the data scraped from the APIs. Flask will read in the data from the json files and redirect the data to our web application through a Python script.
+
+For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy.  We then implemented our own API with which others can use to scrape from themselves.  
+
 ### Goodreads API
 
 The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key.
 
-### Google Books API
+### The New York Times API
 
-The Googlebooks API allows us to access book metadata to include extra information such as publisher and publication date. From this API we are also pulling the genre of the book. This is an important attribute to us since it allows for book readers to filter out books by their favorite genre to browse books and authors.
+The New York Times API allows us to access book metadata to pull data about only bestselling books and their information such as the author of the book, the title and other important attributes that we want to include in our models.  The New York Times API also allows us to access lists of books such that we can organize and filter books by important attributes or genres.  
 
 ### Database
 
@@ -109,18 +112,20 @@ Books are works written by writers to portray some sort of story or information.
 The Authors model will feature writers of original works - each instance of an author includes the attributes of books, genre, name, years they have been publishing their books, and series. The author model is connected to the books and the series models.
 
 ### Series
-The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. each instance of a series includes the attributes of books, author, publisher, number of books in the series, and the time frame of when the series has been published. In the case that a series is still ongoing we would display “present” for the end of its time frame attribute. The series model is connected to the author and book models.
+
+The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, publisher, number of books in the series, and the time frame of when the series has been published. In the case that a series is still ongoing we would display “present” for the end of its time frame attribute. The series model is connected to the author and book models.
+
 ### Reviews
 Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, book, and author.  The reviews model is connected to the author and the book models.
 
 # Tools
 
 ### Flask
-Flask is a micro framework written in Python which makes use of the Jinja2 template engine. Jinja2 allows for python code to exist simultaneously inside a html file and perform functions. Flask is considered a micro framework since it does not require extra tools or libraries. It’s lightweight feature is perfect for our website since it will hold just a database and some extra data. Flask will be used for most of the back-end to configure the routing and manipulating the database.
+Flask is a micro framework written in Python which makes use of the Jinja2 template engine. Jinja2 allows for python code to exist simultaneously inside a html file and perform functions. Flask is considered a micro framework since it does not require extra tools or libraries. It’s lightweight feature is perfect for our website since it will hold just a database and some extra data. Flask will be used for most of the back-end to configure the routing and manipulating the database for the first phase of the project.
 ### React
-React is a Javascript library currently being maintained by Facebook, and its purpose is to create user interfaces. The main feature behind React are UI components which are reusable. A component in React is highly customizable, (creating your own HTML element) and can be reused through javascript files. React is useful in our project since we can reuse components throughout the frontend to create simple design and cleaner efficient code. We use React in conjunction with webpack and babel to build the code.
-### Planit Poker
-Planit poker, or scrum poker is a “fun” way for teams to estimate time periods for “user stories” or development goals for a project. Members on a team will create stories and members will vote on how long they think the story will take to finish. We used plan it poker to effectively manage our time and worked out what we thought would be the most important features to implement.
+React is a Javascript library currently being maintained by Facebook, and its purpose is to create user interfaces. The main features behind React are UI components which are reusable. A component in React is highly customizable, (creating your own HTML element) and can be reused through javascript files. React is useful in our project since we can reuse components throughout the frontend to create simple design and cleaner efficient code. We use React in conjunction with webpack and babel to build the code.
+### PlanIT Poker
+Planit poker, or scrum poker is a “fun” way for teams to estimate time periods for “user stories” or development goals for a project. Members on a team will create stories and members will vote on how long they think the story will take to finish. We used planIT poker to effectively manage our time and worked out what we thought would be the most important features to implement.
 ### Trello
 Trello is a collaboration tool that organizes projects into boards. Boards consist of cards and lists which allows users to type out and plan projects in a lot of different ways. Cards allow users to be assigned which allows the team to oversee who is working on what for a efficient and smooth workflow. In Trello, we have lists which indicate progress on a goal we have in a project which allows us to see what needs to be completed. We also have an issues list to indicate any issues that needs to be work on that might affect the project as a whole.
 ### Github
@@ -142,7 +147,7 @@ Bootstrap is a open source web framework created by Twitter. Inside Bootstrap co
 ### Namecheap
 Namecheap is a tool for registering a domain name, which is provided to students for free. In order to get the domain name to work for your platform you need to add a custom domain name to your hosting service. In the case of hosting your web application on Google Cloud Platform you can navigate to App Engine, Setting, Custom Domains, and Add a Custom Domain. Google Cloud Platform then will provide you with the additional steps that you need to take in order to get your domain name to work. You also need to go to your account’s dashboard on Namecheap and manage your domain name so that it can connect to Google Cloud Platform. You need to go to the Advanced DNS setting for your domain and add the required A, AAAA, CNAME, and TXT records in order to make your domain name fully functional and in sync with your App Engine application.
 ### Python
-is a high-level programming language we used for backend portion of our project that works well with Flask in order to scrape data from the APIs and 
+Python is a high-level programming language we used for the backend portion of our project that works well with Flask in order to scrape data from the APIs and make use of the information in our site.
 ### JSON
 We chose to use flask’s json class to import our information in a json file into a dictionary. 
 ### Frontend
@@ -181,7 +186,7 @@ Google App Engine is a web framework and cloud computing platform for developing
 
 Setting up on Google App Engine requires the application files, an app.yaml file, and the google software development kit (sdk). The google sdk gives us access to tools that allows us to manage our resources and applications hosted on the Google App Platform. Gcloud, gsutil, and bq, are 3 of the many commands that come with the google sdk for the purpose of hosting our application. 
 
-The Google App Engine also requires an app.yaml file that lives in the root directory of the project folder. This configuration files tells the App Engine how to map URLs to our files. App.yaml requires handlers to load static files.
+The Google App Engine also requires an app.yaml file that lives in the root directory of the project folder. This configuration file tells the App Engine how to map URLs to our files. App.yaml requires handlers to load static files.
 
 When ready to deploy we can run the following command “gcloud app deploy” from the root directory of our project and deploy it into the Google App Engine. Optionally, we can add a --project or a -v flag to specify a specific version of the project or choose an alternate project to deploy. 
 

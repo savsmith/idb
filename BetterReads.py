@@ -1,8 +1,9 @@
 from flask import Flask, redirect, url_for, request, render_template, make_response, json, jsonify, Response
 import requests
 import os
-from createdb import Base
+from createdb import Base, books, author, series, reviews
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -86,6 +87,22 @@ def get_book_reviews(book_id):
     conn = engine.connect()
     
     js = json.dumps([dict(r) for r in conn.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+    
+    return resp
+
+@app.route('/api/book/<int:book_id>/authors', methods = ['GET'])    
+def get_book_authors(book_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+    
+    DBSession = sessionmaker()
+    DBSession.bind = engine
+    session = DBSession()
+    
+    author_ids = conn.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))
+    js = json.dumps([dict(a) for a in author_ids], indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp

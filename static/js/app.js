@@ -5,7 +5,9 @@ import BookInstance from './BookInstance';
 import AuthorPage from './AuthorPage'
 import AuthorInstance from './AuthorInstance';
 import ReviewPage from './ReviewPage'
+import ReviewInstance from './ReviewInstance';
 import SeriesPage from './SeriesPage'
+import SeriesInstance from './SeriesInstance'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -23,7 +25,9 @@ var App = React.createClass({
             <Route exact path = "/author" component = {AuthorPage}></Route>
             <Route path = "/author/:author_id" component = {AuthorInstance}></Route>
             <Route exact path = "/reviews" component = {ReviewPage}></Route>
+            <Route path = "/review/:review_id" component = {ReviewInstance}></Route>
             <Route exact path = "/series" component = {SeriesPage}></Route>
+            <Route path = "/series/:series_id" component = {SeriesInstance}></Route>
           </div>
 
         </Router>

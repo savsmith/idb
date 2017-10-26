@@ -1,0 +1,85 @@
+.title {
+  margin-top: 70px;
+  padding: 10px;
+  width: 100%;
+  padding-bottom: 4.5%;
+
+}
+
+h1 {
+display: block;
+font-size: 3em;
+}
+h2 {
+display: block;
+font-size: 1.7em;
+}
+
+a:visited, a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover, a:active {
+color: #777;
+text-decoration: underline;
+}
+
+hr { 
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-style: inset;
+  border-width: 3px;
+  clear: both;
+
+} 
+
+li {
+list-style: none;
+}
+
+.Books {
+width: 70%;
+overflow: hidden;
+padding: 0;
+padding-left: 10%;
+}
+
+ul li {
+  display: block;
+  vertical-align: middle;
+}
+
+ul li img {
+  vertical-align: middle;
+}
+
+.count {
+background: #e5d6c7; 
+padding: 10px; 
+border-radius: 0px 0px 3% 3%; 
+border-color: #e5d6c7; 
+border-style: solid; 
+border-top: thick solid #a59482; 
+border-top-width: 8px;
+width: 15%;
+/*border: 3px solid #000000;*/
+}
+
+.summary {
+  background: #e5d6c7; 
+  padding: 10px; 
+  border-radius: 0px 0px 3% 3%; 
+  border-color: #e5d6c7;
+  border-style: solid; 
+  border-top: thick solid #a59482; 
+  border-top-width: 8px
+  }
+
+.author {
+  float: left; padding-left: 15%;
+}
+

@@ -37,6 +37,7 @@ var AuthorInstance = React.createClass({
     console.log(authorObj);
       return(
         <div>
+        <BookNavbar></BookNavbar>
         <section className = "upper">
           <img className = "author_img" src={authorObj['large_img']} alt="Author Image" width="300" />
           <center><h1><b>{authorObj['author']}</b></h1></center>
@@ -51,7 +52,6 @@ var AuthorInstance = React.createClass({
         </div>
 			</div>
       </section>
-
       </div>
       );
   }

@@ -2,6 +2,8 @@ from flask import Flask, redirect, url_for, request, render_template, make_respo
 import requests
 import os
 
+from xml.parsers.expat import ExpatError
+
 from sqlalchemy import update
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -31,17 +33,11 @@ def getNyTimesBooks():
             try:
                 GRBook_req = requests.get('https://www.goodreads.com/book/isbn_to_id/'+isbn+'?key='+API_KEY['GOODREADS'])
                 if(GRBook_req.status_code == 200):
-                    try:
-                        print("NYTimes get book")
-                        getGRBookByID(int(GRBook_req.text), list)
-                    except Exception as e:
-                        pass
-            except Exception as e:
-                pass
+                    getGRBookByID(int(GRBook_req.text), list)
+            except ExpatError as e:
+                print(e)
             
 def getGRBookByID(id, printout=True, list=None):
-    AAQ
-    
     book_entry = session.query(books).get(id)
     if book_entry is None:
         request = requests.get('https://www.goodreads.com/book/show/'+str(id)+'.xml?key='+API_KEY['GOODREADS'])
@@ -63,16 +59,21 @@ def getGRBookByID(id, printout=True, list=None):
             if list is not None:
                 book['list'] = list
             
-            work_id = data['work']['id']['#text']
-            series_request = xmltodict.parse(requests.get('https://www.goodreads.com/work/'+work_id+'/series?format=xml&key='+API_KEY['GOODREADS']).text)
-            try:
-                book['series'] = int(getGRSeriesByID(series_request['GoodreadsResponse']['series_works']['series_work']['series']['id']))
-            except TypeError:
-                pass
-            
             book_entry = books(**book)
             session.add(book_entry)
             session.commit()
+            
+            work_id = data['work']['id']['#text']
+            series_request = requests.get('https://www.goodreads.com/work/'+work_id+'/series?format=xml&key='+API_KEY['GOODREADS'])
+            series_request = xmltodict.parse(series_request.text)
+            try:
+                series_id = series_request['GoodreadsResponse']['series_works']['series_work']['series']['id']
+                session.query(books).get(id).series = getGRSeriesByID(int(series_id))
+                session.commit()
+            except TypeError as e:
+                print("When looking up book's series ran into "+str(e))
+            
+            
             for key, author in data['authors'].items():
                 while type(author) is list:
                     author = author[0]
@@ -122,16 +123,11 @@ def getGRAuthorByID(id, book_callee=None, series_callee=None, printout=True):
     return author_entry        
         
 def getGRSeriesByID(id, printout=True):
-    """
-    Returns series in the database, if series is not found in the database it creates a new one using goodreads api
-    """
-    
     series_entry = session.query(series).get(id)
     if series_entry is None:
         request = requests.get('https://www.goodreads.com/series/'+str(id)+'.xml?key='+API_KEY['GOODREADS'])
         if request.status_code == 200:
             data = xmltodict.parse(request.text)['GoodreadsResponse']['series']
-            
             ser = {}
             ser['id'] = int(data['id'])
             ser['series_name'] = data['title']
@@ -149,7 +145,7 @@ def getGRSeriesByID(id, printout=True):
                     s_authors = session.query(series).get(id).authors
                     s_b = getGRBookByID(int(book['id']))
                     if s_b is not None:
-                        s_books.append()
+                        s_books.append(s_b)
                         session.commit()
                     s_a = getGRAuthorByID(int(book['work']['best_book']['author']['id']))
                     if s_a is not None:
@@ -194,7 +190,7 @@ def insertGRReviews(start, step):
         try:
             getGRReviewByID(i)
         except Exception as e:
-            print(e)
+            print("3"+str(e))
         i += 1
     
 def insertGRBooks(start, step):
@@ -244,14 +240,14 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 #Clear Table Data
-meta = Base.metadata
-for table in reversed(meta.sorted_tables):
-    session.execute(table.delete())
-session.commit()
+# meta = Base.metadata
+# for table in reversed(meta.sorted_tables):
+    # session.execute(table.delete())
+# session.commit()
 
 #-----------------#
 # Scrape API Data #
 #-----------------#
 
-getNyTimesBooks()
+#getNyTimesBooks()
 insertGRReviews(0, 100)

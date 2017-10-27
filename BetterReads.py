@@ -115,6 +115,18 @@ def get_series_books(series_id):
     
     return resp
     
+@app.route('/api/reviews/<int:review_id>/authors', methods = ['GET']) 
+def get_reviews_authors(review_id):
+    engine = create_engine('sqlite:///betterreads.db')
+    Base.metadata.bind = engine
+    conn = engine.connect()
+
+    author_ids = conn.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == (select book_id from reviews where id == "+str(review_id)+")")
+    js = json.dumps([dict(a) for a in author_ids], indent = 4)
+    resp = Response(js, status = 200, mimetype = 'application/json')
+    
+    return resp
+    
 def not_found_error(errorStr):
     error = {"error": errorStr + " not found"}
 

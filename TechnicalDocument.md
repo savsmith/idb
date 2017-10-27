@@ -42,6 +42,8 @@
   * [Unittest](#unittest)
   * [Python PIP](#pythonpip)
   * [Sourcetree](#sourcetree)
+  * [SQLAlchemy](#sqlalchemy)
+  * [Sqlite3](#sqlite3)
 - [Hosting](#Hosting)
 
 # Introduction
@@ -89,11 +91,11 @@ We will scrape from the APIs of Goodreads and The New York Times.  The APIs will
 
 For this phase of the project we currently used manually filled json files to simulate the data scraped from the APIs. Flask will read in the data from the json files and redirect the data to our web application through a Python script.
 
-For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy.  We then implemented our own API with which others can use to scrape from themselves.  
+For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy. The majority of the information is obtained from goodreads however we use the Times api as a starting point to determine what books to look for in the goodreads database leading to our database containg betterreads. We then implemented our own API with which others can use to scrape from themselves.  
 
 ### Goodreads API
 
-The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key.
+The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key. An issue with the Goodreads api is the inability to navigate from a book to its list of reviews, so we can look up a review and find the book associated with it but we are unable to navigate backwards if we had retrieved the book from a different location. 
 
 ### The New York Times API
 
@@ -105,18 +107,18 @@ The New York Times API allows us to access book metadata to pull data about only
 
 ### Books
 
-Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of author, series, reviews, publisher, and publication date.  The books model is connected to all of the other three models: authors, series, and reviews.
+Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of title, list, description, small icon, large icon, published date, rating, series, reviews, and authors.  The books model is connected to all of the other three models: authors, series, and reviews. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc.
 
 ### Authors
 
-The Authors model will feature writers of original works - each instance of an author includes the attributes of books, genre, name, years they have been publishing their books, and series. The author model is connected to the books and the series models.
+The Authors model will feature writers of original works - each instance of an author includes the attributes of name, description, hometown, small icon, large icon, books, series. The author model is connected to the books and the series models. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc. The relationship between books and series is also a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Series
 
-The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, publisher, number of books in the series, and the time frame of when the series has been published. In the case that a series is still ongoing we would display “present” for the end of its time frame attribute. The series model is connected to the author and book models.
+The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, name, and the number of books in the series. The series model is connected to the author and book models. The relationship between books and series is a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Reviews
-Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, book, and author.  The reviews model is connected to the author and the book models.
+Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, spoiler_flag, date_added, book, and author.  The reviews model is connected to the author and the book models.
 
 # Tools
 
@@ -180,6 +182,11 @@ Python unit testing framework we used in order to verify that our script functio
 Python Package Manager used to manage Python packages.
 ### SourceTree
 Github GUI by Atlassian used to track commits, file status, changes, etc.
+
+### SQLAlchemy
+SQLAlchemy is a python sql toolkit and object relational mapper. It was used in this project to create, insert, and query the database. 
+### Sqlite3
+Sqlite3 is a sql database engine. We used this in order to host our database and then managed it with sqlalchemy.  
 # Hosting
 
 Google App Engine is a web framework and cloud computing platform for developing and hosting web applications through Google-managed data centers. In order for our team to host a website on the Google App Engine, we had to create developer accounts through our gmail accounts. 

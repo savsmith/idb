@@ -91,11 +91,11 @@ We will scrape from the APIs of Goodreads and The New York Times.  The APIs will
 
 For this phase of the project we currently used manually filled json files to simulate the data scraped from the APIs. Flask will read in the data from the json files and redirect the data to our web application through a Python script.
 
-For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy.  We then implemented our own API with which others can use to scrape from themselves.  
+For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy. The majority of the information is obtained from goodreads however we use the Times api as a starting point to determine what books to look for in the goodreads database leading to our database containg betterreads. We then implemented our own API with which others can use to scrape from themselves.  
 
 ### Goodreads API
 
-The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key.
+The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key. An issue with the Goodreads api is the inability to navigate from a book to its list of reviews, so we can look up a review and find the book associated with it but we are unable to navigate backwards if we had retrieved the book from a different location. 
 
 ### The New York Times API
 

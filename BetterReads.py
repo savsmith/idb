@@ -143,6 +143,7 @@ def get_book_instance(book_id):
 
     book_list = [dict(b) for b in conn.execute("select * from books where id = " + str(book_id))]
     if book_list:
+        book_list['temp_author'] = dict(conn.execute("select a from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))[0])
         resp = jsonify(book_list[0])
         resp.status_code = 200
     else:

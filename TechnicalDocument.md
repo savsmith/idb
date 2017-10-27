@@ -91,34 +91,35 @@ We will scrape from the APIs of Goodreads and The New York Times.  The APIs will
 
 For this phase of the project we currently used manually filled json files to simulate the data scraped from the APIs. Flask will read in the data from the json files and redirect the data to our web application through a Python script.
 
-For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy.  We then implemented our own API with which others can use to scrape from themselves.  
+For the second phase of the project we scraped from two APIs: GoodreadsAPI and the Times Developer Network.  We used the information from these APIs in order to create our own database using SQLAlchemy. The majority of the information for each model's attributes is obtained from Goodreads. However, we first use the New York Times API as a starting point to determine what books to look for in the Goodreads database leading to our database containing better reads. We then implemented our own API with which others can use to scrape from themselves.  
 
 ### Goodreads API
 
-The goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key.
+The Goodreads API allows developers to access data from the goodreads database. From the API we are pulling information we need such as an author of a book, the book itself, series of books. In addition to book attributes we include goodread account users and their reviews on books. This feature on Goodreads is important to us because it is one of the factors that book readers factor in before buying or investing their money and time into a book. In order to pull and scrape from the Goodreads API, they require a developer key. An issue with the Goodreads API is the inability to navigate from a book to its list of reviews, so we can look up a review and find the book associated with it but we are unable to navigate backwards if we had retrieved the book from a different location. 
 
 ### The New York Times API
 
-The New York Times API allows us to access book metadata to pull data about only bestselling books and their information such as the author of the book, the title and other important attributes that we want to include in our models.  The New York Times API also allows us to access lists of books such that we can organize and filter books by important attributes or genres.  
+The New York Times API allows us to access book metadata to pull data about only bestselling books and their information such as the author of the book, the title and other important attributes that we want to include in our models.  The New York Times API also allows us to access lists of books such that we can organize and filter books by important attributes or genres.  Like the Goodreads API, the New York Times API requires a developer API key in order to make requests.  The New York Times API is where will are pulling our main source of books which we are then accessing in the Goodreads API in order to add additional information that is relevant ot a series, author, book, or reivew.
 
-### Database
 
-# Models
+# Database/Models
+
+We have implemented a database that holds the information for our models and their relevant attributes for our Betterreads site.  
 
 ### Books
 
-Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of title, list, description, small icon, large icon, published date, rating, series, reviews, and authors.  The books model is connected to all of the other three models: authors, series, and reviews. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc.
+Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of title, list, description, small icon, large icon, published date, rating, series, reviews, and authors.  The image of the book cover is the multimedia that we have used for the book image page so that a book can be easily identified and to add interest to the page as a whole.  The books model is connected to all of the other three models: authors, series, and reviews. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc.  The main source for our book data is from the New York Times API.
 
 ### Authors
 
-The Authors model will feature writers of original works - each instance of an author includes the attributes of name, description, hometown, small icon, large icon, books, series. The author model is connected to the books and the series models. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc. The relationship between books and series is also a many to many relationship and is stored in the association table series_author_assoc.
+The Authors model will feature writers of original works - each instance of an author includes the attributes of name, description, hometown, small icon, large icon, books, series. The author model is connected to the books and the series models so that the user can find other books they may be interested in based on the writing style and subject of the author. We have included an image of the author as our multimedia for the author instance page in order to make the page more readable by adding a break for the user's eye. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc. The relationship between books and series is also a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Series
 
-The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, name, and the number of books in the series. The series model is connected to the author and book models. The relationship between books and series is a many to many relationship and is stored in the association table series_author_assoc.
+The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. We have included this model so that the user can easily find the next books in a subject and author they are interested in. Each instance of a series includes the attributes of books, author, name, and the number of books in the series. We include the images of the books from our book attibute in order to make the page more appealing with multimedia and easier to navigate with the larger icons than a simple text link.  The series model is connected to the author and book models. The relationship between books and series is a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Reviews
-Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, spoiler_flag, date_added, book, and author.  The reviews model is connected to the author and the book models.
+Reviews are opinions left behind users to either praise or criticise a book.  This model is useful to the user in that they can decide whether a novel is worth their time and money based on the opinions that others have on a book.  Each instance of a review includes the attributes of user, review, rating, spoiler_flag, date_added, book, and author.  The book for a review can be identified by an image as the multimedia for our review page.  The large image of the book title makes the context of the page easier to read as a whole.  The reviews model is connected to the author and the book models.
 
 # Tools
 

@@ -42,6 +42,8 @@
   * [Unittest](#unittest)
   * [Python PIP](#pythonpip)
   * [Sourcetree](#sourcetree)
+  * [SQLAlchemy](#sqlalchemy)
+  * [Sqlite3](#sqlite3)
 - [Hosting](#Hosting)
 
 # Introduction
@@ -105,18 +107,18 @@ The New York Times API allows us to access book metadata to pull data about only
 
 ### Books
 
-Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of author, series, reviews, publisher, and publication date.  The books model is connected to all of the other three models: authors, series, and reviews.
+Books are works written by writers to portray some sort of story or information. Each instance of a book includes the attributes of title, list, description, small icon, large icon, published date, rating, series, reviews, and authors.  The books model is connected to all of the other three models: authors, series, and reviews. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc.
 
 ### Authors
 
-The Authors model will feature writers of original works - each instance of an author includes the attributes of books, genre, name, years they have been publishing their books, and series. The author model is connected to the books and the series models.
+The Authors model will feature writers of original works - each instance of an author includes the attributes of name, description, hometown, small icon, large icon, books, series. The author model is connected to the books and the series models. The relationship between the books and authors is a many to many relationship so it is stored in the association table books_author_assoc. The relationship between books and series is also a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Series
 
-The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, publisher, number of books in the series, and the time frame of when the series has been published. In the case that a series is still ongoing we would display “present” for the end of its time frame attribute. The series model is connected to the author and book models.
+The Series model will include books in a sequence that contain similar characteristics and can be formally identified as a group. Each instance of a series includes the attributes of books, author, name, and the number of books in the series. The series model is connected to the author and book models. The relationship between books and series is a many to many relationship and is stored in the association table series_author_assoc.
 
 ### Reviews
-Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, book, and author.  The reviews model is connected to the author and the book models.
+Reviews are opinions left behind users to either praise or criticise a book.  Each instance of a review includes the attributes of user, review, rating, spoiler_flag, date_added, book, and author.  The reviews model is connected to the author and the book models.
 
 # Tools
 
@@ -180,6 +182,11 @@ Python unit testing framework we used in order to verify that our script functio
 Python Package Manager used to manage Python packages.
 ### SourceTree
 Github GUI by Atlassian used to track commits, file status, changes, etc.
+
+### SQLAlchemy
+SQLAlchemy is a python sql toolkit and object relational mapper. It was used in this project to create, insert, and query the database. 
+### Sqlite3
+Sqlite3 is a sql database engine. We used this in order to host our database and then managed it with sqlalchemy.  
 # Hosting
 
 Google App Engine is a web framework and cloud computing platform for developing and hosting web applications through Google-managed data centers. In order for our team to host a website on the Google App Engine, we had to create developer accounts through our gmail accounts. 

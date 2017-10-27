@@ -88,7 +88,7 @@ def get_book_reviews(book_id):
     
     js = json.dumps([dict(r) for r in conn.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
     if len(js) == 0:
-        return not_found_error("No reviews found for this book")
+        return not_found_error("Book's reviews")
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
@@ -102,7 +102,7 @@ def get_book_authors(book_id):
     author_ids = conn.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))
     js = json.dumps([dict(a) for a in author_ids], indent = 4)
     if len(js) == 0:
-        return not_found_error("No authors found for this book")
+        return not_found_error("Book's authors")
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
@@ -116,7 +116,7 @@ def get_series_books(series_id):
     books = conn.execute("select * from books where series_id == "+str(series_id))
     js = json.dumps([dict(a) for a in books], indent = 4)
     if len(js) == 0:
-        return not_found_error("No books found for this series")
+        return not_found_error("Series' books")
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
@@ -130,7 +130,7 @@ def get_authors_series(author_id):
     series = conn.execute("select * from (series s join series_author_assoc saa on (s.id == saa.series_id) ) where author_id == "+str(author_id))
     js = json.dumps([dict(s) for s in series], indent = 4)
     if len(js) == 0:
-        return not_found_error("No series found for this author")
+        return not_found_error("Author's series")
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
@@ -144,7 +144,7 @@ def get_reviews_authors(review_id):
     author_ids = conn.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == (select book_id from reviews where id == "+str(review_id)+")")
     js = json.dumps([dict(a) for a in author_ids], indent = 4)
     if len(js) == 0:
-        return not_found_error("No authors found for the review")
+        return not_found_error("Review's author")
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp

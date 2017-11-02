@@ -4,6 +4,7 @@ import xmltodict
 from collections import OrderedDict
 import requests #Watch out for symbolic linking
 import sys
+from pprint import pprint
 
 API_KEY = {
     'GOODREADS' : 'XPADtthE0OKv71uiqSwa8g',
@@ -15,7 +16,8 @@ def createdb():
     db.create_all()
 
 def populatedb():
-    insertGRReviews(0, 30) 
+    start = len(db.session.query(reviews).all())-1
+    insertGRReviews(start, start+1000) 
 
 def cleardb():
     db.session.query(books).delete()
@@ -66,21 +68,27 @@ def getGRBookByID(id, list=None):
             db.session.add(book_entry)
             db.session.commit()
             
+            # Look up the book's series 
             work_id = data['work']['id']['#text']
             series_request = requests.get('https://www.goodreads.com/work/'+work_id+'/series?format=xml&key='+API_KEY['GOODREADS'])
             series_request = xmltodict.parse(series_request.text)
             try:
-                series_id = series_request['GoodreadsResponse']['series_works']['series_work']['series']['id']
+                series_work = series_request['GoodreadsResponse']['series_works']['series_work']
+                if type(series_work) == type([]):
+                    series_work = series_work[0]
+                series_id = series_work['series']['id']
+            except TypeError as e:
+                if series_request['GoodreadsResponse']['series_works'] is not None:
+                    print("Error 01 in getGRBookById: "+str(e))
+            else:
                 db.session.query(books).get(id).series = getGRSeriesByID(int(series_id))
                 db.session.commit()
-            except TypeError as e:
-                print("Error 01 in getGRBookById: "+str(e))
             
-            
+            # Look up the book's authors
             for key, author in data['authors'].items():
-                while type(author) is list:
+                while type(author) == type([]):
                     author = author[0]
-                if type(author) is OrderedDict:
+                if type(author) == type(OrderedDict()):
                     b_author = getGRAuthorByID(int(author['id']), book_callee=id)
                     if b_author is not None:
                         db.session.query(books).get(id).authors.append(b_author)   

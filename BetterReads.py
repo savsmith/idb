@@ -16,6 +16,7 @@ data = json.load(open(json_url))
 #----------#
 # Database #
 #----------#
+
 books_author_assoc_table = db.Table('book_author_assoc', 
     db.Column('book_id', db.Integer, db.ForeignKey('books.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))

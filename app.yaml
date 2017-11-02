@@ -15,3 +15,6 @@ libraries:
 - name: ssl
   version: latest
 # [END handlers]
+
+skip_files:
+- ^(node_modules/.*)

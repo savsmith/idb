@@ -12,27 +12,47 @@ var BookInstance = React.createClass({
   },
 
   componentDidMount(){
-
-      axios.get("http://localhost:5000/api/books")
-      .then(datas => {
+    let data = require('../../realDB.json');
+        let datas = data["books"];
         var route = this.props.location.pathname;
-
         var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-        console.log(bookId);
-        var length = Object.keys(datas.data).length;
+        var length = Object.keys(datas).length;
         var book = 0;
-        
         for (var i = 0; i < length; i ++){
-          if (datas.data[i]["id"] === bookId) {
+    
+            console.log(datas[i]["id"]);
+            console.log(bookId);
+          if (datas[i]["id"] === bookId) {
+    
             book = i;
           }
         }
-          this.setState({
-              book:datas.data[book]
-          });
-      }).catch(error => {
-          console.log(error); return Promise.reject(error);
-      }); 
+     
+        this.setState({
+         book:datas[book]
+       });
+
+
+      // axios.get("http://www.betterreads.me/api/books")
+      // .then(datas => {
+      //   var route = this.props.location.pathname;
+
+      //   var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
+      //   console.log(bookId);
+      //   var length = Object.keys(datas.data).length;
+      //   var book = 0;
+        
+      //   for (var i = 0; i < length; i ++){
+      //     if (datas.data[i]["id"] === bookId) {
+      //       book = i;
+      //     }
+      //   }
+      //     this.setState({
+      //         book:datas.data[book]
+      //     });
+      // }).catch(error => {
+      //     console.log(error); return Promise.reject(error);
+      // }); 
     },
 
 

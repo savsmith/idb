@@ -70,8 +70,7 @@ var Grid = React.createClass({
     var pageItems = offset + itemPerPage;
 
     if (pageItems> this.state.datas.length){
-
-        pageItems = pageItems - (this.state.datas.length % itemPerPage) - 2;
+        pageItems = this.state.datas.length
     }
     var updatedData = [];
     for (var i=offset; i<pageItems; i++){

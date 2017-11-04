@@ -13,44 +13,44 @@ var SeriesInstance = React.createClass({
 
   componentDidMount(){
 
-    let data = require('../../realDB.json');
-       let datas = data["series_i"];
+    // let data = require('../../realDB.json');
+    //    let datas = data["series_i"];
+    //     var route = this.props.location.pathname;
+    //     var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
+    //     var length = Object.keys(datas).length;
+    //     var book = 0;
+    //     for (var i = 0; i < length; i ++){
+    
+    //         console.log(datas[i]["id"]);
+    //         console.log(bookId);
+    //       if (datas[i]["id"] === bookId) {
+    
+    //         book = i;
+    //       }
+    //     }
+     
+    //     this.setState({
+    //       series:datas[book]
+    //     });
+
+      axios.get("http://localhost:5000/api/series")
+      .then(datas => {
         var route = this.props.location.pathname;
-        var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-        var length = Object.keys(datas).length;
-        var book = 0;
+        var seriesId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
+        var length = Object.keys(datas.data).length;
+        var series = 0;
+        
         for (var i = 0; i < length; i ++){
-    
-            console.log(datas[i]["id"]);
-            console.log(bookId);
-          if (datas[i]["id"] === bookId) {
-    
-            book = i;
+          if (datas.data[i]["id"] === seriesId) {
+            series = i;
           }
         }
-     
-        this.setState({
-          series:datas[book]
-        });
-
-      // axios.get("http://www.betterreads.me/api/series")
-      // .then(datas => {
-      //   var route = this.props.location.pathname;
-      //   var seriesId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-      //   var length = Object.keys(datas.data).length;
-      //   var series = 0;
-        
-      //   for (var i = 0; i < length; i ++){
-      //     if (datas.data[i]["id"] === seriesId) {
-      //       series = i;
-      //     }
-      //   }
-      //     this.setState({
-      //         series:datas.data[series]
-      //     });
-      // }).catch(error => {
-      //     console.log(error); return Promise.reject(error);
-      // }); 
+          this.setState({
+              series:datas.data[series]
+          });
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
     },
 
   render: function(){
@@ -61,8 +61,8 @@ var SeriesInstance = React.createClass({
         <BookNavbar></BookNavbar>
         <div className="title" >
           <center><h1><b>{seriesObj['series_name']}</b></h1></center>
-          {/* <h2 className = "author"><b>Author: </b></h2> */}
-          {/* <h2 style = "float: right; padding-right: 15%;"><b>Published: </b>{{ start }} - {{ end }}</h2> */}
+          { <h2 className = "author"><b>Author: </b></h2> }
+          { <h2 style = "float: right; padding-right: 15%;"><b>Published: </b>{{ start }} - {{ end }}</h2> }
       </div>
 
       <section className = "right">

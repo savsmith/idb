@@ -16,51 +16,51 @@ var Grid = React.createClass({
   },
 
   componentDidMount() {
-    let data = require('../../realDB.json');
-    let datas = data[this.props.model];
-    var length = Object.keys(datas).length;
-    var dataArray = [];
-    var initialData=[];
-      for (var i = 0; i < length; i ++){
-        dataArray.push(datas[i]);
-      }
+    // let data = require('../../realDB.json');
+    // let datas = data[this.props.model];
+    // var length = Object.keys(datas).length;
+    // var dataArray = [];
+    // var initialData=[];
+    //   for (var i = 0; i < length; i ++){
+    //     dataArray.push(datas[i]);
+    //   }
 
-      for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-        initialData.push(datas[i]);
-      }
+    //   for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
+    //     initialData.push(datas[i]);
+    //   }
 
-        this.setState({
-        datas: dataArray,
-        currentData: initialData
-      });
+    //     this.setState({
+    //     datas: dataArray,
+    //     currentData: initialData
+    //   });
 
       // for api when it works.
 
-      // axios.get("http://www.betterreads.me/all")
-      // .then(datas => {
-      //   var model = datas.data[this.props.model];
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
 
-      //   var length = Object.keys(model).length;
-      //   var dataArray = [];
-      //   var initialData=[];
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
 
-      //   for (var i = 0; i < length; i ++){
-      //     dataArray.push(model[i]);
-      //   }
+        for (var i = 0; i < length; i ++){
+          dataArray.push(model[i]);
+        }
   
-      //   for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-      //     initialData.push(model[i]);
-      //   }
+        for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
+          initialData.push(model[i]);
+        }
 
   
-      //     this.setState({
-      //     datas: dataArray,
-      //     currentData: initialData
-      //   }); 
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
 
-      // }).catch(error => {
-      //     console.log(error); return Promise.reject(error);
-      // }); 
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
 
   },
 

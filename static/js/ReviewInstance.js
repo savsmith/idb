@@ -8,8 +8,11 @@ var ReviewInstance = React.createClass({
   getInitialState:function(){
     return {
       review: "",
+      reviewId: "",
       book: "",
-      bookId: ""
+      bookId: "",
+      author: "",
+      authorId: ""
     }
   },
 
@@ -67,12 +70,43 @@ var ReviewInstance = React.createClass({
         }
           this.setState({
               review:datas.data[review],
-              bookId:datas.data[review]['book_id']
+              bookId:datas.data[review]['book_id'],
+              reviewId:datas.data[review]['id']
+          });
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+  // TO GET AUTHOR ID FROM ENDPOINT '/api/reviews/<int:review_id>/authors'
+      axios.get('http://localhost:5000/api/reviews/' + this.state.reviewId + '/authors')
+      .then(datas => {
+
+          this.setState({
+              authorId:datas.data[0]["author_id"]
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
       }); 
 
+  //TO GET AUTHOR OBJECT
+      axios.get("http://localhost:5000/api/authors")
+      .then(datas => {
+        var authorId = this.state.authorId;
+        var length = Object.keys(datas.data).length;
+        var author = 0;
+        
+        for (var i = 0; i < length; i ++){
+          if (datas.data[i]["id"] === authorId) {
+            author = i;
+          }
+        }
+          this.setState({
+              author:datas.data[author]
+          });
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+  //TO GET BOOK OBJECT
       axios.get("http://localhost:5000/api/books")
       .then(datas => {
         var bookId = this.state.bookId;
@@ -97,11 +131,13 @@ var ReviewInstance = React.createClass({
   render: function(){
       var reviewObj = this.state.review;
       var bookObj = this.state.book;
+      var authorObj = this.state.author;
       var location = "../static/review_stars/"
       var imgType = "star.png"
       var review = Math.floor(reviewObj["rating"]);
       var result = location.concat(review,imgType);
       console.log(reviewObj);
+      console.log(authorObj);
       console.log(bookObj);
       return(
       <div>
@@ -115,6 +151,7 @@ var ReviewInstance = React.createClass({
           <img src={bookObj['large_img']} alt="Book Cover Art" width="310" />
           <h2><b>Book: </b><a href= {"/book/"+ this.state.bookId }>{bookObj['title'] }</a></h2>
           <h2>Date added: {reviewObj['date_added']}</h2>
+          <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
         </div>
       </section>
 

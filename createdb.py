@@ -63,13 +63,27 @@ def getGRBookByID(id, list=None):
             book['rating'] = data['average_rating']
             if list is not None:
                 book['list'] = list
+
+            # Look up the book's author
+            isbn = data['isbn']
+            book_search = requests.get('https://www.goodreads.com/search/index.xml?key='+API_KEY['GOODREADS']+'&q='+str(isbn))
+            book_search = xmltodict.parse(book_search.text)
+            works = book_search['GoodreadsResponse']['search']['results']
+            work = None
+            if isinstance(work, type([])):
+                for w in works:
+                    if int(w['id']) == id:
+                        work = w
+            else:
+                work = works['work']
+            author_id = int(work['best_book']['author']['id']['#text'])
+            book['author'] = getGRAuthorByID(author_id, book_callee=id)
             
             book_entry = books(**book)
             db.session.add(book_entry)
             db.session.commit()
             
             work_id = data['work']['id']['#text']
-            isbn = data['isbn']
 
             
             # Look up the book's series 
@@ -86,19 +100,6 @@ def getGRBookByID(id, list=None):
             else:
                 db.session.query(books).get(id).series = getGRSeriesByID(int(series_id))
                 db.session.commit()
-            
-            # Look up the book's author
-            book_search = requests.get('https://www.goodreads.com/search/index.xml?key='+API_KEY['GOODREADS']+'&q='+str(isbn))
-            book_search = xmltodict.parse(book_search.text)
-            works = book_search['GoodreadsResponse']['search']['results']
-            work = None
-            for w in works:
-                if int(w['id']) == id:
-                    work = w
-            author_id = int(work['best_book']['author']['id'])
-            author = getGRAuthorByID(author_id)
-            db.session.query(books).get(id).author = author
-            db.session.commit()
             
             global printout
             if(printout):
@@ -240,5 +241,5 @@ if __name__ == "__main__":
         
     global printout
     printout = '-print' in sys.argv
-    
+        
     populatedb()

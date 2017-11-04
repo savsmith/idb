@@ -17,9 +17,6 @@ data = json.load(open(json_url))
 # Database #
 #----------#
 
-books_author_assoc_table = db.Table('book_author_assoc', 
-    db.Column('book_id', db.Integer, db.ForeignKey('books.id')),
-    db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 series_author_assoc_table = db.Table('series_author_assoc', 
     db.Column('series_id', db.Integer, db.ForeignKey('series.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
@@ -38,7 +35,7 @@ class books(db.Model):
 
     #db.relationships
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
-    authors = db.relationship("author", secondary=books_author_assoc_table, back_populates="books")
+    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
     reviews = db.relationship('reviews', backref='book')
 
 class author(db.Model):
@@ -50,10 +47,8 @@ class author(db.Model):
     small_img = db.Column(db.String(250), nullable=True)
     large_img = db.Column(db.String(250), nullable=True)
 
-
-
     #db.relationships
-    books = db.relationship("books", secondary=books_author_assoc_table, back_populates="authors")
+    books = db.relationship("books", backref="author")
     series = db.relationship("series", secondary=series_author_assoc_table, back_populates="authors")
 
 class series(db.Model):

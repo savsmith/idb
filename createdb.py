@@ -68,8 +68,11 @@ def getGRBookByID(id, list=None):
             db.session.add(book_entry)
             db.session.commit()
             
-            # Look up the book's series 
             work_id = data['work']['id']['#text']
+            isbn = data['isbn']
+
+            
+            # Look up the book's series 
             series_request = requests.get('https://www.goodreads.com/work/'+work_id+'/series?format=xml&key='+API_KEY['GOODREADS'])
             series_request = xmltodict.parse(series_request.text)
             try:
@@ -84,15 +87,18 @@ def getGRBookByID(id, list=None):
                 db.session.query(books).get(id).series = getGRSeriesByID(int(series_id))
                 db.session.commit()
             
-            # Look up the book's authors
-            for key, author in data['authors'].items():
-                while type(author) == type([]):
-                    author = author[0]
-                if type(author) == type(OrderedDict()):
-                    b_author = getGRAuthorByID(int(author['id']), book_callee=id)
-                    if b_author is not None:
-                        db.session.query(books).get(id).authors.append(b_author)   
-                        db.session.commit()
+            # Look up the book's author
+            book_search = requests.get('https://www.goodreads.com/search/index.xml?key='+API_KEY['GOODREADS']+'&q='+str(isbn))
+            book_search = xmltodict.parse(book_search.text)
+            works = book_search['GoodreadsResponse']['search']['results']
+            work = None
+            for w in works:
+                if int(w['id']) == id:
+                    work = w
+            author_id = int(work['best_book']['author']['id'])
+            author = getGRAuthorByID(author_id)
+            db.session.query(books).get(id).author = author
+            db.session.commit()
             
             global printout
             if(printout):

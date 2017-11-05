@@ -61,16 +61,16 @@ var SeriesInstance = React.createClass({
         <BookNavbar></BookNavbar>
         <div className="title" >
           <center><h1><b>{seriesObj['series_name']}</b></h1></center>
-          { <h2 className = "author"><b>Author: </b></h2> }
-          { <h2 style = "float: right; padding-right: 15%;"><b>Published: </b>{{ start }} - {{ end }}</h2> }
-      </div>
+          // { <h2 className = "author"><b>Author: </b></h2> }
+          // { <h2 style = "float: right; padding-right: 15%;"><b>Published: </b>{{ start }} - {{ end }}</h2> }
+     //  </div>
 
-      <section className = "right">
-      <div className="info">
-        <h2  className="summary"><p><b>Description: </b></p>{ seriesObj["description"] }</h2>
-        <h3> Count: {seriesObj['count']}</h3>
-      </div>
-    </section>
+    //   <section className = "right">
+    //   <div className="info">
+    //     <h2  className="summary"><p><b>Description: </b></p>{ seriesObj["description"] }</h2>
+    //     <h3> Count: {seriesObj['count']}</h3>
+    //   </div>
+    // </section>
 
       </div>
       );

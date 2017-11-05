@@ -9,7 +9,9 @@ var BookInstance = React.createClass({
     return {
       book: "",
       series: "",
-      seriesId: ""
+      seriesId: "",
+      author: "",
+      authorId: ""
     }
   },
 
@@ -34,7 +36,7 @@ var BookInstance = React.createClass({
     //      book:datas[book]
     //    });
 
-
+      //getting a book
       axios.get("http://localhost:5000/api/books")
       .then(datas => {
         var route = this.props.location.pathname;
@@ -51,12 +53,14 @@ var BookInstance = React.createClass({
         }
           this.setState({
               book:datas.data[book],
-              seriesId:datas.data[book]['series_id']
+              seriesId:datas.data[book]['series_id'],
+              authorId:datas.data[book]["author_id"]
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
       }); 
 
+      //getting a series for a book 
       axios.get("http://localhost:5000/api/series")
       .then(datas => {
         var seriesId = this.state.seriesId;
@@ -74,12 +78,35 @@ var BookInstance = React.createClass({
       }).catch(error => {
           console.log(error); return Promise.reject(error);
       }); 
+
+      //getting author for a book
+      axios.get("http://localhost:5000/api/authors")
+      .then(datas => {
+        var authorId = this.state.authorId;
+        var length = Object.keys(datas.data).length;
+        var author = 0;
+        
+        for (var i = 0; i < length; i ++){
+          if (datas.data[i]["id"] === authorId) {
+            author = i;
+          }
+        }
+          this.setState({
+              author:datas.data[author]
+          });
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+      //getting review ids for a book?
+      
     },
 
 
   render: function(){
       var bookObj = this.state.book;
       var seriesObj = this.state.series;
+      var authorObj = this.state.author;
       console.log(bookObj);
       console.log(seriesObj);
       return(
@@ -95,12 +122,14 @@ var BookInstance = React.createClass({
           <img src={bookObj["large_img"]} alt="Book Cover Art" width="300px"/> 
           <h2><b>Rating: </b> {bookObj["rating"]}</h2>
           <h2><b>Series: </b><a href= {"/series/"+ this.state.seriesId }>{seriesObj['series_name'] }</a></h2>
+          <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
      </div>
     </section>
 
     <section className = "right">
       <div className="info">
         <h2  className="summary"><p><b>Summary: </b></p>{ bookObj["description"] }</h2>
+
       </div>
     </section>
       </div>

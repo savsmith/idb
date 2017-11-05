@@ -77,11 +77,21 @@ var ReviewInstance = React.createClass({
           console.log(error); return Promise.reject(error);
       }); 
   // TO GET AUTHOR ID FROM ENDPOINT '/api/reviews/<int:review_id>/authors'
-      axios.get('http://localhost:5000/api/reviews/' + this.state.reviewId + '/authors')
+      //TO GET BOOK OBJECT
+      axios.get("http://localhost:5000/api/books")
       .then(datas => {
-
+        var bookId = this.state.bookId;
+        var length = Object.keys(datas.data).length;
+        var book = 0;
+        
+        for (var i = 0; i < length; i ++){
+          if (datas.data[i]["id"] === bookId) {
+            book = i;
+          }
+        }
           this.setState({
-              authorId:datas.data[0]["author_id"]
+              book:datas.data[book],
+              authorId:datas.data[book]['author_id']
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
@@ -106,24 +116,7 @@ var ReviewInstance = React.createClass({
           console.log(error); return Promise.reject(error);
       }); 
 
-  //TO GET BOOK OBJECT
-      axios.get("http://localhost:5000/api/books")
-      .then(datas => {
-        var bookId = this.state.bookId;
-        var length = Object.keys(datas.data).length;
-        var book = 0;
-        
-        for (var i = 0; i < length; i ++){
-          if (datas.data[i]["id"] === bookId) {
-            book = i;
-          }
-        }
-          this.setState({
-              book:datas.data[book]
-          });
-      }).catch(error => {
-          console.log(error); return Promise.reject(error);
-      }); 
+  
 
     },
 

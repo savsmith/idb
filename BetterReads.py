@@ -189,7 +189,7 @@ def not_found_error(errorStr):
 
 @app.route('/api/books/<int:book_id>', methods = ['GET'])
 def get_book_instance(book_id):
-    book_list = [dict(b) for b in conn.execute("select * from books where id = " + str(book_id))]
+    book_list = [dict(b) for b in db.engine.execute("select * from books where id = " + str(book_id))]
     if book_list:
         resp = jsonify(book_list[0])
         resp.status_code = 200
@@ -200,7 +200,7 @@ def get_book_instance(book_id):
 
 @app.route('/api/authors/<int:author_id>', methods = ['GET'])
 def get_author_instance(author_id):
-    author_list = [dict(a) for a in conn.execute("select * from author where id = " + str(author_id))]
+    author_list = [dict(a) for a in db.engine.execute("select * from author where id = " + str(author_id))]
     if author_list:
         resp = jsonify(author_list[0])
         resp.status_code = 200
@@ -211,7 +211,7 @@ def get_author_instance(author_id):
 
 @app.route('/api/series/<int:series_id>', methods = ['GET'])
 def get_series_instance(series_id):
-    series_list = [dict(s) for s in conn.execute("select * from series where id = " + str(series_id))]
+    series_list = [dict(s) for s in db.engine.execute("select * from series where id = " + str(series_id))]
     if series_list:
         resp = jsonify(series_list[0])
         resp.status_code = 200
@@ -222,7 +222,7 @@ def get_series_instance(series_id):
 
 @app.route('/api/reviews/<int:review_id>', methods = ['GET'])
 def get_review_instance(review_id):
-    review_list = [dict(r) for r in conn.execute("select * from reviews where id = " + str(review_id))]
+    review_list = [dict(r) for r in db.engine.execute("select * from reviews where id = " + str(review_id))]
     if review_list:
         resp = jsonify(review_list[0])
         resp.status_code = 200

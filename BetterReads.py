@@ -17,9 +17,6 @@ data = json.load(open(json_url))
 # Database #
 #----------#
 
-books_author_assoc_table = db.Table('book_author_assoc', 
-    db.Column('book_id', db.Integer, db.ForeignKey('books.id')),
-    db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 series_author_assoc_table = db.Table('series_author_assoc', 
     db.Column('series_id', db.Integer, db.ForeignKey('series.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
@@ -38,7 +35,7 @@ class books(db.Model):
 
     #db.relationships
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
-    authors = db.relationship("author", secondary=books_author_assoc_table, back_populates="books")
+    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
     reviews = db.relationship('reviews', backref='book')
 
 class author(db.Model):
@@ -50,10 +47,8 @@ class author(db.Model):
     small_img = db.Column(db.String(250), nullable=True)
     large_img = db.Column(db.String(250), nullable=True)
 
-
-
     #db.relationships
-    books = db.relationship("books", secondary=books_author_assoc_table, back_populates="authors")
+    books = db.relationship("books", backref="author")
     series = db.relationship("series", secondary=series_author_assoc_table, back_populates="authors")
 
 class series(db.Model):
@@ -130,6 +125,7 @@ def get_all_reviews():
 
     return resp
 
+#reviews for a book
 @app.route('/api/reviews/book/<int:book_id>', methods = ['GET'])    
 def get_book_reviews(book_id):    
     js = json.dumps([dict(r) for r in db.engine.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
@@ -139,6 +135,7 @@ def get_book_reviews(book_id):
     
     return resp
 
+#authors for a book
 @app.route('/api/book/<int:book_id>/authors', methods = ['GET'])    
 def get_book_authors(book_id):
     author_ids = db.engine.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))
@@ -148,7 +145,8 @@ def get_book_authors(book_id):
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
-    
+  
+#books for a series  
 @app.route('/api/series/<int:series_id>/books', methods = ['GET'])    
 def get_series_books(series_id):    
     books = db.engine.execute("select * from books where series_id == "+str(series_id))
@@ -158,7 +156,8 @@ def get_series_books(series_id):
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
-    
+   
+#series for an author 
 @app.route('/api/authors/<int:author_id>/series', methods = ['GET'])    
 def get_authors_series(author_id):    
     series = db.engine.execute("select * from (series s join series_author_assoc saa on (s.id == saa.series_id) ) where author_id == "+str(author_id))
@@ -168,7 +167,8 @@ def get_authors_series(author_id):
     resp = Response(js, status = 200, mimetype = 'application/json')
     
     return resp
-    
+
+#author for a review 
 @app.route('/api/reviews/<int:review_id>/authors', methods = ['GET']) 
 def get_reviews_authors(review_id):
     author_ids = db.engine.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == (select book_id from reviews where id == "+str(review_id)+")")
@@ -189,7 +189,7 @@ def not_found_error(errorStr):
 
 @app.route('/api/books/<int:book_id>', methods = ['GET'])
 def get_book_instance(book_id):
-    book_list = [dict(b) for b in conn.execute("select * from books where id = " + str(book_id))]
+    book_list = [dict(b) for b in db.engine.execute("select * from books where id = " + str(book_id))]
     if book_list:
         resp = jsonify(book_list[0])
         resp.status_code = 200
@@ -200,7 +200,7 @@ def get_book_instance(book_id):
 
 @app.route('/api/authors/<int:author_id>', methods = ['GET'])
 def get_author_instance(author_id):
-    author_list = [dict(a) for a in conn.execute("select * from author where id = " + str(author_id))]
+    author_list = [dict(a) for a in db.engine.execute("select * from author where id = " + str(author_id))]
     if author_list:
         resp = jsonify(author_list[0])
         resp.status_code = 200
@@ -211,7 +211,7 @@ def get_author_instance(author_id):
 
 @app.route('/api/series/<int:series_id>', methods = ['GET'])
 def get_series_instance(series_id):
-    series_list = [dict(s) for s in conn.execute("select * from series where id = " + str(series_id))]
+    series_list = [dict(s) for s in db.engine.execute("select * from series where id = " + str(series_id))]
     if series_list:
         resp = jsonify(series_list[0])
         resp.status_code = 200
@@ -222,7 +222,7 @@ def get_series_instance(series_id):
 
 @app.route('/api/reviews/<int:review_id>', methods = ['GET'])
 def get_review_instance(review_id):
-    review_list = [dict(r) for r in conn.execute("select * from reviews where id = " + str(review_id))]
+    review_list = [dict(r) for r in db.engine.execute("select * from reviews where id = " + str(review_id))]
     if review_list:
         resp = jsonify(review_list[0])
         resp.status_code = 200

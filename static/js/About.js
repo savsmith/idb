@@ -70,12 +70,13 @@
                     <ListGroupItem href="http://docs.savsmith.apiary.io/#">Apiary API </ListGroupItem>
                     <ListGroupItem href="https://github.com/savsmith/idb">Github Repository </ListGroupItem>
                     <ListGroupItem href="https://trello.com/b/8ccrHvSD">Trello </ListGroupItem>
-                    <ListGroupItem href="https://utexas.box.com/s/rz0mceaa57mip4gvs7kte9rmk8ryo2en">Technical Document hosted on UTBox </ListGroupItem>
+                    <ListGroupItem href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp">Technical Document hosted on UTBox </ListGroupItem>
+                    <ListGroupItem href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul">UML Diagram hosted on UTBox </ListGroupItem>
                 </ListGroup>
                 <h1>Data</h1>
                 <ListGroup>
-                    <ListGroupItem href="https://www.goodreads.com/api">Goodreads API </ListGroupItem>
-                    <ListGroupItem href="https://developers.google.com/books/">Google Books API </ListGroupItem>
+                    <ListGroupItem href="https://www.goodreads.com/api">Goodreads scraped by using NYtimes data and querying for data-</ListGroupItem>
+                    <ListGroupItem href="https://developer.nytimes.com/">New York Times scraped by visiting endpoints</ListGroupItem>
                 </ListGroup>           
                 <h1>Tools</h1>
                 <ListGroup>

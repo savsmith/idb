@@ -62,6 +62,17 @@ var Grid = React.createClass({
           console.log(error); return Promise.reject(error);
       }); 
 
+     var filterBtnGroup = document.createDocumentFragment();
+     var btn = document.createElement("button");
+     btn.setAttribute("id", "all");
+     btn.setAttribute("type", "button");
+     btn.setAttribute("class", "btn btn-primary");
+     btn.appendChild(document.createTextNode("Show All"));
+
+     filterBtnGroup.appendChild(btn);
+     document.getElementById("filterGroup").appendChild(filterBtnGroup);
+     document.getElementById("all").onclick = this.sortAscend;
+
   },
 
   handlePageChange(pageNumber) {
@@ -137,8 +148,11 @@ var Grid = React.createClass({
 
       return(
         <div className="gridwrapper">
+          <div id='filterGroup' class="btn-group">
+            <p>Filter By: &nbsp;</p>
+          </div>
           <div class="btn-group">
-            Sort By: &nbsp;
+            <p>Sort By: &nbsp;</p>
             <button id='ascend' type="button" class="btn btn-primary" onClick={this.sortAscend}>Ascending</button>
             <button id='descend' type="button" class="btn btn-primary">Descending</button>
           </div>

@@ -86,7 +86,7 @@ var Grid = React.createClass({
   },
 
   sortAscend() {
-     let items = this.state.currentData;
+     let items = this.state.datas;
      if (this.props.model === "books") {
         items.sort(function(a, b) {
            if(a.title < b.title) return -1;
@@ -96,9 +96,9 @@ var Grid = React.createClass({
      }
 
      this.setState({
-        currentData:items
-     })
-     console.log("Hello...");
+        datas:items
+     });
+     this.handlePageChange(1);
   },
 
   render: function(){

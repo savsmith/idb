@@ -1,6 +1,6 @@
 import React from 'react';
 import Pagination from 'react-js-pagination';
-import { Image, Panel, Row, Col } from 'react-bootstrap';
+import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 var axios = require('axios');
 require('../css/Grid.css');
@@ -85,6 +85,22 @@ var Grid = React.createClass({
 
   },
 
+  sortAscend() {
+     let items = this.state.currentData;
+     if (this.props.model === "books") {
+        items.sort(function(a, b) {
+           if(a.title < b.title) return -1;
+           if(a.title > b.title) return 1;
+           return 0;
+        })
+     }
+
+     this.setState({
+        currentData:items
+     })
+     console.log("Hello...");
+  },
+
   render: function(){
     
       let datas = this.state.currentData;
@@ -121,6 +137,11 @@ var Grid = React.createClass({
 
       return(
         <div className="gridwrapper">
+          <div class="btn-group">
+            Sort By: &nbsp;
+            <button id='ascend' type="button" class="btn btn-primary" onClick={this.sortAscend}>Ascending</button>
+            <button id='descend' type="button" class="btn btn-primary">Descending</button>
+          </div>
           <Col md={12}>
             {datas}
           </Col>
@@ -133,7 +154,7 @@ var Grid = React.createClass({
           totalItemsCount={this.state.datas.length}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
-        />
+          />
         </div>
       );
   }

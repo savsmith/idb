@@ -71,7 +71,7 @@ var Grid = React.createClass({
 
      filterBtnGroup.appendChild(btn);
      document.getElementById("filterGroup").appendChild(filterBtnGroup);
-     document.getElementById("all").onclick = this.sortAscend;
+     document.getElementById("all").onclick = this.showAll;
 
   },
 
@@ -112,6 +112,51 @@ var Grid = React.createClass({
      this.handlePageChange(1);
   },
 
+   sortDescend() {
+     let items = this.state.datas;
+     if (this.props.model === "books") {
+        items.sort(function(a, b) {
+           if(a.title > b.title) return -1;
+           if(a.title < b.title) return 1;
+           return 0;
+        })
+     }
+
+     this.setState({
+        datas:items
+     });
+     this.handlePageChange(1);
+  },
+
+  showAll() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+
+        for (var i = 0; i < length; i ++){
+          dataArray.push(model[i]);
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
+          initialData.push(model[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
   render: function(){
     
       let datas = this.state.currentData;
@@ -148,13 +193,13 @@ var Grid = React.createClass({
 
       return(
         <div className="gridwrapper">
-          <div id='filterGroup' class="btn-group">
+          <div id='filterGroup' className="btn-group">
             <p>Filter By: &nbsp;</p>
           </div>
-          <div class="btn-group">
+          <div className="btn-group">
             <p>Sort By: &nbsp;</p>
-            <button id='ascend' type="button" class="btn btn-primary" onClick={this.sortAscend}>Ascending</button>
-            <button id='descend' type="button" class="btn btn-primary">Descending</button>
+            <button id='ascend' type="button" className="btn btn-primary" onClick={this.sortAscend}>Ascending</button>
+            <button id='descend' type="button" className="btn btn-primary" onClick={this.sortDescend}>Descending</button>
           </div>
           <Col md={12}>
             {datas}

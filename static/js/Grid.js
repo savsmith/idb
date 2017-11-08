@@ -2,6 +2,9 @@ import React from 'react';
 import Pagination from 'react-js-pagination';
 import { Image, Panel, Row, Col, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+var Highlight = require('react-highlighter');
+
+
 var axios = require('axios');
 require('../css/Grid.css');
 
@@ -12,7 +15,8 @@ var Grid = React.createClass({
       currentData: [],
       activePage:1,
       offset:0,
-      value:""
+      value:"",
+      search:false
     }
   },
 
@@ -38,7 +42,8 @@ var Grid = React.createClass({
   
           this.setState({
           datas: dataArray,
-          currentData: initialData
+          currentData: initialData,
+          search:false
         }); 
 
       }).catch(error => {
@@ -104,12 +109,10 @@ var Grid = React.createClass({
         }
         }
       }
-      console.log(dataArray);
-      console.log(initialData);
-
         this.setState({
         datas: dataArray,
-        currentData: initialData
+        currentData: initialData,
+        search: true
       }); 
     }).catch(error => {
         console.log(error); return Promise.reject(error);
@@ -126,6 +129,7 @@ var Grid = React.createClass({
       var route = this.props.instance;
       var name = this.props.name;
       var imgSize = 250;
+      var search = this.state.search;
       if (this.props.model === "review")
       {
         var location = "../static/review_stars/"
@@ -144,7 +148,8 @@ var Grid = React.createClass({
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
-              <p>{item[name]}</p>
+
+               {search ? <Highlight search={this.state.value}>{item[name]}</Highlight> : (<p>{item[name]}</p>)} 
           </Col> 
           </LinkContainer>
 

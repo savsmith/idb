@@ -148,7 +148,6 @@ var Grid = React.createClass({
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
-
                {search ? <Highlight search={this.state.value}>{item[name]}</Highlight> : (<p>{item[name]}</p>)} 
           </Col> 
           </LinkContainer>

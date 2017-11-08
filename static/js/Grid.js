@@ -93,7 +93,15 @@ var Grid = React.createClass({
         lowRatings.setAttribute("class", "btn btn-primary");
         lowRatings.appendChild(document.createTextNode("Low Ratings"));
 
+        var highRatings = document.createElement("button");
+        highRatings.setAttribute("id", "highratings");
+        highRatings.setAttribute("type", "button");
+        highRatings.setAttribute("class", "btn btn-primary");
+        highRatings.appendChild(document.createTextNode("High Ratings"));
+
+        document.getElementById("filterGroup").appendChild(highRatings);
         document.getElementById("filterGroup").appendChild(lowRatings);
+        document.getElementById("highratings").onclick = this.showHighRatings;
         document.getElementById("lowratings").onclick = this.showLowRatings;
      }
   },
@@ -383,7 +391,40 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].rating <= 1.5) {
+           if (model[i].rating <= 2.5) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showHighRatings() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].rating > 2.5) {
               truelen++;
              dataArray.push(model[i]);
            }

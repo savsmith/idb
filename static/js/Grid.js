@@ -104,6 +104,24 @@ var Grid = React.createClass({
            if(a.title > b.title) return 1;
            return 0;
         })
+     } else if (this.props.model === "author") {
+        items.sort(function(a, b) {
+           if(a.author < b.author) return -1;
+           if(a.author > b.author) return 1;
+           return 0;
+        })
+     } else if (this.props.model === "series_i") {
+        items.sort(function(a, b) {
+           if(a.series_name < b.series_name) return -1;
+           if(a.series_name > b.series_name) return 1;
+           return 0;
+        })
+     } else {
+        items.sort(function(a, b) {
+           if(a.rating < b.rating) return -1;
+           if(a.rating > b.rating) return 1;
+           return 0;
+        })
      }
 
      this.setState({
@@ -118,6 +136,24 @@ var Grid = React.createClass({
         items.sort(function(a, b) {
            if(a.title > b.title) return -1;
            if(a.title < b.title) return 1;
+           return 0;
+        })
+     } else if (this.props.model === "author") {
+        items.sort(function(a, b) {
+           if(a.author > b.author) return -1;
+           if(a.author < b.author) return 1;
+           return 0;
+        })
+     } else if (this.props.model === "series_i") {
+        items.sort(function(a, b) {
+           if(a.series_name > b.series_name) return -1;
+           if(a.series_name < b.series_name) return 1;
+           return 0;
+        })
+     } else {
+        items.sort(function(a, b) {
+           if(a.rating > b.rating) return -1;
+           if(a.rating < b.rating) return 1;
            return 0;
         })
      }

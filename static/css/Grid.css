@@ -42,8 +42,12 @@
 }
 
 .centerCol{
+<<<<<<< HEAD
   margin-top: 50px;
   height: 300px;
+=======
+  padding-top: 70px;
+>>>>>>> ffb
 }
 
 .grow:hover {
@@ -57,4 +61,3 @@
 .slideAndFade{
   animation: 1s ease slideAndFade;
 }
-

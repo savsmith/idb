@@ -15,4 +15,4 @@ var BookPage = React.createClass({
   }
 });
   
-  export default BookPage; 
+  export default BookPage;

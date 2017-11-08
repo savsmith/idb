@@ -82,16 +82,26 @@ var Grid = React.createClass({
       var initialData=[];
 
       for (var i = 0; i < length; i ++){
-        var str = (model[i][this.props.name]).toLowerCase();
-        if (str.includes(this.state.value)){
-          dataArray.push(model[i]);
+        for (var property in model[i]) {
+          if (model[i][property] !== null){
+          var str = (model[i][property]).toString().toLowerCase();
+          if (str.includes(this.state.value)){
+            dataArray.push(model[i]);
+            break;
+          }
         }
+       }
       }
 
       for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-        var str = (model[i][this.props.name]).toLowerCase();
-        if (str.includes(this.state.value)){
-          initialData.push(model[i]);
+        for (var property in model[i]) {
+          if (model[i][property] !== null){
+          var str = (model[i][property]).toString().toLowerCase();
+          if (str.includes(this.state.value)){
+            initialData.push(model[i]);
+            break;
+          }
+        }
         }
       }
       console.log(dataArray);

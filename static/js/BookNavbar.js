@@ -36,7 +36,6 @@ var BookNavbar = React.createClass({
                     <MenuItem>about</MenuItem>
                   </LinkContainer>
                 </Nav>
-                <SearchForm/> 
               </Navbar.Collapse>
             </Navbar>
         </div>

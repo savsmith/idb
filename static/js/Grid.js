@@ -1,6 +1,6 @@
 import React from 'react';
 import Pagination from 'react-js-pagination';
-import { Image, Panel, Row, Col } from 'react-bootstrap';
+import { Image, Panel, Row, Col, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 var axios = require('axios');
 require('../css/Grid.css');
@@ -11,29 +11,12 @@ var Grid = React.createClass({
       datas: [],
       currentData: [],
       activePage:1,
-      offset:0
+      offset:0,
+      value:""
     }
   },
 
   componentDidMount() {
-    // let data = require('../../realDB.json');
-    // let datas = data[this.props.model];
-    // var length = Object.keys(datas).length;
-    // var dataArray = [];
-    // var initialData=[];
-    //   for (var i = 0; i < length; i ++){
-    //     dataArray.push(datas[i]);
-    //   }
-
-    //   for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-    //     initialData.push(datas[i]);
-    //   }
-
-    //     this.setState({
-    //     datas: dataArray,
-    //     currentData: initialData
-    //   });
-
       // for api when it works.
 
       axios.get("http://localhost:5000/all")
@@ -85,6 +68,46 @@ var Grid = React.createClass({
 
   },
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  },
+
+  handleSubmit(event){
+    event.preventDefault();
+    axios.get("http://localhost:5000/all")
+    .then(datas => {
+      var model = datas.data[this.props.model];
+      var length = Object.keys(model).length;
+      var dataArray = [];
+      var initialData=[];
+
+      for (var i = 0; i < length; i ++){
+        var str = (model[i][this.props.name]).toLowerCase();
+        if (str.includes(this.state.value)){
+          dataArray.push(model[i]);
+        }
+      }
+
+      for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
+        var str = (model[i][this.props.name]).toLowerCase();
+        if (str.includes(this.state.value)){
+          initialData.push(model[i]);
+        }
+      }
+      console.log(dataArray);
+      console.log(initialData);
+
+        this.setState({
+        datas: dataArray,
+        currentData: initialData
+      }); 
+    }).catch(error => {
+        console.log(error); return Promise.reject(error);
+    }); 
+
+  },
+  
+
   render: function(){
     
       let datas = this.state.currentData;
@@ -121,6 +144,12 @@ var Grid = React.createClass({
 
       return(
         <div className="gridwrapper">
+         <form onSubmit={this.handleSubmit}>
+          <label>
+            <input type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
+          </label>
+          <Button type="submit">Search</Button>
+        </form>
           <Col md={12}>
             {datas}
           </Col>

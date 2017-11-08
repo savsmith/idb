@@ -8,9 +8,6 @@
 
 .pagination{
   background-color: #006258; 
-  position: absolute;
-  bottom: 2%;
-  left: 42.5%;
 }
 .pagination a {
   transition: background-color .3s;

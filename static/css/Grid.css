@@ -42,7 +42,8 @@
 }
 
 .centerCol{
-  padding-top: 30px;
+  margin-top: 50px;
+  height: 300px;
 }
 
 .grow:hover {

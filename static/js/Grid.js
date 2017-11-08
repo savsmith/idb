@@ -66,8 +66,16 @@ var Grid = React.createClass({
         topBooks.setAttribute("class", "btn btn-primary");
         topBooks.appendChild(document.createTextNode("Top Rated Books"));
 
+        var serieBooks = document.createElement("button");
+        serieBooks.setAttribute("id", "seriebooks");
+        serieBooks.setAttribute("type", "button");
+        serieBooks.setAttribute("class", "btn btn-primary");
+        serieBooks.appendChild(document.createTextNode("Series"));
+
         document.getElementById("filterGroup").appendChild(topBooks);
+        document.getElementById("filterGroup").appendChild(serieBooks);
         document.getElementById("topbooks").onclick = this.showTopBooks;
+        document.getElementById("seriebooks").onclick = this.showSerieBooks;
      } else if (this.props.model === "author") {
         var topAuthors = document.createElement("button");
         topAuthors.setAttribute("id", "topauthors");
@@ -334,6 +342,39 @@ var Grid = React.createClass({
 
         for (var i = 0; i < length; i ++){
            if (model[i].rating >= 4.0) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showSerieBooks() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].series_id !== null) {
               truelen++;
              dataArray.push(model[i]);
            }

@@ -1,0 +1,242 @@
+{
+	"info": {
+		"name": "Betterreads",
+		"_postman_id": "0f144a90-48ba-c3e9-9563-34d26c78e099",
+		"description": "Postman results for Betterreads API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://betterreads.me/all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://betterreads.me/all",
+					"protocol": "https",
+					"host": [
+						"betterreads",
+						"me"
+					],
+					"path": [
+						"all"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://betterreads.me/api/books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response is OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Author Exists\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        pm.expect(jsonData[i].author).to.not.equal(undefined);",
+							"        pm.expect(jsonData[i].author).to.not.equal(null);",
+							"        pm.expect(jsonData[i].author).to.not.equal(\"\");",
+							"        ",
+							"    }",
+							"});",
+							"pm.test(\"Title Exists\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        pm.expect(jsonData[i].title).to.not.equal(undefined);",
+							"        pm.expect(jsonData[i].title).to.not.equal(null);",
+							"        pm.expect(jsonData[i].title).to.not.equal(\"\");",
+							"    }",
+							"});",
+							"pm.test(\"ID Exists\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        pm.expect(jsonData[i].id).to.not.equal(undefined);",
+							"        pm.expect(jsonData[i].id).to.not.equal(null);",
+							"    }",
+							"});",
+							"pm.test(\"Distinct IDs\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        for (j=0; j < jsonData.length; ++j){",
+							"            if(i != j){",
+							"                pm.expect(jsonData[i].id).to.not.equal(jsonData[j].id);",
+							"            }",
+							"        }",
+							"        ",
+							"    }",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://betterreads.me/api/books",
+					"protocol": "https",
+					"host": [
+						"betterreads",
+						"me"
+					],
+					"path": [
+						"api",
+						"books"
+					]
+				},
+				"description": "Betterreads books api"
+			},
+			"response": []
+		},
+		{
+			"name": "https://betterreads.me/api/series",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Distinct IDs\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        for (j=0; j < jsonData.length; ++j){",
+							"            if(i != j){",
+							"                pm.expect(jsonData[i].id).to.not.equal(jsonData[j].id);",
+							"            }",
+							"        }",
+							"        ",
+							"    }",
+							"});",
+							"pm.test(\"Response is OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://betterreads.me/api/series",
+					"protocol": "https",
+					"host": [
+						"betterreads",
+						"me"
+					],
+					"path": [
+						"api",
+						"series"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://betterreads.me/api/authors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Distinct IDs\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        for (j=0; j < jsonData.length; ++j){",
+							"            if(i != j){",
+							"                pm.expect(jsonData[i].id).to.not.equal(jsonData[j].id);",
+							"            }",
+							"        }",
+							"        ",
+							"    }",
+							"});",
+							"pm.test(\"Response is OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://betterreads.me/api/authors",
+					"protocol": "https",
+					"host": [
+						"betterreads",
+						"me"
+					],
+					"path": [
+						"api",
+						"authors"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://betterreads.me/api/reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Distinct IDs\", function() {",
+							"    var jsonData = pm.response.json()",
+							"    for (i=0; i < jsonData.length; ++i){",
+							"        for (j=0; j < jsonData.length; ++j){",
+							"            if(i != j){",
+							"                pm.expect(jsonData[i].id).to.not.equal(jsonData[j].id);",
+							"            }",
+							"        }",
+							"        ",
+							"    }",
+							"});",
+							"pm.test(\"Response is OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://betterreads.me/api/reviews",
+					"protocol": "https",
+					"host": [
+						"betterreads",
+						"me"
+					],
+					"path": [
+						"api",
+						"reviews"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

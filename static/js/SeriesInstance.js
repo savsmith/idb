@@ -12,7 +12,7 @@ var SeriesInstance = React.createClass({
       authorId: "",
       author: "",
       seriesString: "",
-      bookList: [],
+      booksArray: [],
     }
   },
 
@@ -55,7 +55,7 @@ var SeriesInstance = React.createClass({
 
               this.setState({
                   authorId:datas.data[0]['author_id'],
-                  bookList:books,
+                  booksArray:books,
               });
           }).catch(error => {
               console.log(error); return Promise.reject(error);
@@ -113,13 +113,15 @@ var SeriesInstance = React.createClass({
   render: function(){
     var seriesObj = this.state.series;
     var authorObj = this.state.author;
-    const books = (this.state.bookList).map((book) => (
+    const books = (this.state.booksArray).map((book) => (
             <li key={book['id']}>
-              <h2><img src={book["large_img"]} alt="Book Cover Art" width="100px"/><a href= {"/book/" + this.state.authorId }>   { book['title'] }</a></h2>
+              <h2><img src={book["large_img"]} alt="Book Cover Art" width="100px"/><a href= {"/book/" + book['id']}>   { book['title'] }</a></h2>
             </li>
           ));
-    console.log(this.state.bookList);
-    console.log(typeof this.state.bookList);
+
+    console.log(this.state.booksArray);
+    console.log(typeof this.state.booksArray);
+
       return(
       <div>
         <BookNavbar></BookNavbar>

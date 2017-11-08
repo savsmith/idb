@@ -11,7 +11,8 @@ var BookInstance = React.createClass({
       series: "",
       seriesId: "",
       author: "",
-      authorId: ""
+      authorId: "",
+      reviewsArray: [],
     }
   },
 
@@ -35,6 +36,30 @@ var BookInstance = React.createClass({
     //     this.setState({
     //      book:datas[book]
     //    });
+
+      //getting reviews for a book /api/reviews/book/<int:book_id>
+      var route = this.props.location.pathname;
+      var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
+
+      axios.get("http://localhost:5000/api/reviews/book/" + bookId)
+           
+
+          .then(datas => {
+              var reviews = [];
+             var length = Object.keys(datas.data).length;
+
+            //get list of books for a series
+             for (var i = 0; i < length; i ++){
+                reviews.push(datas.data[i]);
+              }
+
+                this.setState({
+                    reviewsArray: reviews,
+              });
+          }).catch(error => {
+              console.log(error); return Promise.reject(error);
+          }); 
+
 
       //getting a book
       axios.get("http://localhost:5000/api/books")
@@ -107,6 +132,13 @@ var BookInstance = React.createClass({
       var bookObj = this.state.book;
       var seriesObj = this.state.series;
       var authorObj = this.state.author;
+
+      const reviews = (this.state.reviewsArray).map((review) => (
+            <li key={review['id']}>
+              <h2><a href= {"/review/" + review['id']}> { review['user'] }'s review</a></h2>
+            </li>
+          ));
+
       console.log(bookObj);
       console.log(seriesObj);
       return(
@@ -123,6 +155,10 @@ var BookInstance = React.createClass({
           <h2><b>Rating: </b> {bookObj["rating"]}</h2>
           <h2><b>Series: </b><a href= {"/series/"+ this.state.seriesId }>{seriesObj['series_name'] }</a></h2>
           <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
+          <h2><p><b>Reviews: </b></p></h2>
+          <ul>
+            { reviews }
+          </ul>
      </div>
     </section>
 

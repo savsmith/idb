@@ -62,17 +62,52 @@ var Grid = React.createClass({
           console.log(error); return Promise.reject(error);
       }); 
 
-     var filterBtnGroup = document.createDocumentFragment();
      var btn = document.createElement("button");
      btn.setAttribute("id", "all");
      btn.setAttribute("type", "button");
      btn.setAttribute("class", "btn btn-primary");
      btn.appendChild(document.createTextNode("Show All"));
 
-     filterBtnGroup.appendChild(btn);
-     document.getElementById("filterGroup").appendChild(filterBtnGroup);
+     document.getElementById("filterGroup").appendChild(btn);
      document.getElementById("all").onclick = this.showAll;
 
+     if (this.props.model === "books") {
+        var topBooks = document.createElement("button");
+        topBooks.setAttribute("id", "topbooks");
+        topBooks.setAttribute("type", "button");
+        topBooks.setAttribute("class", "btn btn-primary");
+        topBooks.appendChild(document.createTextNode("Top Rated Books"));
+
+        document.getElementById("filterGroup").appendChild(topBooks);
+        document.getElementById("topbooks").onclick = this.showTopBooks;
+     } else if (this.props.model === "author") {
+        var topAuthors = document.createElement("button");
+        topAuthors.setAttribute("id", "topauthors");
+        topAuthors.setAttribute("type", "button");
+        topAuthors.setAttribute("class", "btn btn-primary");
+        topAuthors.appendChild(document.createTextNode("Top Rated Authors"));
+
+        document.getElementById("filterGroup").appendChild(topAuthors);
+        document.getElementById("topauthors").onclick = this.showTopAuthors;
+     } else if (this.props.model === "series_i") {
+        var lowCnt = document.createElement("button");
+        lowCnt.setAttribute("id", "lowcnt");
+        lowCnt.setAttribute("type", "button");
+        lowCnt.setAttribute("class", "btn btn-primary");
+        lowCnt.appendChild(document.createTextNode("Low Vol. Series"));
+
+        document.getElementById("filterGroup").appendChild(lowCnt);
+        document.getElementById("lowcnt").onclick = this.showLowCnt;
+     } else {
+        var lowRatings = document.createElement("button");
+        lowRatings.setAttribute("id", "lowratings");
+        lowRatings.setAttribute("type", "button");
+        lowRatings.setAttribute("class", "btn btn-primary");
+        lowRatings.appendChild(document.createTextNode("Low Ratings"));
+
+        document.getElementById("filterGroup").appendChild(lowRatings);
+        document.getElementById("lowratings").onclick = this.showLowRatings;
+     }
   },
 
   handlePageChange(pageNumber) {
@@ -179,6 +214,148 @@ var Grid = React.createClass({
   
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
           initialData.push(model[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showTopAuthors() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+        var books = datas.data["books"];
+
+        var length = Object.keys(model).length;
+        var blength = Object.keys(books).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           var cnt = 0;
+           var rating = 0.0;
+           for (var j = 0; j < blength; j++) {
+              if (model[i].id === books[j].author_id) {
+                 cnt++;
+                 rating += books[j].rating;
+              }
+           }
+           if ((rating / cnt) >= 4.0) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showTopBooks() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].rating >= 4.0) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showLowCnt() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].count < 6) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
+  showLowRatings() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].rating <= 1.5) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
         }
   
           this.setState({

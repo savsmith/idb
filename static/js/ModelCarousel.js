@@ -1,5 +1,6 @@
 import React from 'react';
-import { Carousel, Image, Row, Col } from 'react-bootstrap'
+import { Carousel } from 'react-responsive-carousel'
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 require('../css/styles.css');
 
@@ -7,20 +8,20 @@ var BookCarousel = React.createClass({
 
   render() {
     return (
-      <div>
-        <div className = "cons">
-          <Col md={12}>
-            <Carousel>
-               <Carousel.Item>
-              </Carousel.Item>
-              <Carousel.Item>
-              </Carousel.Item>
-              <Carousel.Item>
-              </Carousel.Item>
-            </Carousel>
-          </Col>
-        </div>
-      </div>
+          <Carousel>
+            <div>
+              <img width="100%" src="../static/car_img/carousel1.png" />
+            </div>
+            <div>
+              <img width="100%" src="../static/car_img/carousel2.png" />
+            </div>
+            <div>
+              <img width="100%" src="../static/car_img/carousel3.png" />
+            </div>
+            <div>
+              <img width="100%" src="../static/car_img/carousel4.png" />
+            </div>
+          </Carousel>
     )
   }
 });

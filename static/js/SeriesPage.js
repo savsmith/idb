@@ -9,7 +9,7 @@ var SeriesPage = React.createClass({
       return(
         <div className="bookPageWrapper">
           <BookNavbar/>
-          <Grid model="series_i" itemPerPage={12} name="series_name" instance="series"></Grid>
+          <Grid model="series_i" itemPerPage={8} name="series_name" instance="series"></Grid>
         </div>
       );
   }

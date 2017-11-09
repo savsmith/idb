@@ -537,6 +537,10 @@ var Grid = React.createClass({
       var name = this.props.name;
       var imgSize = 250;
       var search = this.state.search;
+      var attr1 = "";
+      var attr2 = "";
+      var attr3 = "";
+
       if (this.props.model === "review")
       {
         var location = "../static/review_stars/"
@@ -544,10 +548,48 @@ var Grid = React.createClass({
         var review = Math.floor(item["rating"]);
         var result = location.concat(review,imgType);
         imgSize = imgSize / 4;
+        var attr1 = item["rating"] + " stars\n";
+        if(item["review"] != null){
+          attr3 = item["review"].substring(0, 80) + "...";
+        }
+        else {
+          attr3 = "No review";
+        }
+        attr2 = item["date_added"];
       }
       else if (this.props.model === "series_i")
       {
+        attr1 = item['count'] + " books\n";
         result = "../static/series_art/series.jpg";
+        if(item["description"] != null){
+          attr3 = item["description"].substring(0, 80) + "...";
+        }
+        else {
+          attr3 = "No description";
+        }
+        attr2 = "Needs another attribute";
+      }
+      else if (this.props.model === "books")
+      {
+        attr1 = "rating " + item['rating'] + "\n";
+        if(item["description"] != null){
+          attr3 = item["description"].substring(0, 80) + "...";
+        }
+        else {
+          attr3 = "No description";
+        }
+        attr2 = "Published " + item["published_date"];
+      }
+      else if (this.props.model === "author")
+      {
+        attr1 = "born in " + item['hometown'] + "\n";
+        if(item["description"] != null){
+          attr3 = item["description"].substring(0, 80) + "...";
+        }
+        else {
+          attr3 = "No description";
+        }
+        attr2 = "Needs another attribute";
       }
 
         return(
@@ -556,6 +598,9 @@ var Grid = React.createClass({
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
                {search ? <Highlight search={this.state.value}>{item[name]}</Highlight> : (<p>{item[name]}</p>)} 
+               <p> { attr1 } </p>
+               <p> { attr2 } </p>
+               <p> { attr3 } </p>
           </Col> 
           </LinkContainer>
 
@@ -587,7 +632,7 @@ var Grid = React.createClass({
           <Pagination 
           className="pagination"
           activePage={this.state.activePage}
-          itemsCountPerPage={12}
+          itemsCountPerPage={this.props.itemPerPage}
           totalItemsCount={this.state.datas.length}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}

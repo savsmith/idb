@@ -10,16 +10,16 @@ var BookCarousel = React.createClass({
     return (
           <Carousel showThumbs={false} infiniteLoop={true} autoPlay={true}>
             <div>
-              <img width="100%" src="../static/car_img/carousel1.png" />
+              <img width="100%" src="../static/car_img/car1.png" />
             </div>
             <div>
-              <img width="100%" src="../static/car_img/carousel2.png" />
+              <img width="100%" src="../static/car_img/car2.png" />
             </div>
             <div>
-              <img width="100%" src="../static/car_img/carousel3.png" />
+              <img width="100%" src="../static/car_img/car3.png" />
             </div>
             <div>
-              <img width="100%" src="../static/car_img/carousel4.png" />
+              <img width="100%" src="../static/car_img/car4.png" />
             </div>
           </Carousel>
     )

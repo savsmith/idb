@@ -53,7 +53,7 @@ var Grid = React.createClass({
      var btn = document.createElement("button");
      btn.setAttribute("id", "all");
      btn.setAttribute("type", "button");
-     btn.setAttribute("class", "btn btn-primary");
+     btn.setAttribute("class", "btn buttonColor");
      btn.appendChild(document.createTextNode("Show All"));
 
      document.getElementById("filterGroup").appendChild(btn);
@@ -63,13 +63,13 @@ var Grid = React.createClass({
         var topBooks = document.createElement("button");
         topBooks.setAttribute("id", "topbooks");
         topBooks.setAttribute("type", "button");
-        topBooks.setAttribute("class", "btn btn-primary");
+        topBooks.setAttribute("class", "btn buttonColor");
         topBooks.appendChild(document.createTextNode("Top Rated Books"));
 
         var serieBooks = document.createElement("button");
         serieBooks.setAttribute("id", "seriebooks");
         serieBooks.setAttribute("type", "button");
-        serieBooks.setAttribute("class", "btn btn-primary");
+        serieBooks.setAttribute("class", "btn buttonColor");
         serieBooks.appendChild(document.createTextNode("Series"));
 
         document.getElementById("filterGroup").appendChild(topBooks);
@@ -80,7 +80,7 @@ var Grid = React.createClass({
         var topAuthors = document.createElement("button");
         topAuthors.setAttribute("id", "topauthors");
         topAuthors.setAttribute("type", "button");
-        topAuthors.setAttribute("class", "btn btn-primary");
+        topAuthors.setAttribute("class", "btn buttonColor");
         topAuthors.appendChild(document.createTextNode("Top Rated Authors"));
 
         document.getElementById("filterGroup").appendChild(topAuthors);
@@ -89,13 +89,13 @@ var Grid = React.createClass({
         var lowCnt = document.createElement("button");
         lowCnt.setAttribute("id", "lowcnt");
         lowCnt.setAttribute("type", "button");
-        lowCnt.setAttribute("class", "btn btn-primary");
+        lowCnt.setAttribute("class", "btn buttonColor");
         lowCnt.appendChild(document.createTextNode("Low Vol. Series"));
 
         var highCnt = document.createElement("button");
         highCnt.setAttribute("id", "highcnt");
         highCnt.setAttribute("type", "button");
-        highCnt.setAttribute("class", "btn btn-primary");
+        highCnt.setAttribute("class", "btn buttonColor");
         highCnt.appendChild(document.createTextNode("High Vol. Series"));
 
         document.getElementById("filterGroup").appendChild(lowCnt);
@@ -106,13 +106,13 @@ var Grid = React.createClass({
         var lowRatings = document.createElement("button");
         lowRatings.setAttribute("id", "lowratings");
         lowRatings.setAttribute("type", "button");
-        lowRatings.setAttribute("class", "btn btn-primary");
+        lowRatings.setAttribute("class", "btn buttonColor");
         lowRatings.appendChild(document.createTextNode("Low Ratings"));
 
         var highRatings = document.createElement("button");
         highRatings.setAttribute("id", "highratings");
         highRatings.setAttribute("type", "button");
-        highRatings.setAttribute("class", "btn btn-primary");
+        highRatings.setAttribute("class", "btn buttonColor");
         highRatings.appendChild(document.createTextNode("High Ratings"));
 
         document.getElementById("filterGroup").appendChild(highRatings);
@@ -595,7 +595,7 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={6} sm={3} className="text-center centerCol">
+          <Col xs={6} sm={4} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
                {search ? (<div><p><Highlight search={this.state.value}>{item[name]}</Highlight></p>
                 <p><Highlight search={this.state.value}>{attr1}</Highlight></p>
@@ -620,17 +620,17 @@ var Grid = React.createClass({
         <div className="gridwrapper">
          <form onSubmit={this.handleSubmit}>
           <label>
-            <input type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
+            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
           </label>
-          <Button type="submit">Search</Button>
+          <Button className="buttonColor"type="submit">Search</Button>
         </form>
           <div id='filterGroup' className="btn-group">
             <p>Filter By: &nbsp;</p>
           </div>
           <div className="btn-group">
             <p>Sort By: &nbsp;</p>
-            <button id='ascend' type="button" className="btn btn-primary" onClick={this.sortAscend}>Ascending</button>
-            <button id='descend' type="button" className="btn btn-primary" onClick={this.sortDescend}>Descending</button>
+            <button id='ascend' type="button" className="btn buttonColor" onClick={this.sortAscend}>Ascending</button>
+            <button id='descend' type="button" className="btn buttonColor" onClick={this.sortDescend}>Descending</button>
           </div>
           <Col md={12}>
             {datas}

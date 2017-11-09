@@ -8,7 +8,7 @@ var BookCarousel = React.createClass({
 
   render() {
     return (
-          <Carousel>
+          <Carousel showThumbs={false} infiniteLoop={true} autoPlay={true}>
             <div>
               <img width="100%" src="../static/car_img/carousel1.png" />
             </div>

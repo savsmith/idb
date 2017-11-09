@@ -587,7 +587,7 @@ var Grid = React.createClass({
           <Pagination 
           className="pagination"
           activePage={this.state.activePage}
-          itemsCountPerPage={this.props.itemPerPage}
+          itemsCountPerPage={12}
           totalItemsCount={this.state.datas.length}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}

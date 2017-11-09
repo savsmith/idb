@@ -9,7 +9,7 @@ var ReviewPage = React.createClass({
       return(
         <div className="bookPageWrapper">
           <BookNavbar/>
-          <Grid model="review" itemPerPage={8} name="user" instance="review"></Grid>
+          <Grid model="review" itemPerPage={12} name="user" instance="review"></Grid>
         </div>
       );
   }

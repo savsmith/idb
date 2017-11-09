@@ -548,7 +548,7 @@ var Grid = React.createClass({
         var review = Math.floor(item["rating"]);
         var result = location.concat(review,imgType);
         imgSize = imgSize / 4;
-        var attr1 = item["rating"] + " stars\n";
+        var attr1 = item["rating"] + " stars";
         if(item["review"] != null){
           attr3 = item["review"].substring(0, 80) + "...";
         }
@@ -559,7 +559,7 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "series_i")
       {
-        attr1 = item['count'] + " books\n";
+        attr1 = item['count'] + " books";
         result = "../static/series_art/series.jpg";
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
@@ -571,7 +571,7 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "books")
       {
-        attr1 = "rating " + item['rating'] + "\n";
+        attr1 = "rating " + item['rating'];
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
         }
@@ -582,7 +582,7 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "author")
       {
-        attr1 = "born in " + item['hometown'] + "\n";
+        attr1 = "born in " + item['hometown'];
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
         }
@@ -597,10 +597,18 @@ var Grid = React.createClass({
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={3} className="text-center centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
-               {search ? <Highlight search={this.state.value}>{item[name]}</Highlight> : (<p>{item[name]}</p>)} 
-               <p> { attr1 } </p>
-               <p> { attr2 } </p>
-               <p> { attr3 } </p>
+               {search ? (<div><p><Highlight search={this.state.value}>{item[name]}</Highlight></p>
+                <p><Highlight search={this.state.value}>{attr1}</Highlight></p>
+                <p><Highlight search={this.state.value}>{attr2}</Highlight></p>
+                <p><Highlight search={this.state.value}>{attr3}</Highlight></p>
+               </div>) 
+               : (<div>
+                  <p>{item[name]}</p>
+                  <p>{ attr1 }</p>
+                  <p>{ attr2 }</p>
+                  <p>{ attr3 }</p>
+                  </div>)} 
+
           </Col> 
           </LinkContainer>
 

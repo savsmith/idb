@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'PierSans';
+  src: url(../fonts/PierSans/PierSans-Regular.woff);
+  font-weight: normal;
+  font-style: normal;
+}
+
+.dataWrapper {
+  width:100%;
+  height:50vh;
+  display:flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  background-color: #f2f2f2;
+}
+
+.toolWrapper {
+  width:100%;
+  height:50vh;
+  display:flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.toolBox {
+  width: 40%;
+  height: 50vh;
+  border-radius: 20px;
+  margin-left:5%;
+  background-color: #006258; 
+}
+
+.dataBox {
+  width: 50%;
+  height: 50vh;
+}
+
+.api {
+  margin-top: 7.5%;
+}
+
+.api:hover {
+  z-index: 2;
+  transition: all 200ms ease-in;
+  transform: scale(1.1);
+ }
+
+.toolRightWrapper {
+width:50%;
+height:50vh;
+}
+
+.dataRightWrapper {
+  width:40%;
+  height:50vh;
+  font-family: 'PierSans';
+  font-size: 1em;
+  text-align:left;
+  padding-top:15px;
+}
+
+.toolText {
+  font-family: 'PierSans';
+  color: white;
+  font-size: 4em;
+}
+
+.tool {
+  width: 25%;
+  height: auto;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.tool {
+  width: 25%;
+  height: auto;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.tool:hover {
+  z-index: 2;
+  transition: all 200ms ease-in;
+  transform: scale(1.1);
+ }
+
+.toolImg {
+  width: 55%;
+  height: auto;
+}

@@ -4,6 +4,7 @@
 
     var axios = require('axios');
     require('../css/styles.css');
+    require('../css/about.css');
 
     var About = React.createClass({
        getInitialState: function(){
@@ -73,11 +74,18 @@
                     <ListGroupItem href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp">Technical Document hosted on UTBox </ListGroupItem>
                     <ListGroupItem href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul">UML Diagram hosted on UTBox </ListGroupItem>
                 </ListGroup>
-                <h1>Data</h1>
-                <ListGroup>
-                    <ListGroupItem href="https://www.goodreads.com/api">Goodreads scraped by using NYtimes data and querying for data-</ListGroupItem>
-                    <ListGroupItem href="https://developer.nytimes.com/">New York Times scraped by visiting endpoints</ListGroupItem>
-                    <ListGroupItem>
+        
+                <div className="dataWrapper">
+                <div className="dataBox">
+                <a href = "https://www.goodreads.com/api">
+                    <img className="api" width="90%" src="../static/misc/goodreads.png" />
+                </a>
+                <a href="https://developer.nytimes.com/">
+                    <img className="api" width="100%" src="../static/misc/nytlogo.png" />
+                </a>
+                </div>
+                    <div className="dataRightWrapper">
+                    <h1>How did we scrape?</h1>
                     In order to gather the data for our betterreads database I did not know if we were supposed to use a tool to scrape the database. 
                     I simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
                     series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
@@ -85,16 +93,22 @@
                     method on a few ids and by the end of iterating through it's author's books and it's series's books I have a pretty large database. 
                     After that I have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
                     reviews of a book through their id.
-                    </ListGroupItem>
-                </ListGroup>           
-                <h1>Tools</h1>
-                <ListGroup>
-                    <ListGroupItem>Bootstrap </ListGroupItem>
-                    <ListGroupItem>Flask </ListGroupItem>
-                    <ListGroupItem>Trello </ListGroupItem>
-                    <ListGroupItem>Github </ListGroupItem>
-                    <ListGroupItem>Slack </ListGroupItem>
-                </ListGroup>
+                    </div>
+                </div>
+
+                <div className="toolWrapper">
+                    <div className="toolBox">
+                        <h1 className="toolText">TOOLS</h1>
+                        <img className="toolImg" src={require("../misc/cog.svg")} />
+                    </div>
+                    <div className="toolRightWrapper">
+                        <img className="tool" src={require("../misc/trello.svg")} />
+                        <img className="tool" src={require("../misc/git.svg")} />
+                        <img className="tool" src={require("../misc/logo_flask.svg")} />
+                        <img className="tool" src={require("../misc/slack-1.svg")} />
+                        <img className="tool" src={require("../misc/bootstrap-icon.svg")} />
+                    </div>
+                </div>
                 </div>
         </div>
         );

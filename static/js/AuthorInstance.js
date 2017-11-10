@@ -151,11 +151,13 @@ var AuthorInstance = React.createClass({
         <section className = "upper">
           <img className = "author_img" src={authorObj['large_img']} alt="Author Image" width="300" />
           <center><h1><b>{authorObj['author']}</b></h1></center>
+          
         </section>
         <hr/>
         
       <section className="left">
       <div className="left-div">
+        <h1>{authorObj["gender"]}</h1>
         <h2><b>Hometown: </b>{authorObj['hometown']}</h2>
         <div className = "desc">
           <h2><p><b>Description: </b></p>{authorObj['description']}</h2>

@@ -168,7 +168,7 @@ var Grid = React.createClass({
         for (var property in model[i]) {
           if (model[i][property] !== null){
           var str = (model[i][property]).toString().toLowerCase();
-          if (str.includes(this.state.value)){
+          if (str.includes(this.state.value.toLowerCase())){
             dataArray.push(model[i]);
             break;
           }
@@ -180,7 +180,7 @@ var Grid = React.createClass({
         for (var property in model[i]) {
           if (model[i][property] !== null){
           var str = (model[i][property]).toString().toLowerCase();
-          if (str.includes(this.state.value)){
+          if (str.includes(this.state.value.toLowerCase())){
             initialData.push(model[i]);
             break;
           }
@@ -415,7 +415,7 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].published_year !== null && model[i].published_year <= (new Date()).getFullYear()) {
+           if (model[i].published_year !== null && model[i].published_year <= (new Date()).getFullYear() && model[i].published_year > ((new Date()).getFullYear() - 10)) {
               truelen++;
              dataArray.push(model[i]);
            }
@@ -640,8 +640,7 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-       // attr2 = item["gender"];
-       attr2 = "another attribute needed";
+        attr2 = item["gender"];
       }
 
         return(

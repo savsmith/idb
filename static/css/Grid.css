@@ -35,9 +35,8 @@
 
 .pagination{
   background-color: #006258; 
-  position:absolute;
-  bottom:0;
-  margin: 0 auto;
+  margin-top:15px;
+  margin-left: 3%;
 }
 .pagination a {
   transition: background-color .3s;

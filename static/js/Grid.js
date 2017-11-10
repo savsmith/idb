@@ -72,10 +72,18 @@ var Grid = React.createClass({
         serieBooks.setAttribute("class", "btn buttonColor");
         serieBooks.appendChild(document.createTextNode("Series"));
 
+        var mostRecent = document.createElement("button");
+        mostRecent.setAttribute("id", "mostrecent");
+        mostRecent.setAttribute("type", "button");
+        mostRecent.setAttribute("class", "btn buttonColor");
+        mostRecent.appendChild(document.createTextNode("Most Recent"));
+
         document.getElementById("filterGroup").appendChild(topBooks);
         document.getElementById("filterGroup").appendChild(serieBooks);
+        document.getElementById("filterGroup").appendChild(mostRecent);
         document.getElementById("topbooks").onclick = this.showTopBooks;
         document.getElementById("seriebooks").onclick = this.showSerieBooks;
+        document.getElementById("mostrecent").onclick = this.showMostRecent;
      } else if (this.props.model === "author") {
         var topAuthors = document.createElement("button");
         topAuthors.setAttribute("id", "topauthors");
@@ -396,6 +404,45 @@ var Grid = React.createClass({
      this.handlePageChange(1);
   },
 
+  showMostRecent() {
+      axios.get("http://localhost:5000/all")
+      .then(datas => {
+        var model = datas.data[this.props.model];
+
+        var length = Object.keys(model).length;
+        var dataArray = [];
+        var initialData=[];
+        var truelen = 0;
+
+        for (var i = 0; i < length; i ++){
+           if (model[i].published_year !== null && model[i].published_year <= (new Date()).getFullYear()) {
+              truelen++;
+             dataArray.push(model[i]);
+           }
+        }
+      
+        dataArray.sort(function(a, b) {
+           if(a.published_year > b.published_year) return -1;
+           if(a.published_year < b.published_year) return 1;
+           return 0;
+        })
+  
+        for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
+        }
+  
+          this.setState({
+          datas: dataArray,
+          currentData: initialData
+        }); 
+
+      }).catch(error => {
+          console.log(error); return Promise.reject(error);
+      }); 
+
+     this.handlePageChange(1);
+  },
+
   showLowCnt() {
       axios.get("http://localhost:5000/all")
       .then(datas => {
@@ -559,7 +606,7 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "series_i")
       {
-        attr1 = item['count'] + " books";
+        attr1 = item['primary_count'] + " books";
         result = "../static/series_art/series.jpg";
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
@@ -567,7 +614,11 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Needs another attribute";
+        if(item["numbered"] == 1) {
+          attr2 = "Books ordered";
+        } else {
+          attr2 = "Read in any order";
+        }
       }
       else if (this.props.model === "books")
       {
@@ -578,7 +629,7 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Published: " + item["published_date"];
+        attr2 = "Published: " + item["published_month"] + "/" + item["published_day"] + "/" + item["published_year"];
       }
       else if (this.props.model === "author")
       {
@@ -589,7 +640,7 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Needs another attribute";
+        attr2 = item["gender"];
       }
 
         return(

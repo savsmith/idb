@@ -1,46 +1,34 @@
 import React from 'react';
-import { Carousel, Image, Row, Col } from 'react-bootstrap'
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
-require('../css/styles.css');
+require("../css/styles.css");
 
 var BookCarousel = React.createClass({
-
-  render() {
+  render: function () {
+    var settings = {
+      className: 'center',
+      centerMode: true,
+      infinite: true,
+      autoplaySpeed: 350,
+      slidesToShow: 5,
+      autoPlay: true,
+      focusOnSelect: true
+    };
     return (
-      <div>
-      <h1 id = "awin">Award Winners</h1>
-        <div className = "cons">
-          <Col md={12}>
-            <Carousel>
-               <Carousel.Item>
-                <Row>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book1.png" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book2.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book3.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book4.jpg" responsive /></Col>
-                </Row>
-              </Carousel.Item>              
-              <Carousel.Item>
-                <Row>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book5.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book6.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book7.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book8.jpg" responsive /></Col>
-                </Row>
-              </Carousel.Item>             
-              <Carousel.Item>
-                <Row>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book9.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book2.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book3.jpg" responsive /></Col>
-                  <Col xs={3} md={3}><Image src="../static/car_img/book4.jpg" responsive /></Col>
-                </Row>
-              </Carousel.Item>
-            </Carousel>
-          </Col>
-        </div>
-      </div>
-    )
+      <Slider {...settings} className="bookCarousel">
+        <div><div><img width="100%" height="100%" src="../static/car_img/book1.png"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book2.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book3.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book4.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book5.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book6.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book7.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book8.jpg"/></div></div>
+        <div><div><img width="100%" height="100%" src="../static/car_img/book9.jpg"/></div></div>
+      </Slider>
+    );
   }
 });
 

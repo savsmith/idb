@@ -84,16 +84,35 @@
   top: 27%;
   -webkit-transform: translate(-50%, -27%);
   transform: translate(-50%, -27%);
-} 
+}
 
 /* BookPage ... for now */
 .bookPageWrapper {
   position: relative;
 }
 
+.homePageQuote h1 {
+  font-family: 'Roboto Slab', serif;
+}
+
+.homePageQuote p {
+  font-family: 'Roboto Slab', serif;
+  font-size: small;
+}
+
+.bookCarousel {
+  height: 380px;
+}
+
+.modelCarousel {
+  height: auto;
+  width: 100%;
+}
+
+
 /* Misc. */
 body {
-  background: #f2f1f0;
+  background: #ffffff;
 }
 
 center-block {

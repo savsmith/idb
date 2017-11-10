@@ -79,7 +79,7 @@ $ deactivate
 
 Whenever you want to test the project code Run the following command:
 ```
-npm start
+$ npm start
 ```
 
 you can view the npm script in the package.json file. npm start runs both webpack and python BetterReads.py.
@@ -87,3 +87,23 @@ you can view the npm script in the package.json file. npm start runs both webpac
 webpack bundles the react and other code (think compiling and building the code) while the latter command runs the server locally.
 
 ~~I'm not sure if theres an easier way around this to where we can run the react code separately or not... (I will look into it) but you will have to run these two commands each and every time you make a change... :(~~
+
+# Update 11/10/17 : Improved workflow
+By utlizing the package "concurrently" we can run webpack --watch to watch for changed assets (react files) while running our Flask Betterreads.py file (server, also checks for changes in the python file). 
+
+You can still use npm start to start the script and that's it! No more stopping the server and running the command over and over again. Also do note you have to **ignore cache refresh** on your browser. Below you can see the commands for future reference. 
+
+Mac : Hold both the ⌘ Cmd and ⇧ Shift keys and press the R key 
+Windows : Hold the Ctrl key and press the F5 key.
+
+
+An example for an efficient workflow goes like this : 
+
+```
+$ npm start
+- open incognito tab (haven't tested in regular browser):
+- make a change
+- hard refresh using one of the commands above
+- see the change
+- kill process if terminal needs to be used.
+```

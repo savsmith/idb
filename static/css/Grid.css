@@ -80,6 +80,7 @@
 .grow { 
   transition: all 200ms ease-in;
   transform: scale(1);
+  max-width: 330px;
 }
 
 .centerCol{

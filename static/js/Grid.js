@@ -160,7 +160,7 @@ var Grid = React.createClass({
         for (var property in model[i]) {
           if (model[i][property] !== null){
           var str = (model[i][property]).toString().toLowerCase();
-          if (str.includes(this.state.value)){
+          if (str.includes(this.state.value.toLowerCase())){
             dataArray.push(model[i]);
             break;
           }
@@ -172,7 +172,7 @@ var Grid = React.createClass({
         for (var property in model[i]) {
           if (model[i][property] !== null){
           var str = (model[i][property]).toString().toLowerCase();
-          if (str.includes(this.state.value)){
+          if (str.includes(this.state.value.toLowerCase())){
             initialData.push(model[i]);
             break;
           }

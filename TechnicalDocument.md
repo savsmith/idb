@@ -4,13 +4,16 @@
 - [Running and Developing](#running-and-developing)
 - [API](#api)
   * [Goodreads API](#goodreads-api)
-  * [Google Books API](#google-books-api)
-- [Database](#database)
-- [Models](#api)
+  * [The New York Times API](#the-new-york-times-api)
+- [Database](#database-and-models)
+- [Models](#database-and-models)
   * [Books](#books)
   * [Authors](#authors)
   * [Series](#series)
   * [Reviews](#reviews)
+- [Filtering and Sorting](#filtering-and-sorting)
+- [Pagination](#pagination)
+- [Search](#search)
 - [Tools](#tools)
   * [Flask](#flask)
   * [React](#react)
@@ -28,9 +31,9 @@
   * [Python](#python)
   * [JSON](#json)
   * [Frontend](#frontend)
-    - [HTML5](#html5)
-    - [CSS3](#css)
-    - [Javascript](#javascript)
+    - HTML5
+    - CSS3
+    - Javascript
   * [Google Cloud Platform](#google-cloud-platform)
   * [Box](#box)
   * [Jinja2](#jinja2)
@@ -40,11 +43,11 @@
   * [Pylint](#pylint)
   * [Pydoc](#pydoc)
   * [Unittest](#unittest)
-  * [Python PIP](#pythonpip)
+  * [Python PIP](#python-pip)
   * [Sourcetree](#sourcetree)
   * [SQLAlchemy](#sqlalchemy)
   * [Sqlite3](#sqlite3)
-- [Hosting](#Hosting)
+- [Hosting](#hosting)
 
 # Introduction
 While deciding on different topics for our project, we had settled on a book database named “betterreads”. Since most of us like to read books from time to time, settling on a familiar field will give us an easier time with the project. 
@@ -102,9 +105,9 @@ The Goodreads API allows developers to access data from the goodreads database. 
 The New York Times API allows us to access book metadata to pull data about only bestselling books and their information such as the author of the book, the title and other important attributes that we want to include in our models.  The New York Times API also allows us to access lists of books such that we can organize and filter books by important attributes or genres.  Like the Goodreads API, the New York Times API requires a developer API key in order to make requests.  The New York Times API is where will are pulling our main source of books which we are then accessing in the Goodreads API in order to add additional information that is relevant ot a series, author, book, or reivew.
 
 
-# Database/Models
+# Database and Models
 
-We have implemented a database that holds the information for our models and their relevant attributes for our Betterreads site.  
+We have implemented a database that holds the information for our models and their relevant attributes for our Betterreads site. By utilizing the public API's from Goodreads and New York Times, we were able to merge them and use them for our API.  
 
 ### Books
 
@@ -120,6 +123,18 @@ The Series model will include books in a sequence that contain similar character
 
 ### Reviews
 Reviews are opinions left behind users to either praise or criticise a book.  This model is useful to the user in that they can decide whether a novel is worth their time and money based on the opinions that others have on a book.  Each instance of a review includes the attributes of user, review, rating, spoiler_flag, date_added, book, and author.  The book for a review can be identified by an image as the multimedia for our review page.  The large image of the book title makes the context of the page easier to read as a whole.  The reviews model is connected to the author and the book models.
+
+# Filtering and Sorting
+
+In order to add sorting functionality to our model pages, we defined and implemented JavaScript sort functions unique to each one of our models.  For books, authors, and series, we implemented sort functions that would sort (ascending/descending) all of the instances displayed for each model based on their names in the alphabetical order. For the reviews, we implemented sort functions based on the rating in each review since that would be more practical than sorting the reviews based on the users' names.
+
+for implementing the filtering functionality we had to add the filter buttons provided to the users dynamically since the filter functions had to be unique to each model. As a result, we implemented the filter methods unique to each model and the filter functionality. For instance, for books, we added filter functions that would show only top rated books or only books that are part of a series, and for authors, we provided a filter function that would go through all of the author's book and find the averge rating of that author's books to display only top rated authors. For series, we have filter methods that display series with a low or high number of volumes, and for reviews, we have filters that would display low or high rated reviews only.
+
+# Pagination
+To provide a unique grid-experience for the users' we implemented pagination to minimize scrolling. This provides a nice viewing experience for users as an alternative to scrolling down one page. We utilized a React library called "react-pagination" to help us set up pagination. This library is useful since it can be utilized with some properties right out of the box. The only thing left we had to do was connect our models with the pagination. We set up a function to handle the page changes and set up two arrays; one to represent all of our instances for one model, and one array to keep track of the number of items that should be on a page. Whenever the page would change we would change the offset to the current page multipled by the number of items that should be on that page. This also updates the view layer everytime we call the function so we can view the change without refreshing the page.
+
+# Search 
+To provide user's a way to search for instances on a model page, we implemented search with a html form element. In the html form, we keep track of the search "value" inside the box as a state. Once the user hits search, it calls a function and passes in the search value. We utilized regex and match the value with any part of any attribute for an instance. If we find a hit, we push it into our data array (where we keep all the instances) and update the view layer. We also utilized the "react-highlighter" package to highlight the search value on the model page. User's can also research if the results don't satsify their tastes.
 
 # Tools
 
@@ -156,7 +171,7 @@ We chose to use flask’s json class to import our information in a json file in
 ### Frontend
 * HTML5 - standard markup language we used so that our application could be rendered into intractable/viewable multimedia web pages.
 
-* CSS3 -style sheet language used to unify the interface of our application in addition to making the look of our interface easy to manage and update.
+* CSS3 - style sheet language used to unify the interface of our application in addition to making the look of our interface easy to manage and update.
 
 * Javascript - programming language used to make our web application interactive.
 ### Google Cloud Platform
@@ -188,6 +203,7 @@ Github GUI by Atlassian used to track commits, file status, changes, etc.
 SQLAlchemy is a python sql toolkit and object relational mapper. It was used in this project to create, insert, and query the database. 
 ### Sqlite3
 Sqlite3 is a sql database engine. We used this in order to host our database and then managed it with sqlalchemy.  
+
 # Hosting
 
 Google App Engine is a web framework and cloud computing platform for developing and hosting web applications through Google-managed data centers. In order for our team to host a website on the Google App Engine, we had to create developer accounts through our gmail accounts. 

@@ -77,6 +77,15 @@
                 <ListGroup>
                     <ListGroupItem href="https://www.goodreads.com/api">Goodreads scraped by using NYtimes data and querying for data-</ListGroupItem>
                     <ListGroupItem href="https://developer.nytimes.com/">New York Times scraped by visiting endpoints</ListGroupItem>
+                    <ListGroupItem>
+                    In order to gather the data for our betterreads database I did not know if we were supposed to use a tool to scrape the database. 
+                    I simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
+                    series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
+                    call the get series method which will in turn get all the books of the series. To populate our database I call the get book 
+                    method on a few ids and by the end of iterating through it's author's books and it's series's books I have a pretty large database. 
+                    After that I have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
+                    reviews of a book through their id.
+                    </ListGroupItem>
                 </ListGroup>           
                 <h1>Tools</h1>
                 <ListGroup>

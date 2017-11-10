@@ -27,11 +27,16 @@ class books(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), nullable=False)
     list = db.Column(db.String(250), nullable=True)
-    description = db.Column(db.String(2500), nullable=True)
+    description = db.Column(db.String(2500), nullable=False)
     small_img = db.Column(db.String(250), nullable=True)
-    large_img = db.Column(db.String(250), nullable=True)
+    large_img = db.Column(db.String(250), nullable=False)
+    published_day = db.Column(db.String(250), nullable=True)
+    published_year = db.Column(db.String(250), nullable=True)
+    published_month = db.Column(db.String(250), nullable=True)
     published_date = db.Column(db.String(250), nullable=True)
-    rating = db.Column(db.Float, nullable=True)
+    
+   
+    rating = db.Column(db.Float, nullable=False)
 
     #db.relationships
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
@@ -42,10 +47,11 @@ class author(db.Model):
     __tablename__ = 'author'
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(250), nullable=False)
-    description = db.Column(db.String(2500), nullable=True)
+    description = db.Column(db.String(2500), nullable=False)
     hometown = db.Column(db.String(250), nullable=True)
     small_img = db.Column(db.String(250), nullable=True)
-    large_img = db.Column(db.String(250), nullable=True)
+    large_img = db.Column(db.String(250), nullable=False)
+    gender = db.Column(db.String(250), nullable=True)
 
     #db.relationships
     books = db.relationship("books", backref="author")
@@ -56,8 +62,10 @@ class series(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     series_name = db.Column(db.String(250), nullable=False)
     count = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(2500), nullable=True)
-
+    description = db.Column(db.String(2500), nullable=False)
+    primary_count = db.Column(db.Integer, nullable=False)
+    numbered = db.Column(db.Boolean, nullable=False)
+    
     #db.relationships
     books = db.relationship(books, backref='series')
     authors = db.relationship("author", secondary=series_author_assoc_table, back_populates="series")

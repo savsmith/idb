@@ -12,6 +12,8 @@
   * [Series](#series)
   * [Reviews](#reviews)
 - [Filtering and Sorting](#filtering-and-sorting)
+- [Pagination](#pagination)
+- [Search](#search)
 - [Tools](#tools)
   * [Flask](#flask)
   * [React](#react)
@@ -105,7 +107,7 @@ The New York Times API allows us to access book metadata to pull data about only
 
 # Database and Models
 
-We have implemented a database that holds the information for our models and their relevant attributes for our Betterreads site.  
+We have implemented a database that holds the information for our models and their relevant attributes for our Betterreads site. By utilizing the public API's from Goodreads and New York Times, we were able to merge them and use them for our API.  
 
 ### Books
 
@@ -127,6 +129,12 @@ Reviews are opinions left behind users to either praise or criticise a book.  Th
 In order to add sorting functionality to our model pages, we defined and implemented JavaScript sort functions unique to each one of our models.  For books, authors, and series, we implemented sort functions that would sort (ascending/descending) all of the instances displayed for each model based on their names in the alphabetical order. For the reviews, we implemented sort functions based on the rating in each review since that would be more practical than sorting the reviews based on the users' names.
 
 for implementing the filtering functionality we had to add the filter buttons provided to the users dynamically since the filter functions had to be unique to each model. As a result, we implemented the filter methods unique to each model and the filter functionality. For instance, for books, we added filter functions that would show only top rated books or only books that are part of a series, and for authors, we provided a filter function that would go through all of the author's book and find the averge rating of that author's books to display only top rated authors. For series, we have filter methods that display series with a low or high number of volumes, and for reviews, we have filters that would display low or high rated reviews only.
+
+# Pagination
+To provide a unique grid-experience for the users' we implemented pagination to minimize scrolling. This provides a nice viewing experience for users as an alternative to scrolling down one page. We utilized a React library called "react-pagination" to help us set up pagination. This library is useful since it can be utilized with some properties right out of the box. The only thing left we had to do was connect our models with the pagination. We set up a function to handle the page changes and set up two arrays; one to represent all of our instances for one model, and one array to keep track of the number of items that should be on a page. Whenever the page would change we would change the offset to the current page multipled by the number of items that should be on that page. This also updates the view layer everytime we call the function so we can view the change without refreshing the page.
+
+# Search 
+To provide user's a way to search for instances on a model page, we implemented search with a html form element. In the html form, we keep track of the search "value" inside the box as a state. Once the user hits search, it calls a function and passes in the search value. We utilized regex and match the value with any part of any attribute for an instance. If we find a hit, we push it into our data array (where we keep all the instances) and update the view layer. We also utilized the "react-highlighter" package to highlight the search value on the model page. User's can also research if the results don't satsify their tastes.
 
 # Tools
 

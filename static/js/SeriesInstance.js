@@ -119,6 +119,14 @@ var SeriesInstance = React.createClass({
             </li>
           ));
 
+    var ordered = "";
+    if (seriesObj["numbered"] == 1) {
+      ordered = "Should be read in order";
+    }
+    else {
+      ordered = "Can be read out of order";
+    }
+
     console.log(this.state.booksArray);
     console.log(typeof this.state.booksArray);
 
@@ -133,7 +141,8 @@ var SeriesInstance = React.createClass({
       <section className = "right">
       <div className="info">
         <h2  className="summary"><p><b>Description: </b></p>{ seriesObj["description"] }</h2>
-        <h3> Count: {seriesObj['count']}</h3>
+        <h3> Count: {seriesObj['primary_count']}</h3>
+        <h3> { ordered }</h3>
         <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
       </div>
     </section>

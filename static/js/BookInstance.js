@@ -155,6 +155,7 @@ var BookInstance = React.createClass({
           <h2><b>Rating: </b> {bookObj["rating"]}</h2>
           <h2><b>Series: </b><a href= {"/series/"+ this.state.seriesId }>{seriesObj['series_name'] }</a></h2>
           <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
+          <h2><b>Published: </b>{bookObj["published_month"]}/{bookObj["published_day"]}/{bookObj["published_year"]}</h2>
           <h2><p><b>Reviews: </b></p></h2>
           <ul>
             { reviews }

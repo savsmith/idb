@@ -93,8 +93,8 @@ By utlizing the package "concurrently" we can run webpack --watch to watch for c
 
 You can still use npm start to start the script and that's it! No more stopping the server and running the command over and over again. Also do note you have to **ignore cache refresh** on your browser. Below you can see the commands for future reference. 
 
-Mac : Hold both the ⌘ Cmd and ⇧ Shift keys and press the R key 
-Windows : Hold the Ctrl key and press the F5 key.
+* Mac: Hold both the ⌘ Cmd and ⇧ Shift keys and press the R key 
+* Windows: Hold the Ctrl key and press the F5 key.
 
 
 An example for an efficient workflow goes like this : 

@@ -571,18 +571,18 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "books")
       {
-        attr1 = "rating " + item['rating'];
+        attr1 = "Rating: " + item['rating'];
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
         }
         else {
           attr3 = "No description";
         }
-        attr2 = "Published " + item["published_date"];
+        attr2 = "Published: " + item["published_date"];
       }
       else if (this.props.model === "author")
       {
-        attr1 = "born in " + item['hometown'];
+        attr1 = "Born in: " + item['hometown'];
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
         }
@@ -595,18 +595,18 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={6} sm={4} className="text-center centerCol">
+          <Col xs={6} sm={4} className="centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} width="175px"/> 
-               {search ? (<div><p><Highlight search={this.state.value}>{item[name]}</Highlight></p>
-                <p><Highlight search={this.state.value}>{attr1}</Highlight></p>
-                <p><Highlight search={this.state.value}>{attr2}</Highlight></p>
-                <p><Highlight search={this.state.value}>{attr3}</Highlight></p>
+               {search ? (<div><p id = "titleText" ><Highlight search={this.state.value}>{item[name]}</Highlight></p>
+                <p className="text"><Highlight search={this.state.value}>{attr1}</Highlight></p>
+                <p className="text"><Highlight search={this.state.value}>{attr2}</Highlight></p>
+                <p className="text"><Highlight search={this.state.value}>{attr3}</Highlight></p>
                </div>) 
-               : (<div>
-                  <p>{item[name]}</p>
-                  <p>{ attr1 }</p>
-                  <p>{ attr2 }</p>
-                  <p>{ attr3 }</p>
+               : (<div className="textWrapper">
+                  <p id = "titleText">{item[name]}</p>
+                  <p className="text">{ attr1 }</p>
+                  <p className="text">{ attr2 }</p>
+                  <p className="text">{ attr3 }</p>
                   </div>)} 
 
           </Col> 
@@ -618,19 +618,24 @@ var Grid = React.createClass({
 
       return(
         <div className="gridwrapper">
+        <div className="searchWrapper">
          <form onSubmit={this.handleSubmit}>
           <label>
             <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
           </label>
           <Button className="buttonColor"type="submit">Search</Button>
         </form>
+        </div>
+        <div className = "filterWrapper">
+            <span className="text">Filter By: </span>
           <div id='filterGroup' className="btn-group">
-            <p>Filter By: &nbsp;</p>
           </div>
+          <p>&nbsp;</p>
+            <span className="text">Sort By: </span>
           <div className="btn-group">
-            <p>Sort By: &nbsp;</p>
             <button id='ascend' type="button" className="btn buttonColor" onClick={this.sortAscend}>Ascending</button>
             <button id='descend' type="button" className="btn buttonColor" onClick={this.sortDescend}>Descending</button>
+          </div>
           </div>
           <Col md={12}>
             {datas}

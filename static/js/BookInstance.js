@@ -2,6 +2,7 @@ import React from 'react';
 import BookNavbar from './BookNavbar';
 require('../css/BookInstance.css');
 
+const url = 'http://localhost:5000'
 var axios = require('axios');
 
 var BookInstance = React.createClass({
@@ -17,31 +18,12 @@ var BookInstance = React.createClass({
   },
 
   componentDidMount(){
-    // let data = require('../../realDB.json');
-    //     let datas = data["books"];
-    //     var route = this.props.location.pathname;
-    //     var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-    //     var length = Object.keys(datas).length;
-    //     var book = 0;
-    //     for (var i = 0; i < length; i ++){
-    
-    //         console.log(datas[i]["id"]);
-    //         console.log(bookId);
-    //       if (datas[i]["id"] === bookId) {
-    
-    //         book = i;
-    //       }
-    //     }
-     
-    //     this.setState({
-    //      book:datas[book]
-    //    });
 
       //getting reviews for a book /api/reviews/book/<int:book_id>
       var route = this.props.location.pathname;
       var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
 
-      axios.get("http://localhost:5000/api/reviews/book/" + bookId)
+      axios.get(url+"/api/reviews/book/" + bookId)
            
 
           .then(datas => {
@@ -62,7 +44,7 @@ var BookInstance = React.createClass({
 
 
       //getting a book
-      axios.get("http://localhost:5000/api/books")
+      axios.get(url+"/api/books")
       .then(datas => {
         var route = this.props.location.pathname;
 
@@ -86,7 +68,7 @@ var BookInstance = React.createClass({
       }); 
 
       //getting a series for a book 
-      axios.get("http://localhost:5000/api/series")
+      axios.get(url+"/api/series")
       .then(datas => {
         var seriesId = this.state.seriesId;
         var length = Object.keys(datas.data).length;
@@ -105,7 +87,7 @@ var BookInstance = React.createClass({
       }); 
 
       //getting author for a book
-      axios.get("http://localhost:5000/api/authors")
+      axios.get(url+"/api/authors")
       .then(datas => {
         var authorId = this.state.authorId;
         var length = Object.keys(datas.data).length;

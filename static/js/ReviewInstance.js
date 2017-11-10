@@ -2,6 +2,7 @@ import React from 'react';
 import BookNavbar from './BookNavbar';
 require('../css/ReviewInstance.css');
 
+const url = 'http://localhost:5000';
 var axios = require('axios');
 
 var ReviewInstance = React.createClass({
@@ -18,45 +19,7 @@ var ReviewInstance = React.createClass({
 
   componentDidMount(){
 
-  //   let data = require('../../realDB.json');
-  //   let datas = data["review"];
-  //    var route = this.props.location.pathname;
-  //    var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-  //    var length = Object.keys(datas).length;
-  //    var book = 0;
-  //    for (var i = 0; i < length; i ++){
- 
-  //        console.log(datas[i]["id"]);
-  //        console.log(bookId);
-  //      if (datas[i]["id"] === bookId) {
- 
-  //        book = i;
-  //      }
-  //    }
-  
-  //    this.setState({
-  //      review:datas[book],
-  //      bookId:datas[book]['book_id']
-  //    });
-
-  //    datas = data["books"];
-  //     route = this.props.location.pathname;
-  //     bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-  //     length = Object.keys(datas).length;
-  //     book = 0;
-  //     for (var i = 0; i < length; i ++){
-  
-  //       if (datas[i]["id"] === bookId) {
-  
-  //         book = i;
-  //       }
-  //     }
-   
-  //     this.setState({
-  //       book:datas[book]
-  //     });
-
-      axios.get("http://localhost:5000/api/reviews")
+      axios.get(url+"/api/reviews")
       .then(datas => {
         var route = this.props.location.pathname;
         var reviewId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
@@ -78,7 +41,7 @@ var ReviewInstance = React.createClass({
       }); 
   // TO GET AUTHOR ID FROM ENDPOINT '/api/reviews/<int:review_id>/authors'
       //TO GET BOOK OBJECT
-      axios.get("http://localhost:5000/api/books")
+      axios.get(url+"/api/books")
       .then(datas => {
         var bookId = this.state.bookId;
         var length = Object.keys(datas.data).length;
@@ -98,7 +61,7 @@ var ReviewInstance = React.createClass({
       }); 
 
   //TO GET AUTHOR OBJECT
-      axios.get("http://localhost:5000/api/authors")
+      axios.get(url+"/api/authors")
       .then(datas => {
         var authorId = this.state.authorId;
         var length = Object.keys(datas.data).length;

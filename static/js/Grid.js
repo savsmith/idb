@@ -3,7 +3,7 @@ import Pagination from 'react-js-pagination';
 import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 var Highlight = require('react-highlighter');
-
+const url = 'http://localhost:5000';
 
 var axios = require('axios');
 require('../css/Grid.css');
@@ -23,7 +23,9 @@ var Grid = React.createClass({
   componentDidMount() {
       // for api when it works.
 
-      axios.get("http://localhost:5000/all")
+
+
+      axios.get(url+ "/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -157,12 +159,14 @@ var Grid = React.createClass({
 
   handleSubmit(event){
     event.preventDefault();
-    axios.get("http://localhost:5000/all")
+    axios.get(url+"/all")
     .then(datas => {
       var model = datas.data[this.props.model];
       var length = Object.keys(model).length;
       var dataArray = [];
       var initialData=[];
+
+
 
       for (var i = 0; i < length; i ++){
         for (var property in model[i]) {
@@ -176,20 +180,14 @@ var Grid = React.createClass({
        }
       }
 
-      for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-        for (var property in model[i]) {
-          if (model[i][property] !== null){
-          var str = (model[i][property]).toString().toLowerCase();
-          if (str.includes(this.state.value.toLowerCase())){
-            initialData.push(model[i]);
-            break;
-          }
-        }
-        }
+
+      for (i = 0; i < (this.props.itemPerPage > dataArray.length ? dataArray.length : this.props.itemPerPage) ; i++){
+          initialData.push(dataArray[i]);
       }
+
         this.setState({
-        datas: dataArray,
         currentData: initialData,
+        datas: dataArray,
         search: true
       }); 
     }).catch(error => {
@@ -267,7 +265,7 @@ var Grid = React.createClass({
   },
 
   showAll() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -296,7 +294,7 @@ var Grid = React.createClass({
   },
 
   showTopAuthors() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
         var books = datas.data["books"];
@@ -339,7 +337,7 @@ var Grid = React.createClass({
   },
 
   showTopBooks() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -372,7 +370,7 @@ var Grid = React.createClass({
   },
 
   showSerieBooks() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -405,7 +403,7 @@ var Grid = React.createClass({
   },
 
   showMostRecent() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -444,7 +442,7 @@ var Grid = React.createClass({
   },
 
   showLowCnt() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -477,7 +475,7 @@ var Grid = React.createClass({
   },
 
   showHighCnt() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -510,7 +508,7 @@ var Grid = React.createClass({
   },
 
   showLowRatings() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 
@@ -543,7 +541,7 @@ var Grid = React.createClass({
   },
 
   showHighRatings() {
-      axios.get("http://localhost:5000/all")
+      axios.get(url+"/all")
       .then(datas => {
         var model = datas.data[this.props.model];
 

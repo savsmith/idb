@@ -3,6 +3,7 @@ import BookNavbar from './BookNavbar';
 
 require('../css/SeriesInstance.css');
 var axios = require('axios');
+const url = 'http://localhost:5000';
 
 var SeriesInstance = React.createClass({
   getInitialState:function(){
@@ -18,30 +19,11 @@ var SeriesInstance = React.createClass({
 
   componentDidMount(){
 
-    // let data = require('../../realDB.json');
-    //    let datas = data["series_i"];
-    //     var route = this.props.location.pathname;
-    //     var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
-    //     var length = Object.keys(datas).length;
-    //     var book = 0;
-    //     for (var i = 0; i < length; i ++){
-    
-    //         console.log(datas[i]["id"]);
-    //         console.log(bookId);
-    //       if (datas[i]["id"] === bookId) {
-    
-    //         book = i;
-    //       }
-    //     }
-     
-    //     this.setState({
-    //       series:datas[book]
-    //     });
     var route = this.props.location.pathname;
     var seriesId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
 
     //get author from series for author list
-    axios.get("http://localhost:5000/api/series/" + seriesId + "/books")
+    axios.get(url+"/api/series/" + seriesId + "/books")
            
 
           .then(datas => {
@@ -62,7 +44,7 @@ var SeriesInstance = React.createClass({
           }); 
 
 
-    axios.get("http://localhost:5000/api/series")
+    axios.get(url+"/api/series")
     .then(datas => {
       var route = this.props.location.pathname;
       var seriesId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
@@ -89,7 +71,7 @@ var SeriesInstance = React.createClass({
     
 
       // get author for series
-      axios.get("http://localhost:5000/api/authors")
+      axios.get(url+"/api/authors")
       .then(datas => {
         var authorId = this.state.authorId;
         var length = Object.keys(datas.data).length;

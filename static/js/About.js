@@ -74,18 +74,14 @@
                     <ListGroupItem href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp">Technical Document hosted on UTBox </ListGroupItem>
                     <ListGroupItem href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul">UML Diagram hosted on UTBox </ListGroupItem>
                 </ListGroup>
-        
+            </div>
+
                 <div className="dataWrapper">
                 <div className="dataBox">
-                <a href = "https://www.goodreads.com/api">
-                    <img className="api" width="90%" src="../static/misc/goodreads.png" />
-                </a>
-                <a href="https://developer.nytimes.com/">
-                    <img className="api" width="100%" src="../static/misc/nytlogo.png" />
-                </a>
+                    <img className="scrapeicon" src={require("../misc/scrape.svg")} />
                 </div>
                     <div className="dataRightWrapper">
-                    <h1>How did we scrape?</h1>
+                    <h1>how did we scrape?</h1>
                     In order to gather the data for our betterreads database I did not know if we were supposed to use a tool to scrape the database. 
                     I simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
                     series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
@@ -98,19 +94,19 @@
 
                 <div className="toolWrapper">
                     <div className="toolBox">
-                        <h1 className="toolText">TOOLS</h1>
+                        <span className="toolText">our toolbox</span>
                         <img className="toolImg" src={require("../misc/cog.svg")} />
                     </div>
                     <div className="toolRightWrapper">
-                        <img className="tool" src={require("../misc/trello.svg")} />
+                        <img className="tool" src={require("../misc/trello.png")} />
                         <img className="tool" src={require("../misc/git.svg")} />
-                        <img className="tool" src={require("../misc/logo_flask.svg")} />
-                        <img className="tool" src={require("../misc/slack-1.svg")} />
-                        <img className="tool" src={require("../misc/bootstrap-icon.svg")} />
+                        <img className="tool" id="flask" src={require("../misc/logo_flask.svg")} />
+                        <img className="tool" src={require("../misc/slack.svg")} />
+                        <img className="tool" src={require("../misc/black.png")} />
+                        <img className="tool" src={require("../misc/react.svg")} />
                     </div>
                 </div>
-                </div>
-        </div>
+           </div>
         );
     }
     });

@@ -10,33 +10,36 @@
   height:50vh;
   display:flex;
   justify-content: space-around;
-  margin-bottom: 20px;
-  background-color: #f2f2f2;
+  background-color: #E0F2E9;
 }
 
 .toolWrapper {
   width:100%;
-  height:50vh;
+  height:10vh;
   display:flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .toolBox {
-  width: 40%;
-  height: 50vh;
-  border-radius: 20px;
-  margin-left:5%;
-  background-color: #006258; 
+  width: 25%;
 }
 
 .dataBox {
-  width: 50%;
+  width: 40%;
   height: 50vh;
+}
+
+.scrapeicon {
+height: 90%;
+display: block;
+margin-left: 40%;
+margin-top: 2.5%;
 }
 
 .api {
   margin-top: 7.5%;
+  transition: all 200ms ease-in;
+  transform: scale(1);
 }
 
 .api:hover {
@@ -46,12 +49,13 @@
  }
 
 .toolRightWrapper {
-width:50%;
-height:50vh;
+width:35%;
+height:10vh;
 }
 
 .dataRightWrapper {
   width:40%;
+  margin-right:5%;
   height:50vh;
   font-family: 'PierSans';
   font-size: 1em;
@@ -61,24 +65,22 @@ height:50vh;
 
 .toolText {
   font-family: 'PierSans';
-  color: white;
-  font-size: 4em;
+  font-size: 3em;
+  text-align:left;
 }
 
 .tool {
-  width: 25%;
+  transition: all 200ms ease-in;
+  transform: scale(1);
+  width: 8%;
   height: auto;
   margin-left: 15px;
   margin-right: 15px;
-  margin-top: 15px;
+  margin-top: 2%;
 }
 
-.tool {
-  width: 25%;
-  height: auto;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-top: 15px;
+#flask.tool {
+  width: 12%;
 }
 
 .tool:hover {
@@ -88,6 +90,8 @@ height:50vh;
  }
 
 .toolImg {
-  width: 55%;
+  width: 13%;
   height: auto;
+  margin-bottom: 5%;
+  margin-left: 20px;
 }

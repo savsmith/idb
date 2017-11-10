@@ -606,7 +606,7 @@ var Grid = React.createClass({
       }
       else if (this.props.model === "series_i")
       {
-        attr1 = item['count'] + " books";
+        attr1 = item['primary_count'] + " books";
         result = "../static/series_art/series.jpg";
         if(item["description"] != null){
           attr3 = item["description"].substring(0, 80) + "...";
@@ -614,7 +614,11 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Needs another attribute";
+        if(item["numbered"] == 1) {
+          attr2 = "Books ordered";
+        } else {
+          attr2 = "Read in any order";
+        }
       }
       else if (this.props.model === "books")
       {
@@ -625,7 +629,7 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Published: " + item["published_date"];
+        attr2 = "Published: " + item["published_month"] + "/" + item["published_day"] + "/" + item["published_year"];
       }
       else if (this.props.model === "author")
       {
@@ -636,7 +640,8 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-        attr2 = "Needs another attribute";
+       // attr2 = item["gender"];
+       attr2 = "another attribute needed";
       }
 
         return(
@@ -679,7 +684,7 @@ var Grid = React.createClass({
           </div>
           <p>&nbsp;</p>
             <span className="text">Sort By: </span>
-          <div className="btn-group">
+          <div className="btn-group sort1px">
             <button id='ascend' type="button" className="btn buttonColor" onClick={this.sortAscend}>Ascending</button>
             <button id='descend' type="button" className="btn buttonColor" onClick={this.sortDescend}>Descending</button>
           </div>

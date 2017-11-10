@@ -640,8 +640,7 @@ var Grid = React.createClass({
         else {
           attr3 = "No description";
         }
-       // attr2 = item["gender"];
-       attr2 = "another attribute needed";
+        attr2 = item["gender"];
       }
 
         return(

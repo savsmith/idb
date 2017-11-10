@@ -637,7 +637,7 @@ var Grid = React.createClass({
           </div>
           <p>&nbsp;</p>
             <span className="text">Sort By: </span>
-          <div className="btn-group">
+          <div className="btn-group sort1px">
             <button id='ascend' type="button" className="btn buttonColor" onClick={this.sortAscend}>Ascending</button>
             <button id='descend' type="button" className="btn buttonColor" onClick={this.sortDescend}>Descending</button>
           </div>

@@ -415,7 +415,7 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].published_year !== null && model[i].published_year <= (new Date()).getFullYear()) {
+           if (model[i].published_year !== null && model[i].published_year <= (new Date()).getFullYear() && model[i].published_year > ((new Date()).getFullYear() - 10)) {
               truelen++;
              dataArray.push(model[i]);
            }

@@ -646,10 +646,10 @@ var Grid = React.createClass({
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={6} sm={4} className="centerCol">
               <Image className="slideAndFade grow" src={result} height={imgSize + "px"} /> 
-               {search ? (<div><p id = "titleText" ><Highlight search={this.state.value}>{item[name]}</Highlight></p>
-                <p className="text"><Highlight search={this.state.value}>{attr1}</Highlight></p>
-                <p className="text"><Highlight search={this.state.value}>{attr2}</Highlight></p>
-                <p className="text"><Highlight search={this.state.value}>{attr3}</Highlight></p>
+               {search ? (<div><p id = "titleText" ><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>
+                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr1}</Highlight></p>
+                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr2}</Highlight></p>
+                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr3}</Highlight></p>
                </div>) 
                : (<div className="textWrapper">
                   <p id = "titleText">{item[name]}</p>

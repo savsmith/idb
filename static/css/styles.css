@@ -63,13 +63,13 @@
 /* Parallax - About Page */
 .parallax {
   color: #fff;
-  background-image: url("/static/misc/atx_skyline.jpg");
-
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/misc/about.jpg");
   height: 400px;
+
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: 0 -200px;
   background-size: cover;
 }
 

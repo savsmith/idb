@@ -65,8 +65,7 @@
   color: #fff;
   background-image: url("/static/misc/atx_skyline.jpg");
 
-  min-height: 400px;
-
+  height: 400px;
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
@@ -81,9 +80,8 @@
 #parallax-header {
   position: absolute;
   left: 50%;
-  top: 27%;
-  -webkit-transform: translate(-50%, -27%);
-  transform: translate(-50%, -27%);
+  top: 30%;
+  transform: translate(-50%, -30%);
 }
 
 /* BookPage ... for now */

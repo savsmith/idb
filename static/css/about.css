@@ -5,6 +5,15 @@
   font-style: normal;
 }
 
+.dataLeftWrapper {
+  width: 20%;
+  height: 50vh;
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .dataWrapper {
   width:100%;
   height:50vh;
@@ -25,15 +34,14 @@
 }
 
 .dataBox {
-  width: 40%;
+  width: 20%;
   height: 50vh;
 }
 
 .scrapeicon {
 height: 90%;
 display: block;
-margin-left: 40%;
-margin-top: 2.5%;
+margin-top: 5%;
 }
 
 .api {
@@ -95,3 +103,116 @@ height:10vh;
   margin-bottom: 5%;
   margin-left: 20px;
 }
+
+.hoverInfo {
+  background-color: #FFD166;
+  height: 45%;
+  width: 60%;
+  border-radius: 20px;
+  float:right;
+}
+
+
+#memCol {
+  cursor: pointer;
+  transition: all 200ms ease-in;
+  transform: scale(1);
+}
+
+#memCol:hover {
+  transition: all 200ms ease-in;
+  transform: scale(1.1);
+}
+
+.profile {
+  width: 40%;
+  height: 40%;
+  float:left;
+}
+
+#name {
+  font-family: 'PierSans';
+  font-size: 2em;
+}
+
+.pInfo {
+  font-family: 'PierSans';
+  font-size: 1.1em;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 5%;
+  text-align:left;
+}
+
+.members {
+  margin-top: 2%;
+}
+
+.infoIcon {
+  width: 8%;
+  margin-left: 5%;
+  height: auto;
+}
+
+.teamWrapper {
+  background-color:#FEDB7B;
+  padding-top: 1%;
+}
+
+.statsWrapper {
+  height:70vh;
+  width: 100%;
+  background-color:white;
+}
+
+.statsRightWrapper {
+  width: 70%;
+  height: 70vh;
+  float:right;
+}
+
+.statsLeftWrapper {
+  height: 70vh;
+  width: 20%;
+  float:left;
+}
+
+#booklogo {
+  margin-left: 8%;
+}
+
+.paperImg {
+  width: 100%;
+  margin-top:10%;
+  margin-left:5%;
+}
+
+#apiText {
+  font-family: 'PierSans';
+  text-align:center;
+  font-size: 3em;
+}
+
+.statLinks {
+  transition: all 200ms ease-in;
+  transform: scale(1);
+  width: 6%;
+  height: auto;
+  margin-top:3%;
+}
+
+.sInfo {
+  font-family: 'PierSans';
+  font-size: 1.5em;
+  text-align:left;
+  margin-left:5%;
+  margin-right:5%;
+  margin-top:3%;
+  text-decoration:none;
+}
+
+.statLinks:hover {
+  z-index: 2;
+  transition: all 200ms ease-in;
+  transform: scale(1.1);
+ }

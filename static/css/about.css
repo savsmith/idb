@@ -104,25 +104,48 @@ height:10vh;
   margin-left: 20px;
 }
 
+
+.flipContainer:hover .hoverInfo{
+  transform: rotateY( 180deg );
+}
+
+
 .hoverInfo {
-  background-color: #FFD166;
-  box-shadow: 2px 2px 3px #888888;
-  height: 45%;
-  width: 60%;
-  border-radius: 20px;
+  transform-style: preserve-3d;
+  transition: 1s ;
+  position:relative;
   float:right;
-}
-
-
-#memCol {
+  height: 300px;
+  width: 220px;
   cursor: pointer;
-  transition: all 200ms ease-in;
-  transform: scale(1);
+}
+.backcard {
+  height: 300px;
+  width: 220px;
+  backface-visibility: hidden;
+  position: absolute;
+  background-color: #FFF;
+  box-shadow: 2px 2px 3px #888888;
+  border-radius: 20px;
+  z-index: 4;
+  transform: rotateY( 180deg );
 }
 
-#memCol:hover {
-  transition: all 200ms ease-in;
-  transform: scale(1.1);
+.frontcard {
+  height: 300px;
+  width: 220px;
+  backface-visibility: hidden;
+  position: absolute;
+  background-color: #FFF;
+  box-shadow: 2px 2px 3px #888888;
+  border-radius: 20px;
+  z-index: 5;
+  transform: rotateY(0deg);
+}
+
+.flipContainer {
+  perspective:1000;
+  display: inline-block;
 }
 
 .profile {
@@ -138,7 +161,7 @@ height:10vh;
 
 .pInfo {
   font-family: 'PierSans';
-  font-size: 1.1em;
+  font-size: 1.3em;
   margin-right: 5%;
   margin-left: 5%;
   margin-top: 5%;

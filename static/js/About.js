@@ -150,25 +150,25 @@
                             <Image id="memCol" src={this.imgSource(firstNameKey)} responsive circle height= "150px" width="150px" />
                             <p id="name">{this.props.name}</p>
                         </div>
-                        <div className="hoverInfo">
-                            <p className="pInfo">Responsibilities: {memberArray[firstNameKey][0]}</p>
-                            <p className="pInfo">{memberArray[firstNameKey][1]}</p>
-                            <img className="infoIcon" src={require("../misc/git.svg")} />
-                            <span className="pInfo"> Commits : {this.props.commits}</span>
-                            <p></p>
-                            <img className="infoIcon" src={require("../misc/warning.svg")} />
-                            <span className="pInfo"> Issues : 4</span>
-                            <p></p>
-                            <img className="infoIcon" src={require("../misc/check.svg")} />
-                            <span className="pInfo"> Unit Tests: 3</span> 
-                        </div>
+                        <div className="flipContainer">
+                            <div className="hoverInfo">
+                                <div className="frontcard">
+                                    <p className="pInfo">Responsibilities: {memberArray[firstNameKey][0]}</p>
+                                    <p className="pInfo">{memberArray[firstNameKey][1]}</p>
+                                </div>
 
-{/* 
-                        <p>Responsibilities: {memberArray[firstNameKey][0]}</p>
-                        <p>{memberArray[firstNameKey][1]}</p>
-                        <p>Commits: <Badge className="badgeColor">{this.props.commits}</Badge></p>
-                        <p>Issues: <Badge className="badgeColor">4</Badge></p>
-                        <p>Unit Tests: <Badge className="badgeColor">3</Badge> </p> */}
+                                <div className="backcard">
+                                    <img className="infoIcon" src={require("../misc/git.svg")} />
+                                    <span className="pInfo"> Commits : {this.props.commits}</span>
+                                    <p></p>
+                                    <img className="infoIcon" src={require("../misc/warning.svg")} />
+                                    <span className="pInfo"> Issues : 4</span>
+                                    <p></p>
+                                    <img className="infoIcon" src={require("../misc/check.svg")} />
+                                    <span className="pInfo"> Unit Tests: 3</span> 
+                                </div>
+                            </div>
+                        </div>
                     </Col> 
             );
         },

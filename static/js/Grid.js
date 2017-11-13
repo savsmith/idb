@@ -3,6 +3,7 @@ import Pagination from 'react-js-pagination';
 import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import {Card, CardTitle, CardText, CardMedia} from 'material-ui/Card';
+
 var Highlight = require('react-highlighter');
 const url = 'http://localhost:5000';
 
@@ -596,7 +597,7 @@ var Grid = React.createClass({
         imgSize = imgSize / 4;
         var attr1 = item["rating"] + " stars";
         if(item["review"] != null){
-          attr3 = item["review"].substring(0, 80) + "...";
+          attr3 = item["review"].substring(0, 20) + "...";
         }
         else {
           attr3 = "No review";
@@ -608,7 +609,7 @@ var Grid = React.createClass({
         attr1 = item['primary_count'] + " books";
         result = "../static/series_art/series.jpg";
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 50) + "...";
         }
         else {
           attr3 = "No description";
@@ -623,7 +624,7 @@ var Grid = React.createClass({
       {
         attr1 = "Rating: " + item['rating'];
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 30) + "...";
         }
         else {
           attr3 = "No description";
@@ -634,7 +635,7 @@ var Grid = React.createClass({
       {
         attr1 = "Born in: " + item['hometown'];
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 20) + "...";
         }
         else {
           attr3 = "No description";
@@ -645,23 +646,23 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={6} sm={4} className="centerColu">
-          <div>
-            <Card style={{maxWidth:190}}>
-              <CardTitle title={item[name]} titleStyle={{fontSize:'15px'}}/>
-              <CardMedia>
-                <img src={result} style={{maxWidth:175}}/>
+          <Col xs={5} sm={3} className="centerCol">
+            <div>
+            <Card style={{maxWidth:230, maxHeight: 420}}>
+              <CardMedia
+                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/>}
+              >
+                <img src={result} />
               </CardMedia>
               <CardText>
-                <var>{attr1}</var><br/>
-                <var>{attr2}</var><br/>
+                <var>{attr2}</var>
+                <br/>
                 <var>{attr3}</var>
               </CardText>
             </Card>
           </div>
           </Col>
           </LinkContainer>
-
           </div>
         );
       }.bind(this));

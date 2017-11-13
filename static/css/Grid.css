@@ -34,24 +34,24 @@
 /*left pagination has to change based on range we decide. */
 
 .pagination{
-  background-color: #006258; 
+  background-color: #006258;
   margin-top:15px;
   margin-left: 3%;
 }
 .pagination a {
   transition: background-color .3s;
-  background-color: #006258; 
+  background-color: #006258;
 }
 
 .pagination li.active a {
-  background-color: #006258; 
+  background-color: #006258;
   color: white;
   border-color: #006258;
   cursor: pointer;
 }
 
 .buttonColor{
-  background-color: #006258; 
+  background-color: #006258;
   color: white;
   outline: none;
 }
@@ -63,7 +63,7 @@
 .searchbar {
   border-radius: 30px;
   outline:none;
-  padding-left: 20px;  
+  padding-left: 20px;
 }
 
 @keyframes slideAndFade {
@@ -77,19 +77,18 @@
   }
 }
 
-.grow { 
+.grow {
   transition: all 200ms ease-in;
   transform: scale(1);
 }
 
 .centerCol{
-  background-color: #f2f2f2;
   padding-top: 10px;
   margin-top: 40px;
-  height: 75%;
-  width:350px;
-  box-shadow: 2px 2px 3px #888888;
+  height: 421;
+  width:230px;
   margin-left: 3%;
+  overflow-y: auto;
 }
 
 .grow:hover {

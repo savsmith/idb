@@ -647,10 +647,28 @@ var Grid = React.createClass({
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
           <Col xs={5} sm={3} className="centerCol">
+          {search ? (
             <div>
             <Card style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia
-                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/>}
+                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+              >
+                <img src={result} />
+              </CardMedia>
+              <CardText>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</var>
+                <br/>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</var>
+              </CardText>
+            </Card>
+          </div>
+          ) :
+
+          (
+            <div>
+            <Card style={{maxWidth:230, maxHeight: 420}}>
+              <CardMedia
+                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
               >
                 <img src={result} />
               </CardMedia>
@@ -660,7 +678,8 @@ var Grid = React.createClass({
                 <var>{attr3}</var>
               </CardText>
             </Card>
-          </div>
+          </div> 
+          )}
           </Col>
           </LinkContainer>
           </div>

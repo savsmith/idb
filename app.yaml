@@ -5,5 +5,14 @@ entrypoint: gunicorn -b :$PORT BetterReads:app
 runtime_config:
   python_version: 3
 
+#need to redeploy to test : validating certs
+env_variables:
+   PYTHONHTTPSVERIFY: 1
+
+#need to redeploy to test : SSL library
+libraries:
+- name: ssl
+  version: latest
+
 skip_files:
 - ^(node_modules/.*)

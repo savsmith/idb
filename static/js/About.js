@@ -101,20 +101,20 @@
                 <div className="dataLeftWrapper">
                     <p id="apiText">API</p>
                     <a href = "https://www.goodreads.com/api">
-                     <img className="api" width="100%" src="../static/misc/goodreads.png" />
+                     <img className="api" width="200px" src="../static/misc/goodreads.png" />
                     </a>
                     <a href="https://developer.nytimes.com/">
-                     <img className="api" width="100%" src="../static/misc/nytlogo.png" />
+                     <img className="api" width="200px" src="../static/misc/nytlogo.png" />
                     </a>
                 </div>
                     <div className="dataRightWrapper">
                     <h1>how did we scrape?</h1>
-                    In order to gather the data for our betterreads database I did not know if we were supposed to use a tool to scrape the database. 
-                    I simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
+                    In order to gather the data for our betterreads database 
+                    we simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
                     series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
-                    call the get series method which will in turn get all the books of the series. To populate our database I call the get book 
-                    method on a few ids and by the end of iterating through it's author's books and it's series's books I have a pretty large database. 
-                    After that I have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
+                    call the get series method which will in turn get all the books of the series. To populate our database, a call to the get book 
+                    method on a few ids iterating through it's author's books and it's series's books we are able to populate a pretty large database. 
+                    After that, we have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
                     reviews of a book through their id.
                     </div>
                 </div>

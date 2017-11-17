@@ -48,12 +48,16 @@ margin-top: 5%;
   margin-top: 7.5%;
   transition: all 200ms ease-in;
   transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);  
 }
 
 .api:hover {
   z-index: 2;
   transition: all 200ms ease-in;
   transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);  
  }
 
 .toolRightWrapper {
@@ -79,6 +83,8 @@ height:10vh;
 
 .tool {
   transition: all 200ms ease-in;
+  -webkit-transform: scale(1); 
+  -ms-transform: scale(1);
   transform: scale(1);
   width: 8%;
   height: auto;
@@ -106,12 +112,17 @@ height:10vh;
 
 
 .flipContainer:hover .hoverInfo{
-  transform: rotateY( 180deg );
+  -webkit-transform: rotateY(180deg);  
+  -ms-transform: rotateY(180deg);      
+      transform: rotateY(180deg);          
 }
 
 
 .hoverInfo {
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
+
   transition: 1s ;
   position:relative;
   float:right;
@@ -122,28 +133,36 @@ height:10vh;
 .backcard {
   height: 300px;
   width: 220px;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   position: absolute;
   background-color: #FFF;
   box-shadow: 2px 2px 3px #888888;
   border-radius: 20px;
   z-index: 4;
+  -webkit-transform: rotateY(180deg);  
+  -ms-transform: rotateY(180deg); 
   transform: rotateY( 180deg );
 }
 
 .frontcard {
   height: 300px;
   width: 220px;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   position: absolute;
   background-color: #FFF;
   box-shadow: 2px 2px 3px #888888;
   border-radius: 20px;
   z-index: 5;
+  -webkit-transform: rotateY(0deg);  
+  -ms-transform: rotateY(0deg);  
   transform: rotateY(0deg);
 }
 
 .flipContainer {
+  -webkit-perspective: 1000;  
+  -ms-perspective: 1000;
   perspective:1000;
   display: inline-block;
 }
@@ -219,6 +238,8 @@ height:10vh;
 
 .statLinks {
   transition: all 200ms ease-in;
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);  
   transform: scale(1);
   width: 6%;
   height: auto;
@@ -237,6 +258,8 @@ height:10vh;
 
 .statLinks:hover {
   z-index: 2;
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);  
   transition: all 200ms ease-in;
   transform: scale(1.1);
  }

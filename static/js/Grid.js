@@ -35,12 +35,21 @@ var Grid = React.createClass({
         var dataArray = [];
         var initialData=[];
 
-        for (var i = 0; i < length; i ++){
-          dataArray.push(model[i]);
-        }
+         if (this.props.model === "review"){
+           for (var i = 0; i < length; i ++){
+              if (model[i].review !== null)
+                dataArray.push(model[i]);
+           }
+         } else {
+           for (var i = 0; i < length; i ++){
+             dataArray.push(model[i]);
+           }
+         }
+
+         length = dataArray.length;
 
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-          initialData.push(model[i]);
+          initialData.push(dataArray[i]);
         }
 
 
@@ -275,12 +284,19 @@ var Grid = React.createClass({
         var dataArray = [];
         var initialData=[];
 
-        for (var i = 0; i < length; i ++){
-          dataArray.push(model[i]);
-        }
+         if (this.props.model === "review")
+           for (var i = 0; i < length; i ++){
+              if (model[i].review !== null)
+                dataArray.push(model[i]);
+           }
+         else
+           for (var i = 0; i < length; i ++){
+             dataArray.push(model[i]);
+           }
+
 
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-          initialData.push(model[i]);
+          initialData.push(dataArray[i]);
         }
 
           this.setState({
@@ -520,10 +536,11 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].rating <= 2.5) {
-              truelen++;
-             dataArray.push(model[i]);
-           }
+           if (model[i].review !== null)
+              if (model[i].rating <= 2.5) {
+                 truelen++;
+                dataArray.push(model[i]);
+              }
         }
 
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
@@ -553,10 +570,11 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].rating > 2.5) {
-              truelen++;
-             dataArray.push(model[i]);
-           }
+           if (model[i].review !== null)
+              if (model[i].rating > 2.5) {
+                 truelen++;
+                dataArray.push(model[i]);
+              }
         }
 
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){

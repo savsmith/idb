@@ -24,7 +24,7 @@ var BookInstance = React.createClass({
       var bookId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
 
       axios.get(url+"/api/reviews/book/" + bookId)
-           
+
 
           .then(datas => {
               var reviews = [];
@@ -40,7 +40,7 @@ var BookInstance = React.createClass({
               });
           }).catch(error => {
               console.log(error); return Promise.reject(error);
-          }); 
+          });
 
 
       //getting a book
@@ -52,7 +52,7 @@ var BookInstance = React.createClass({
         console.log(bookId);
         var length = Object.keys(datas.data).length;
         var book = 0;
-        
+
         for (var i = 0; i < length; i ++){
           if (datas.data[i]["id"] === bookId) {
             book = i;
@@ -65,15 +65,15 @@ var BookInstance = React.createClass({
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
-      //getting a series for a book 
+      //getting a series for a book
       axios.get(url+"/api/series")
       .then(datas => {
         var seriesId = this.state.seriesId;
         var length = Object.keys(datas.data).length;
         var series = 0;
-        
+
         for (var i = 0; i < length; i ++){
           if (datas.data[i]["id"] === seriesId) {
             series = i;
@@ -84,7 +84,7 @@ var BookInstance = React.createClass({
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
       //getting author for a book
       axios.get(url+"/api/authors")
@@ -92,7 +92,7 @@ var BookInstance = React.createClass({
         var authorId = this.state.authorId;
         var length = Object.keys(datas.data).length;
         var author = 0;
-        
+
         for (var i = 0; i < length; i ++){
           if (datas.data[i]["id"] === authorId) {
             author = i;
@@ -103,10 +103,10 @@ var BookInstance = React.createClass({
           });
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
       //getting review ids for a book?
-      
+
     },
 
 
@@ -133,7 +133,7 @@ var BookInstance = React.createClass({
 
     <section className ="left">
       <div className="cover">
-          <img src={bookObj["large_img"]} alt="Book Cover Art" width="300px"/> 
+          <img src={bookObj["large_img"]} alt="Book Cover Art" width="200px"/> 
           <h2><b>Rating: </b> {bookObj["rating"]}</h2>
           <h2><b>Series: </b><a href= {"/series/"+ this.state.seriesId }>{seriesObj['series_name'] }</a></h2>
           <h2><b>Author: </b><a href= {"/author/"+ this.state.authorId }>{authorObj['author'] }</a></h2>
@@ -155,5 +155,5 @@ var BookInstance = React.createClass({
       );
   }
 });
-  
-  export default BookInstance; 
+
+  export default BookInstance;

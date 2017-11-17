@@ -2,6 +2,8 @@ import React from 'react';
 import Pagination from 'react-js-pagination';
 import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import {Card, CardTitle, CardText, CardMedia} from 'material-ui/Card';
+
 var Highlight = require('react-highlighter');
 const url = 'http://localhost:5000';
 
@@ -36,21 +38,21 @@ var Grid = React.createClass({
         for (var i = 0; i < length; i ++){
           dataArray.push(model[i]);
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
           initialData.push(model[i]);
         }
 
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData,
           search:false
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      var btn = document.createElement("button");
      btn.setAttribute("id", "all");
@@ -148,7 +150,7 @@ var Grid = React.createClass({
     this.setState({
       activePage: pageNumber,
       offset: offset,
-      currentData:updatedData 
+      currentData:updatedData
     });
 
   },
@@ -189,13 +191,13 @@ var Grid = React.createClass({
         currentData: initialData,
         datas: dataArray,
         search: true
-      }); 
+      });
     }).catch(error => {
         console.log(error); return Promise.reject(error);
-    }); 
+    });
 
   },
-  
+
   sortAscend() {
      let items = this.state.datas;
      if (this.props.model === "books") {
@@ -276,19 +278,19 @@ var Grid = React.createClass({
         for (var i = 0; i < length; i ++){
           dataArray.push(model[i]);
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
           initialData.push(model[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -319,19 +321,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -352,19 +354,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -385,19 +387,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -418,25 +420,25 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-      
+
         dataArray.sort(function(a, b) {
            if(a.published_year > b.published_year) return -1;
            if(a.published_year < b.published_year) return 1;
            return 0;
         })
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -457,19 +459,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -490,19 +492,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -523,19 +525,19 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
@@ -556,25 +558,25 @@ var Grid = React.createClass({
              dataArray.push(model[i]);
            }
         }
-  
+
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
           initialData.push(dataArray[i]);
         }
-  
+
           this.setState({
           datas: dataArray,
           currentData: initialData
-        }); 
+        });
 
       }).catch(error => {
           console.log(error); return Promise.reject(error);
-      }); 
+      });
 
      this.handlePageChange(1);
   },
 
   render: function(){
-    
+
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
       var result = result = item["large_img"];;
@@ -595,7 +597,7 @@ var Grid = React.createClass({
         imgSize = imgSize / 4;
         var attr1 = item["rating"] + " stars";
         if(item["review"] != null){
-          attr3 = item["review"].substring(0, 80) + "...";
+          attr3 = item["review"].substring(0, 20) + "...";
         }
         else {
           attr3 = "No review";
@@ -607,7 +609,7 @@ var Grid = React.createClass({
         attr1 = item['primary_count'] + " books";
         result = "../static/series_art/series.jpg";
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 50) + "...";
         }
         else {
           attr3 = "No description";
@@ -622,7 +624,7 @@ var Grid = React.createClass({
       {
         attr1 = "Rating: " + item['rating'];
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 30) + "...";
         }
         else {
           attr3 = "No description";
@@ -633,7 +635,7 @@ var Grid = React.createClass({
       {
         attr1 = "Born in: " + item['hometown'];
         if(item["description"] != null){
-          attr3 = item["description"].substring(0, 80) + "...";
+          attr3 = item["description"].substring(0, 20) + "...";
         }
         else {
           attr3 = "No description";
@@ -644,23 +646,42 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={6} sm={4} className="centerCol">
-              <Image className="slideAndFade grow" src={result} height={imgSize + "px"} /> 
-               {search ? (<div><p id = "titleText" ><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>
-                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr1}</Highlight></p>
-                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr2}</Highlight></p>
-                <p className="text"><Highlight matchClass = "highlight" search={this.state.value}>{attr3}</Highlight></p>
-               </div>) 
-               : (<div className="textWrapper">
-                  <p id = "titleText">{item[name]}</p>
-                  <p className="text">{ attr1 }</p>
-                  <p className="text">{ attr2 }</p>
-                  <p className="text">{ attr3 }</p>
-                  </div>)} 
+          <Col xs={5} sm={3} className="centerCol">
+          {search ? (
+            <div>
+            <Card style={{maxWidth:230, maxHeight: 420}}>
+              <CardMedia
+                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+              >
+                <img src={result} />
+              </CardMedia>
+              <CardText>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</var>
+                <br/>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</var>
+              </CardText>
+            </Card>
+          </div>
+          ) :
 
-          </Col> 
+          (
+            <div>
+            <Card style={{maxWidth:230, maxHeight: 420}}>
+              <CardMedia
+                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+              >
+                <img src={result} />
+              </CardMedia>
+              <CardText>
+                <var>{attr2}</var>
+                <br/>
+                <var>{attr3}</var>
+              </CardText>
+            </Card>
+          </div>
+          )}
+          </Col>
           </LinkContainer>
-
           </div>
         );
       }.bind(this));
@@ -691,7 +712,7 @@ var Grid = React.createClass({
           </Col>
           { /*left pagination has to change based on range we decide. */ }
 
-          <Pagination 
+          <Pagination
           className="pagination"
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemPerPage}
@@ -703,5 +724,5 @@ var Grid = React.createClass({
       );
   }
 });
-  
-  export default Grid; 
+
+  export default Grid;

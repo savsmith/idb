@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 require('../css/styles.css');
 
 var BookNavbar = React.createClass({
-  
+
     render() {
       return (
         <div>
@@ -31,7 +31,7 @@ var BookNavbar = React.createClass({
                   <LinkContainer to="/reviews">
                     <MenuItem>reviews</MenuItem>
                   </LinkContainer>
-                  
+
                   <LinkContainer to="/about">
                     <MenuItem>about</MenuItem>
                   </LinkContainer>
@@ -42,5 +42,5 @@ var BookNavbar = React.createClass({
       )
     }
   });
-  
-  export default BookNavbar; 
+
+  export default BookNavbar;

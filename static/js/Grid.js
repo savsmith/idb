@@ -669,11 +669,13 @@ var Grid = React.createClass({
             <div>
             <Card style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia
-                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} titleStyle={{fontSize:'15px'}}/> }
               >
                 <img src={result} />
               </CardMedia>
               <CardText>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</var>
+                <br/>
                 <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</var>
                 <br/>
                 <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</var>
@@ -686,11 +688,13 @@ var Grid = React.createClass({
             <div>
             <Card style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia
-                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+                overlay={<CardTitle title={item[name]}  titleStyle={{fontSize:'15px'}}/> }
               >
                 <img src={result} />
               </CardMedia>
               <CardText>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</var>
+                <br/>
                 <var>{attr2}</var>
                 <br/>
                 <var>{attr3}</var>

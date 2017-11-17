@@ -6,6 +6,7 @@ import requests #Watch out for symbolic linking
 import sys
 from pprint import pprint
 from sqlalchemy.exc import IntegrityError
+import re
 
 class InvalidEntry(Exception):
     pass
@@ -15,6 +16,10 @@ API_KEY = {
     'GOOGLE' : 'AIzaSyBZ9fgBDM51R-dC00kPeCa7m7SjOsZm_Vg',
     'NYTIMES' : '1bfa24a95061415dbc8d4a4f136329a5'
 }
+
+def striphtml(data):
+    p = re.compile(r'<.*?>')
+    return p.sub('', data)
 
 def createdb():
     db.create_all()
@@ -62,7 +67,7 @@ def getGRBookByID(id, list=None, prefix=""):
             book = {}
             book['id'] = int(data['id'])
             book['title'] = data['title']
-            book['description'] = data['description']
+            book['description'] = striphtml(data['description'])
             book['small_img'] = data['small_image_url']
             book['large_img'] = data['image_url']
             book['published_date'] = (data['publication_month'] if data['publication_month'] is not None else "unknown_month"
@@ -149,8 +154,8 @@ def getGRAuthorByID(id, book_callee=None, series_callee=None, prefix=""):
             
             auth = {}
             auth['id'] = int(data['id'])
-            auth['author'] = data['name']
-            auth['description'] = data['about']
+            auth['author'] = data['name'] 
+            auth['description'] = striphtml(['about'])
             auth['hometown'] = data['hometown']
             auth['small_img'] = data['small_image_url']
             auth['large_img'] = data['image_url']  
@@ -195,7 +200,7 @@ def getGRSeriesByID(id, prefix=""):
             ser['id'] = int(data['id'])
             ser['series_name'] = data['title']
             ser['count'] = int(data['series_works_count'])
-            ser['description'] = data['description']
+            ser['description'] = striphtml(data['description'])
             ser['primary_count'] = data['primary_work_count']
             ser['numbered'] = data['numbered']
             

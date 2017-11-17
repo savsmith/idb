@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack && python BetterReads.py"
+    "start": "concurrently --kill-others \"webpack -d --config webpack.config.js --watch\" \"python BetterReads.py\""
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/savsmith/idb#readme",
   "devDependencies": {
+    "concurrently": "^3.5.0",
     "webpack": "^3.6.0"
   },
   "dependencies": {

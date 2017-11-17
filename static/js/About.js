@@ -4,6 +4,7 @@
 
     var axios = require('axios');
     require('../css/styles.css');
+    require('../css/about.css');
 
     var About = React.createClass({
        getInitialState: function(){
@@ -41,62 +42,98 @@
             <BookNavbar></BookNavbar>
             <div className="parallax text-center">
                 <div id= "parallax-header">
-                <h1>ABOUT US</h1>
-                <p>Betterreads is a better site to help readers find their next favorite
-                book.</p>
-                <p>Not only is it good, but it's even better!</p>
+                    <h1>ABOUT US</h1>
+                    <p>Betterreads is a better site to help readers find their next favorite
+                    book.</p>
+                    <p>Not only is it good, but it's even better!</p>
+                </div>
             </div>
-            </div>
-            <div className="text-center">
-            <h1> OUR TEAM </h1>
+            
+            <div className="teamWrapper">
                 <Col md={12}>
                     <Row>
+                    <img id="booklogo" height="350px" src="../static/misc/book.png" />
                     <Members name = "Savannah Smith" commits={this.state.commits["savesmith"]}></Members>
                     <Members name = "Kevin Vu" commits={this.state.commits["kkv263"]}></Members>
-                    <Members name = "Manasa Tipparam" commits= {this.state.commits["manasa884"]}></Members>
                     </Row>
                 </Col>
                 <Col md={12}>
                     <Row>
+                    <Members name = "Manasa Tipparam" commits= {this.state.commits["manasa884"]}></Members>
                     <Members name = "Sabrina Reenan" commits={this.state.commits["slr3256"]}></Members>
                     <Members name = "Farnoud Faghihi" commits={this.state.commits["farnoudf"]}></Members>
                     </Row>
                 </Col>
-                <h1>Stats</h1>
-                <ListGroup>
-                    <ListGroupItem>Commits: {this.state.totalCommits}</ListGroupItem>
-                    <ListGroupItem>Issues: </ListGroupItem>
-                    <ListGroupItem>Unit Tests: </ListGroupItem>
-                    <ListGroupItem href="http://docs.savsmith.apiary.io/#">Apiary API </ListGroupItem>
-                    <ListGroupItem href="https://github.com/savsmith/idb">Github Repository </ListGroupItem>
-                    <ListGroupItem href="https://trello.com/b/8ccrHvSD">Trello </ListGroupItem>
-                    <ListGroupItem href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp">Technical Document hosted on UTBox </ListGroupItem>
-                    <ListGroupItem href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul">UML Diagram hosted on UTBox </ListGroupItem>
-                </ListGroup>
-                <h1>Data</h1>
-                <ListGroup>
-                    <ListGroupItem href="https://www.goodreads.com/api">Goodreads scraped by using NYtimes data and querying for data-</ListGroupItem>
-                    <ListGroupItem href="https://developer.nytimes.com/">New York Times scraped by visiting endpoints</ListGroupItem>
-                    <ListGroupItem>
-                    In order to gather the data for our betterreads database I did not know if we were supposed to use a tool to scrape the database. 
-                    I simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
-                    series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
-                    call the get series method which will in turn get all the books of the series. To populate our database I call the get book 
-                    method on a few ids and by the end of iterating through it's author's books and it's series's books I have a pretty large database. 
-                    After that I have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
-                    reviews of a book through their id.
-                    </ListGroupItem>
-                </ListGroup>           
-                <h1>Tools</h1>
-                <ListGroup>
-                    <ListGroupItem>Bootstrap </ListGroupItem>
-                    <ListGroupItem>Flask </ListGroupItem>
-                    <ListGroupItem>Trello </ListGroupItem>
-                    <ListGroupItem>Github </ListGroupItem>
-                    <ListGroupItem>Slack </ListGroupItem>
-                </ListGroup>
+                <p>&nbsp; </p>
+                <div className="statsWrapper">
+                <div className="statsLeftWrapper">
+                    <img className="paperImg" src={require("../misc/paper.png")} />
+                    <p id="apiText">links & statistics</p>
                 </div>
-        </div>
+                <div className="statsRightWrapper">
+                     <img className="statLinks" src="../static/misc/bar.svg" />
+                     <span className="sInfo"> Commits : {this.state.totalCommits} </span>
+                     <img className="statLinks" src="../static/misc/warning.svg" />
+                     <span className="sInfo"> Issues : 20</span>
+                     <img className="statLinks" src="../static/misc/check.svg" />
+                     <span className="sInfo"> Unit Tests : 15</span>
+                     <p>&nbsp;</p>
+                     <img className="statLinks" src="../static/misc/trello.png" />
+                     <a href="https://trello.com/b/8ccrHvSD" className="sInfo">Trello Board</a>
+                     <img className="statLinks" src="../static/misc/apiary.png" />
+                     <a href="http://docs.savsmith.apiary.io/#" className="sInfo">Apiary Docs</a>
+                     <img className="statLinks" src="../static/misc/git.svg" />
+                     <a href="https://github.com/savsmith/idb" className="sInfo">Github Repository</a>
+
+                     <p>&nbsp;</p>
+                     <img className="statLinks" src="../static/misc/tree.svg" />
+                     <a href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul" className="sInfo">UML Diagram hosted on UTBox</a>
+                     <p>&nbsp;</p>
+                     <img className="statLinks" src="../static/misc/file.svg" />
+                     <a href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp" className="sInfo">Techncial Document hosted on UTBox</a>
+                </div>
+                </div>
+            </div>
+                <div className="dataWrapper">
+                <div className="dataBox">
+                    <img className="scrapeicon" src={require("../misc/scrape.svg")} />
+                </div>
+                <div className="dataLeftWrapper">
+                    <p id="apiText">API</p>
+                    <a href = "https://www.goodreads.com/api">
+                     <img className="api" width="200px" src="../static/misc/goodreads.png" />
+                    </a>
+                    <a href="https://developer.nytimes.com/">
+                     <img className="api" width="200px" src="../static/misc/nytlogo.png" />
+                    </a>
+                </div>
+                    <div className="dataRightWrapper">
+                    <h1>how did we scrape?</h1>
+                    In order to gather the data for our betterreads database 
+                    we simply wrote the program createdb.py which filled the database. It has methods that get reviews, books, 
+                    series, and authors. Those get methods build upon themselves, so when a book looks up what series it is in it will 
+                    call the get series method which will in turn get all the books of the series. To populate our database, a call to the get book 
+                    method on a few ids iterating through it's author's books and it's series's books we are able to populate a pretty large database. 
+                    After that, we have to iterate through the reviews to match them with their book id because goodreads does not supply a way to get the 
+                    reviews of a book through their id.
+                    </div>
+                </div>
+
+                <div className="toolWrapper">
+                    <div className="toolBox">
+                        <span className="toolText">our toolbox</span>
+                        <img className="toolImg" src={require("../misc/cog.svg")} />
+                    </div>
+                    <div className="toolRightWrapper">
+                        <img className="tool" src={require("../misc/trello.png")} />
+                        <img className="tool" src={require("../misc/git.svg")} />
+                        <img className="tool" id="flask" src={require("../misc/logo_flask.svg")} />
+                        <img className="tool" src={require("../misc/slack.svg")} />
+                        <img className="tool" src={require("../misc/black.png")} />
+                        <img className="tool" src={require("../misc/react.svg")} />
+                    </div>
+                </div>
+           </div>
         );
     }
     });
@@ -108,14 +145,30 @@
             var firstNameKey = ((this.props.name).substr(0,(this.props.name).indexOf(' '))).toLowerCase();
             var memberArray = this.membersInfo();
             return(
-                    <Col md={4} className="text-center">
-                        <Image src={this.imgSource(firstNameKey)} className="center-block" responsive circle height= "200px" width="200px" />
-                        <h1> {this.props.name} </h1>
-                        <p>Responsibilities: {memberArray[firstNameKey][0]}</p>
-                        <p>{memberArray[firstNameKey][1]}</p>
-                        <p>Commits: <Badge className="badgeColor">{this.props.commits}</Badge></p>
-                        <p>Issues: <Badge className="badgeColor">4</Badge></p>
-                        <p>Unit Tests: <Badge className="badgeColor">3</Badge> </p>
+                    <Col md={4} className="members">
+                        <div className="profile">
+                            <Image id="memCol" src={this.imgSource(firstNameKey)} responsive circle height= "150px" width="150px" />
+                            <p id="name">{this.props.name}</p>
+                        </div>
+                        <div className="flipContainer">
+                            <div className="hoverInfo">
+                                <div className="frontcard">
+                                    <p className="pInfo">Responsibilities: {memberArray[firstNameKey][0]}</p>
+                                    <p className="pInfo">{memberArray[firstNameKey][1]}</p>
+                                </div>
+
+                                <div className="backcard">
+                                    <img className="infoIcon" src={require("../misc/git.svg")} />
+                                    <span className="pInfo"> Commits : {this.props.commits}</span>
+                                    <p></p>
+                                    <img className="infoIcon" src={require("../misc/warning.svg")} />
+                                    <span className="pInfo"> Issues : 4</span>
+                                    <p></p>
+                                    <img className="infoIcon" src={require("../misc/check.svg")} />
+                                    <span className="pInfo"> Unit Tests: 3</span> 
+                                </div>
+                            </div>
+                        </div>
                     </Col> 
             );
         },

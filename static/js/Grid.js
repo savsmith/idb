@@ -678,7 +678,7 @@ var Grid = React.createClass({
                 <var>{attr3}</var>
               </CardText>
             </Card>
-          </div> 
+          </div>
           )}
           </Col>
           </LinkContainer>

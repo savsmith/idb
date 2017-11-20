@@ -25,8 +25,6 @@ var Grid = React.createClass({
   componentDidMount() {
       // for api when it works.
 
-
-
       axios.get(url+ "/all")
       .then(datas => {
         var model = datas.data[this.props.model];
@@ -664,14 +662,14 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={5} sm={3} className="centerCol">
+          <Col xs={5} sm={3} className="centerCol grow">
           {search ? (
             <div>
-            <Card style={{maxWidth:230, maxHeight: 420}}>
-              <CardMedia
+            <Card  style={{maxWidth:230, maxHeight: 420}}>
+              <CardMedia 
                 overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} titleStyle={{fontSize:'15px'}}/> }
               >
-                <img src={result} />
+                <img  src={result} />
               </CardMedia>
               <CardText>
                 <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</var>
@@ -686,7 +684,7 @@ var Grid = React.createClass({
 
           (
             <div>
-            <Card style={{maxWidth:230, maxHeight: 420}}>
+            <Card className="grow" style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia
                 overlay={<CardTitle title={item[name]}  titleStyle={{fontSize:'15px'}}/> }
               >

@@ -19,6 +19,9 @@ var BookNavbar = React.createClass({
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
+                  <LinkContainer to = "/search">
+                    <MenuItem>search</MenuItem>
+                  </LinkContainer>
                   <LinkContainer to="/books">
                     <MenuItem>books</MenuItem>
                   </LinkContainer>
@@ -31,7 +34,6 @@ var BookNavbar = React.createClass({
                   <LinkContainer to="/reviews">
                     <MenuItem>reviews</MenuItem>
                   </LinkContainer>
-
                   <LinkContainer to="/about">
                     <MenuItem>about</MenuItem>
                   </LinkContainer>

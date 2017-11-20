@@ -1,5 +1,6 @@
 import HomePage from './HomePage';
 import About from './About';
+import SearchForm from './SearchForm';
 import BookPage from './BookPage';
 import BookInstance from './BookInstance';
 import AuthorPage from './AuthorPage'
@@ -23,6 +24,7 @@ var App = React.createClass({
           <div>
             <Route exact path = "/" component = {HomePage}></Route>
             <Route path = "/about" component = {About} ></Route>
+            <Route path = "/search" component = {SearchForm} ></Route>
             <Route exact path = "/books" component = {BookPage}></Route>
             <Route exact path = "/book/:book_id" component={BookInstance} ></Route>
             <Route exact path = "/author" component = {AuthorPage}></Route>

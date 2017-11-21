@@ -595,7 +595,7 @@ var Grid = React.createClass({
 
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
-      var result = result = item["large_img"];;
+      var result = result = item["large_img"];
       var route = this.props.instance;
       var name = this.props.name;
       var imgSize = 250;
@@ -691,7 +691,7 @@ var Grid = React.createClass({
                 <img src={result} />
               </CardMedia>
               <CardText>
-                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</var>
+                <var>{attr1}</var>
                 <br/>
                 <var>{attr2}</var>
                 <br/>

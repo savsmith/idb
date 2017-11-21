@@ -23,7 +23,7 @@ var SearchForm = React.createClass({
   },
 
 handlePageChange(pageNumber) {
-  var itemPerPage = 12;
+  var itemPerPage = 10;
   var offset = (pageNumber-1) * itemPerPage;
   var pageItems = offset + itemPerPage;
 
@@ -106,15 +106,16 @@ handleSubmit(event){
         var attr1 = "";
         var attr2 = "";
         var attr3 = "";
+        var result = result = item["large_img"];
   
         if (item['type'] === "review")
         {
+          route = "review";
           name = "Reviewer: " + item['user']
           var location = "../static/review_stars/"
           var imgType = "star.png"
           var review = Math.floor(item["rating"]);
           var result = location.concat(review,imgType);
-          imgSize = imgSize / 4;
           var attr1 = item["rating"] + " stars";
           if(item["review"] != null){
             attr3 = item["review"].substring(0, 500) + "...";
@@ -126,6 +127,7 @@ handleSubmit(event){
         }
         else if (item['type'] === "series_i")
         {
+          route = "series";
           name = "Series: " + item['series_name'];
           attr1 = item['primary_count'] + " books";
           result = "../static/series_art/series.jpg";
@@ -143,6 +145,7 @@ handleSubmit(event){
         }
         else if (item['type'] === "books")
         {
+          route = "book"
           name = "Book: " + item['title'];
           attr1 = "Rating: " + item['rating'];
           if(item["description"] != null){
@@ -155,6 +158,7 @@ handleSubmit(event){
         }
         else if (item['type'] === "author")
         {
+          route="author"
           name = "Author: " + item['author'];
           attr1 = "Born in: " + item['hometown'];
           if(item["description"] != null){
@@ -166,42 +170,59 @@ handleSubmit(event){
           attr2 = item["gender"];
         } 
         return (
-          <div key={index}>
-            <p>{<Highlight matchClass="highlight" search={this.state.value}>{name}</Highlight>}</p>
+          <div className= "resultItem" key={index}>
+          <div className= "grow imagePortion">
+          <a href={"/"+route + "/" + item['id']}  ><img className= "resultImage" src={result}/> 
+            <p>{<Highlight matchClass="highlight" search={this.state.value}>{name}</Highlight>}</p> </a>
+          </div>
+          <div className= "wordPortion">
             <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</p>
             <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</p>
             <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</p>
+          </div>
           </div>
         )
 
       }.bind(this));
       
       return (
-        <div className="searchwrapper"
-          style ={ 
-            {   background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../static/misc/atx_skyline.jpg')",
-                backgroundRepeat  : 'no-repeat',
-                backgroundPosition: '10% 0%',
-                backgroundSize: 'cover',
-                backgroundAttachment: 'fixed'
+         <div>
+
+        {search ? null :
+          (
+            <div className="searchSearchwrapper" style =
+            {{   
+                background: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../static/misc/search.jpg')", 
+                backgroundSize: 'cover'
             }}>
-        <BookNavbar></BookNavbar>
+          <BookNavbar></BookNavbar>
           <div >
+          <h1 className="slogan">Search for your favorite book, </h1>
+          <h1 className="slogan">author, series, or review!</h1>
           <form onSubmit={this.handleSubmit}>
           <label>
-            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
+            <input className="searchSearchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
              />
           </label>
-          <Button className="buttonColor"type="submit">Search</Button>
+          <Button className="buttonColor searchSearchbutton" type="submit">Search</Button>
           </form>
           </div>
-
-          
+          </div>) 
+        }
           
           {search ? (
-          <div className="resultswrapper">
-          {datas}
-
+          <div>
+          <BookNavbar></BookNavbar>
+          <form className = "resultsSearchbar" onSubmit={this.handleSubmit}>
+          <label>
+            <input className="searchbar " type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
+             />
+          </label>
+          <Button className="buttonColor " type="submit">Search</Button>
+          </form> 
+          <div className = "fadeIn" style = {{paddingTop: "10%"}}>
+            {datas}
+          </div>
           <Pagination
           className="pagination"
           activePage={this.state.activePage}

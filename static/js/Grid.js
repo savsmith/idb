@@ -662,10 +662,10 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={5} sm={3} className="centerCol grow">
+          <Col xs={5} sm={3} className="centerCol grow slideAndFade">
           {search ? (
             <div>
-            <Card  style={{maxWidth:230, maxHeight: 420}}>
+            <Card style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia 
                 overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} titleStyle={{fontSize:'15px'}}/> }
               >
@@ -711,7 +711,7 @@ var Grid = React.createClass({
         <div className="searchWrapper">
          <form onSubmit={this.handleSubmit}>
           <label>
-            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try Harry Potter!" />
+            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
           </label>
           <Button className="buttonColor"type="submit">Search</Button>
         </form>
@@ -730,9 +730,7 @@ var Grid = React.createClass({
           <Col md={12}>
             {datas}
           </Col>
-          { /*left pagination has to change based on range we decide. */ }
-
-          <Pagination
+          <Pagination 
           className="pagination"
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemPerPage}

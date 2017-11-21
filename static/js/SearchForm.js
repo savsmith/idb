@@ -3,6 +3,7 @@ import Pagination from 'react-js-pagination';
 import BookNavbar from './BookNavbar';
 import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 require('../css/styles.css');
+require('../css/search.css');
 
 var Highlight = require('react-highlighter');
 var axios = require('axios');
@@ -98,10 +99,9 @@ handleSubmit(event){
 
     render() {
       let datas = this.state.currentData;
-      console.log(datas);
+      var search = this.state.search;
       datas = datas.map(function(item,index){
         var route = this.props.instance;
-        var search = this.state.search;
         var name = "";
         var attr1 = "";
         var attr2 = "";
@@ -167,26 +167,39 @@ handleSubmit(event){
         } 
         return (
           <div key={index}>
-            <p>{name}</p>
-            <p>{attr1}</p>
-            <p>{attr2}</p>
-            <p>{attr3}</p>
+            <p>{<Highlight matchClass="highlight" search={this.state.value}>{name}</Highlight>}</p>
+            <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</p>
+            <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</p>
+            <p>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</p>
           </div>
         )
 
       }.bind(this));
       
       return (
-        <div>
+        <div className="searchwrapper"
+          style ={ 
+            {   background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../static/misc/atx_skyline.jpg')",
+                backgroundRepeat  : 'no-repeat',
+                backgroundPosition: '10% 0%',
+                backgroundSize: 'cover',
+                backgroundAttachment: 'fixed'
+            }}>
         <BookNavbar></BookNavbar>
-          <h1>search</h1>
+          <div >
           <form onSubmit={this.handleSubmit}>
           <label>
-            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
+            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
+             />
           </label>
           <Button className="buttonColor"type="submit">Search</Button>
           </form>
+          </div>
 
+          
+          
+          {search ? (
+          <div className="resultswrapper">
           {datas}
 
           <Pagination
@@ -197,6 +210,10 @@ handleSubmit(event){
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
           />
+          </div>
+          ) : null}
+
+
         </div>
       )
     }

@@ -1,0 +1,32 @@
+
+.searchwrapper {
+  width:100%;
+  height:100vh;
+  position:relative;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchbar {
+  height: 7vh;
+  display:block;
+  margin: 0 auto;
+  margin-bottom: 70%;
+  outline: none;
+  width:600px;
+  border-radius: 30px;
+  color: #464F51;
+  font-size: 1.5em; 
+  padding-left: 20px;
+}
+
+.resultswrapper{
+  position: absolute;
+  bottom:5%;
+  left: 5%;
+  width: 90%;
+  height: 60%;
+  background-color:#FFFFFF;
+  overflow:auto;
+}

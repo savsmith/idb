@@ -711,7 +711,7 @@ var Grid = React.createClass({
         <div className="searchWrapper">
          <form onSubmit={this.handleSubmit}>
           <label>
-            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
+            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try Harry Potter!" />
           </label>
           <Button className="buttonColor"type="submit">Search</Button>
         </form>

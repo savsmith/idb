@@ -1,5 +1,7 @@
 import React from 'react';
+import Pagination from 'react-js-pagination';
 import BookNavbar from './BookNavbar';
+import { Image, Panel, Row, Col, Button, ButtonGroup, } from 'react-bootstrap';
 require('../css/styles.css');
 
 var Highlight = require('react-highlighter');
@@ -19,53 +21,97 @@ var SearchForm = React.createClass({
     }
   },
 
-  componentDidMount() {
-    // for api when it works.
+handlePageChange(pageNumber) {
+  var itemPerPage = 12;
+  var offset = (pageNumber-1) * itemPerPage;
+  var pageItems = offset + itemPerPage;
 
-    axios.get(url+ "/all")
-    .then(datas => {
-      var model = datas.data;
-      var modelNameArray = ["books", "author", "review", "series_i"];
-      var dataArray =[];
-      var initialData=[];
-      var sum = 0;
-      var itemPerPage = 12;
+  if (pageItems> this.state.datas.length){
+      pageItems = this.state.datas.length
+  }
+  var updatedData = [];
+  for (var i=offset; i<pageItems; i++){
+    updatedData.push(this.state.datas[i])
+  }
 
-      for (var j = 0; j < 4; j ++){
-       for (var i = 0; i < Object.keys(model[modelNameArray[j]]).length; i ++){
-         if (modelNameArray[j] === 'review') {
-           if (model[modelNameArray[j]][i].review !== null)
-             dataArray.push(model[modelNameArray[j]][i]);
-           }
-           else {
-             dataArray.push(model[modelNameArray[j]][i]);
-           }
-        }
-      }
-
-      length = dataArray.length;
-
-      for (i = 0; i < (this.props.itemPerPage > length ? length : itemPerPage) ; i++){
-        initialData.push(dataArray[i]);
-      }
-
-      this.setState({
-      datas: dataArray,
-      currentData: initialData,
-      search:false
-      });
-
-    }).catch(error => {
-        console.log(error); return Promise.reject(error);
-    });
+  this.setState({
+    activePage: pageNumber,
+    offset: offset,
+    currentData:updatedData
+  });
 
 },
+
+handleChange(event) {
+  this.setState({value: event.target.value});
+},
+
+handleSubmit(event){
+  event.preventDefault();
+  axios.get(url+"/all")
+  .then(datas => {
+    var model = datas.data;
+    var modelNameArray = ["books", "author", "review", "series_i"];
+    var dataArray =[];
+    var initialData=[];
+    var itemPerPage = 12;
+
+    for (var j = 0; j < 4; j ++){
+     var models = model[modelNameArray[j]]
+     for (var i = 0; i < Object.keys(models).length; i ++){
+        if (modelNameArray[j] === "review"){
+          if (models[i].review === null){
+            continue;
+          }
+        }
+        for (var property in models[i]) {
+          if (models[i][property] !== null ){
+          var str = (models[i][property]).toString().toLowerCase();
+          if (str.includes(this.state.value.toLowerCase())){
+            dataArray.push(models[i]);
+            break;
+        }
+       }
+      }
+     }
+    }
+
+    for (i = 0; i < (this.props.itemPerPage > dataArray.length ? dataArray.length : this.props.itemPerPage) ; i++){
+        initialData.push(dataArray[i]);
+    }
+
+      this.setState({
+      currentData: initialData,
+      datas: dataArray,
+      search: true
+    });
+  }).catch(error => {
+      console.log(error); return Promise.reject(error);
+  });
+
+},
+
 
     render() {
       return (
         <div>
         <BookNavbar></BookNavbar>
           <h1>search</h1>
+          <form onSubmit={this.handleSubmit}>
+          <label>
+            <input className="searchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Search" />
+          </label>
+          <Button className="buttonColor"type="submit">Search</Button>
+          </form>
+
+          <Pagination
+          className="pagination"
+          activePage={this.state.activePage}
+          itemsCountPerPage={12}
+          totalItemsCount={this.state.datas.length}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange}
+          />
         </div>
       )
     }

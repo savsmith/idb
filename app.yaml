@@ -9,10 +9,5 @@ runtime_config:
 env_variables:
    PYTHONHTTPSVERIFY: 1
 
-#need to redeploy to test : SSL library
-libraries:
-- name: ssl
-  version: latest
-
 skip_files:
 - ^(node_modules/.*)

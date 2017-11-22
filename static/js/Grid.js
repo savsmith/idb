@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {Card, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 
 var Highlight = require('react-highlighter');
-const url = 'http://localhost:5000';
+const url ='http://localhost:5000';
 
 var axios = require('axios');
 require('../css/Grid.css');

@@ -2,7 +2,7 @@ import React from 'react';
 import BookNavbar from './BookNavbar';
 require('../css/BookInstance.css');
 
-const url = 'http://localhost:5000'
+const url ='http://localhost:5000';
 var axios = require('axios');
 
 var BookInstance = React.createClass({

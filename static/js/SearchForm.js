@@ -8,7 +8,7 @@ require('../css/search.css');
 var Highlight = require('react-highlighter');
 var axios = require('axios');
 
-const url = 'http://localhost:5000';
+const url ='http://localhost:5000';
 
 var SearchForm = React.createClass({
   getInitialState:function(){

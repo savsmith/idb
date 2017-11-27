@@ -214,6 +214,11 @@ def get_all_authors():
     else:
         return bad_request("sort")
 
+    if offset < 0:
+        return bad_request("offset")
+    if limit <= 0:
+        return bad_request("limit")
+
     tmp = []
     idx = 0
     for e in items:
@@ -271,6 +276,11 @@ def get_all_series():
     else:
         return bad_request("sort")
 
+    if offset < 0:
+        return bad_request("offset")
+    if limit <= 0:
+        return bad_request("limit")
+
     tmp = []
     idx = 0
     for e in items:
@@ -327,6 +337,11 @@ def get_all_reviews():
             return bad_request("filter")
     else:
         return bad_request("sort")
+
+    if offset < 0:
+        return bad_request("offset")
+    if limit <= 0:
+        return bad_request("limit")
 
     tmp = []
     idx = 0

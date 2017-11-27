@@ -161,7 +161,40 @@ def get_all_books():
 
 @app.route('/api/authors', methods = ['GET'])
 def get_all_authors():
-    js = json.dumps([dict(a) for a in db.engine.execute("select * from author")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0) order by author")]
+        else:
+            items = [dict(a) for a in db.engine.execute("select * from author order by author")]
+    elif sort == "desc":
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0) order by author desc")]
+        else:
+            items = [dict(a) for a in db.engine.execute("select * from author order by author desc")]
+    else:
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0)")]
+        else:
+            items = [dict(a) for a in db.engine.execute("select * from author")]
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    items = tmp
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp

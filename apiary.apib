@@ -65,15 +65,19 @@ Betterreads is an API for scraping book related data
 + Response 200 (application/json)
 
         {
-            "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com",
-            "id": 1,
-            "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg",
-            "list": null,
-            "published_date": "9",
-            "rating": 4.54,
-            "series_id": null,
-            "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg",
-            "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
+                "author_id": 1077326,
+                "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com",
+                "id": 1,
+                "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg",
+                "list": null,
+                "published_date": "9",
+                "published_day": "16",
+                "published_month": "9",
+                "published_year": "2006",
+                "rating": 4.54,
+                "series_id": 45175,
+                "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg",
+                "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
         }
         
 + Response 404 (application/json)
@@ -82,16 +86,22 @@ Betterreads is an API for scraping book related data
             "error": "book id not found"
         }
 
-## Author Collection [/authors]
+## Author Collection [/authors{?limit,offset,filter,sort}]
 
 ### List all Authors [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `top`) ... the only acceptable value for filter is: 'top', which results in returning top rated authors (don't set this parameter for no filtering).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting authors by name (don't set this parameter for not sorting).
+ 
 + Response 200 (application/json)
 
         [
             {
                 "author": "Douglas Adams",
                 "description": "Douglas No\u00ebl Adams was an English author, comic radio dramatist, and musician. He is best known as the author of the <i>\n  <a href=\"https://www.goodreads.com/book/show/11.Hitchhiker_s_Guide_to_the_Galaxy\" title=\"Hitchhiker's Guide to the Galaxy\" rel=\"nofollow\">Hitchhiker's Guide to the Galaxy</a>\n</i> series. Hitchhiker's began on radio, and developed into a \"trilogy\" of five books (which sold more than fifteen million copies during his lifetime) as well as a television series, a comic book series, a computer game, and a feature film that was completed after Adams' death. The series has also been adapted for live theatre using various scripts; the earliest such productions used material newly written by Adams. He was known to some fans as Bop Ad (after his illegible signature), or by his initials \"DNA\".<br /><br />In addition to <i>The Hitchhiker's Guide to the Galaxy</i>, Douglas Adams wrote or co-wrote three stories of the science fiction television series Doctor Who and served as Script Editor during the seventeenth season. His other written works include the Dirk Gently novels, and he co-wrote two Liff books and <i>Last Chance to See</i>, itself based on a radio series. Adams also originated the idea for the computer game <i>Starship Titanic</i>, which was produced by a company that Adams co-founded, and adapted into a novel by Terry Jones. A posthumous collection of essays and other material, including an incomplete novel, was published as <i>\n  <a href=\"https://www.goodreads.com/book/show/359.The_Salmon_of_Doubt\" title=\"The Salmon of Doubt\" rel=\"nofollow\">The Salmon of Doubt</a>\n</i> in 2002.<br /><br />His fans and friends also knew Adams as an environmental activist and a lover of fast cars, cameras, the Macintosh computer, and other \"techno gizmos\". <br /><br />Toward the end of his life he was a sought-after lecturer on topics including technology and the environment.",
+                "gender": "male",
                 "hometown": "Cambridge, England",
                 "id": 4,
                 "large_img": "https://images.gr-assets.com/authors/1189120061p5/4.jpg",
@@ -100,20 +110,19 @@ Betterreads is an API for scraping book related data
             {
                 "author": "Bill Bryson",
                 "description": "William McGuire \"Bill\" Bryson, OBE, FRS<br /><br />Bill Bryson was born in Des Moines, Iowa, in 1951. He settled in England in 1977, and worked in journalism until he became a full time writer. He lived for many years with his English wife and four children in North Yorkshire. He and his family then moved to New Hampshire in America for a few years, but they have now returned to live in the UK.<br /><br />In <i>The Lost Continent</i>, Bill Bryson's hilarious first travel book, he chronicled a trip in his mother's Chevy around small town America. It was followed by <i>Neither Here Nor There</i>, an account of his first trip around Europe. Other travel books include the massive bestseller <i>Notes From a Small Island</i>, which won the 2003 World Book Day National Poll to find the book which best represented modern England, followed by <i>A Walk in the Woods</i> (in which Stephen Katz, his travel companion from <i>Neither Here Nor There</i>, made a welcome reappearance), <i>Notes From a Big Country</i> and <i>Down Under</i>.<br /><br />Bill Bryson has also written several highly praised books on the English language, including <i>Mother Tongue</i> and <i>Made in America</i>. In his last book, he turned his attention to science. <i>A Short History of Nearly Everything</i> was lauded with critical acclaim, and became a huge bestseller. It was shortlisted for the Samuel Johnson Prize, before going on to win the Aventis Prize for Science Books and the Descartes Science Communication Prize. His next book, <i>The Life and Times of the Thunderbolt Kid</i>, is a memoir of growing up in 1950s America, featuring another appearance from his old friend Stephen Katz. October 8 sees the publication of <i>A Really Short History of Nearly Everything<i>.</i></i>",
+                "gender": "male",
                 "hometown": "Des Moines, Polk County, Iowa",
                 "id": 7,
                 "large_img": "https://images.gr-assets.com/authors/1189096502p5/7.jpg",
                 "small_img": "https://images.gr-assets.com/authors/1189096502p2/7.jpg"
-            },
-            {
-                "author": "James Hamilton-Paterson",
-                "description": "James Hamilton-Paterson's work has been translated into many languages. He is a highly acclaimed author of non-fiction books, including Seven-Tenths, Three Miles Down and Playing with Water, as well as America's Boy, a study of Ferdinand Marcos and the Philippines. Gerontius, his first novel, won the Whitbread Award, while his most recent, Loving Monsters (2001), was praised by the Sunday Telegraph as 'tantalising, erudite and ingenious'. He lives in Italy.",
-                "hometown": "London",
-                "id": 12,
-                "large_img": "https://images.gr-assets.com/authors/1270517383p5/12.jpg",
-                "small_img": "https://images.gr-assets.com/authors/1270517383p2/12.jpg"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
 
 ## Author [/authors/{id}]
 
@@ -125,12 +134,13 @@ Betterreads is an API for scraping book related data
 + Response 200 (application/json)
 
         {
-            "author": "James Hamilton-Paterson",
-            "description": "James Hamilton-Paterson's work has been translated into many languages. He is a highly acclaimed author of non-fiction books, including Seven-Tenths, Three Miles Down and Playing with Water, as well as America's Boy, a study of Ferdinand Marcos and the Philippines. Gerontius, his first novel, won the Whitbread Award, while his most recent, Loving Monsters (2001), was praised by the Sunday Telegraph as 'tantalising, erudite and ingenious'. He lives in Italy.",
-            "hometown": "London",
-            "id": 12,
-            "large_img": "https://images.gr-assets.com/authors/1270517383p5/12.jpg",
-            "small_img": "https://images.gr-assets.com/authors/1270517383p2/12.jpg"
+                "author": "Douglas Adams",
+                "description": "Douglas No\u00ebl Adams was an English author, comic radio dramatist, and musician. He is best known as the author of the <i>\n  <a href=\"https://www.goodreads.com/book/show/11.Hitchhiker_s_Guide_to_the_Galaxy\" title=\"Hitchhiker's Guide to the Galaxy\" rel=\"nofollow\">Hitchhiker's Guide to the Galaxy</a>\n</i> series. Hitchhiker's began on radio, and developed into a \"trilogy\" of five books (which sold more than fifteen million copies during his lifetime) as well as a television series, a comic book series, a computer game, and a feature film that was completed after Adams' death. The series has also been adapted for live theatre using various scripts; the earliest such productions used material newly written by Adams. He was known to some fans as Bop Ad (after his illegible signature), or by his initials \"DNA\".<br /><br />In addition to <i>The Hitchhiker's Guide to the Galaxy</i>, Douglas Adams wrote or co-wrote three stories of the science fiction television series Doctor Who and served as Script Editor during the seventeenth season. His other written works include the Dirk Gently novels, and he co-wrote two Liff books and <i>Last Chance to See</i>, itself based on a radio series. Adams also originated the idea for the computer game <i>Starship Titanic</i>, which was produced by a company that Adams co-founded, and adapted into a novel by Terry Jones. A posthumous collection of essays and other material, including an incomplete novel, was published as <i>\n  <a href=\"https://www.goodreads.com/book/show/359.The_Salmon_of_Doubt\" title=\"The Salmon of Doubt\" rel=\"nofollow\">The Salmon of Doubt</a>\n</i> in 2002.<br /><br />His fans and friends also knew Adams as an environmental activist and a lover of fast cars, cameras, the Macintosh computer, and other \"techno gizmos\". <br /><br />Toward the end of his life he was a sought-after lecturer on topics including technology and the environment.",
+                "gender": "male",
+                "hometown": "Cambridge, England",
+                "id": 4,
+                "large_img": "https://images.gr-assets.com/authors/1189120061p5/4.jpg",
+                "small_img": "https://images.gr-assets.com/authors/1189120061p2/4.jpg"
         }
         
 + Response 404 (application/json)

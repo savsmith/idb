@@ -2,8 +2,10 @@ from flask import Flask, redirect, url_for, request, render_template, make_respo
 import requests
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betterreads.db'
@@ -101,7 +103,7 @@ def get_db():
 
     resp = jsonify({"books": book_list, "author": author_list, "series_i": series_list, "review": reviews_list})
     resp.status_code = 200
-    resp.headers['Link'] = 'http://betterreads.me'
+    resp.headers['Link'] = 'https://betterreads.me'
 
     return resp
 

@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {Card, CardTitle, CardText, CardMedia} from 'material-ui/Card';
 
 var Highlight = require('react-highlighter');
-const url = 'http://localhost:5000';
+const url ='http://localhost:5000';
 
 var axios = require('axios');
 require('../css/Grid.css');
@@ -25,8 +25,6 @@ var Grid = React.createClass({
   componentDidMount() {
       // for api when it works.
 
-
-
       axios.get(url+ "/all")
       .then(datas => {
         var model = datas.data[this.props.model];
@@ -35,12 +33,21 @@ var Grid = React.createClass({
         var dataArray = [];
         var initialData=[];
 
-        for (var i = 0; i < length; i ++){
-          dataArray.push(model[i]);
-        }
+         if (this.props.model === "review"){
+           for (var i = 0; i < length; i ++){
+              if (model[i].review !== null)
+                dataArray.push(model[i]);
+           }
+         } else {
+           for (var i = 0; i < length; i ++){
+             dataArray.push(model[i]);
+           }
+         }
+
+         length = dataArray.length;
 
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-          initialData.push(model[i]);
+          initialData.push(dataArray[i]);
         }
 
 
@@ -275,12 +282,19 @@ var Grid = React.createClass({
         var dataArray = [];
         var initialData=[];
 
-        for (var i = 0; i < length; i ++){
-          dataArray.push(model[i]);
-        }
+         if (this.props.model === "review")
+           for (var i = 0; i < length; i ++){
+              if (model[i].review !== null)
+                dataArray.push(model[i]);
+           }
+         else
+           for (var i = 0; i < length; i ++){
+             dataArray.push(model[i]);
+           }
+
 
         for (i = 0; i < (this.props.itemPerPage > length ? length : this.props.itemPerPage) ; i++){
-          initialData.push(model[i]);
+          initialData.push(dataArray[i]);
         }
 
           this.setState({
@@ -520,10 +534,11 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].rating <= 2.5) {
-              truelen++;
-             dataArray.push(model[i]);
-           }
+           if (model[i].review !== null)
+              if (model[i].rating <= 2.5) {
+                 truelen++;
+                dataArray.push(model[i]);
+              }
         }
 
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
@@ -553,10 +568,11 @@ var Grid = React.createClass({
         var truelen = 0;
 
         for (var i = 0; i < length; i ++){
-           if (model[i].rating > 2.5) {
-              truelen++;
-             dataArray.push(model[i]);
-           }
+           if (model[i].review !== null)
+              if (model[i].rating > 2.5) {
+                 truelen++;
+                dataArray.push(model[i]);
+              }
         }
 
         for (i = 0; i < (this.props.itemPerPage > truelen ? truelen : this.props.itemPerPage) ; i++){
@@ -579,7 +595,7 @@ var Grid = React.createClass({
 
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
-      var result = result = item["large_img"];;
+      var result = result = item["large_img"];
       var route = this.props.instance;
       var name = this.props.name;
       var imgSize = 250;
@@ -646,16 +662,18 @@ var Grid = React.createClass({
         return(
           <div key={index}>
           <LinkContainer to={"/"+route + "/" + item['id']} >
-          <Col xs={5} sm={3} className="centerCol">
+          <Col xs={5} sm={3} className="centerCol grow slideAndFade">
           {search ? (
             <div>
             <Card style={{maxWidth:230, maxHeight: 420}}>
-              <CardMedia
-                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+              <CardMedia 
+                overlay={<CardTitle title={<p><Highlight matchClass="highlight" search={this.state.value}>{item[name]}</Highlight></p>} titleStyle={{fontSize:'15px'}}/> }
               >
-                <img src={result} />
+                <img  src={result} />
               </CardMedia>
               <CardText>
+                <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr1}</Highlight>}</var>
+                <br/>
                 <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr2}</Highlight>}</var>
                 <br/>
                 <var>{<Highlight matchClass="highlight" search={this.state.value}>{attr3}</Highlight>}</var>
@@ -666,13 +684,15 @@ var Grid = React.createClass({
 
           (
             <div>
-            <Card style={{maxWidth:230, maxHeight: 420}}>
+            <Card className="grow" style={{maxWidth:230, maxHeight: 420}}>
               <CardMedia
-                overlay={<CardTitle title={item[name]} subtitle={attr1} titleStyle={{fontSize:'15px'}}/> }
+                overlay={<CardTitle title={item[name]}  titleStyle={{fontSize:'15px'}}/> }
               >
                 <img src={result} />
               </CardMedia>
               <CardText>
+                <var>{attr1}</var>
+                <br/>
                 <var>{attr2}</var>
                 <br/>
                 <var>{attr3}</var>
@@ -710,9 +730,7 @@ var Grid = React.createClass({
           <Col md={12}>
             {datas}
           </Col>
-          { /*left pagination has to change based on range we decide. */ }
-
-          <Pagination
+          <Pagination 
           className="pagination"
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.itemPerPage}

@@ -1,6 +1,6 @@
     import React from 'react';
     import BookNavbar from './BookNavbar';
-    import { Carousel, Image, Row, Col, Badge, ListGroup, ListGroupItem } from 'react-bootstrap';
+    import { Carousel, Image, Row, Col, Badge, ListGroup, ListGroupItem, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
     var axios = require('axios');
     require('../css/styles.css');
@@ -74,9 +74,9 @@
                      <img className="statLinks" src="../static/misc/bar.svg" />
                      <span className="sInfo"> Commits : {this.state.totalCommits} </span>
                      <img className="statLinks" src="../static/misc/warning.svg" />
-                     <span className="sInfo"> Issues : 20</span>
+                     <span className="sInfo"> Issues : 100</span>
                      <img className="statLinks" src="../static/misc/check.svg" />
-                     <span className="sInfo"> Unit Tests : 15</span>
+                     <span className="sInfo"> Unit Tests : 25</span>
                      <p>&nbsp;</p>
                      <img className="statLinks" src="../static/misc/trello.png" />
                      <a href="https://trello.com/b/8ccrHvSD" className="sInfo">Trello Board</a>
@@ -86,11 +86,10 @@
                      <a href="https://github.com/savsmith/idb" className="sInfo">Github Repository</a>
 
                      <p>&nbsp;</p>
-                     <img className="statLinks" src="../static/misc/tree.svg" />
-                     <a href="https://utexas.box.com/s/whm38m1c2xf01pnkwj2qigqjjslteaul" className="sInfo">UML Diagram hosted on UTBox</a>
-                     <p>&nbsp;</p>
+                     <img className="statLinks" src="../static/misc/gitbook.png" />
+                     <a href="https://www.gitbook.com/book/kkv263/techincal-document/details" className="sInfo">GitBook Report</a>
                      <img className="statLinks" src="../static/misc/file.svg" />
-                     <a href="https://utexas.box.com/s/8j8md4w42dgvzja6zk1qmut3dpz1y8tp" className="sInfo">Techncial Document hosted on UTBox</a>
+                     <a href="https://gitpitch.com/savsmith/idb" className="sInfo">GitPitch Presentation</a>
                 </div>
                 </div>
             </div>
@@ -125,12 +124,24 @@
                         <img className="toolImg" src={require("../misc/cog.svg")} />
                     </div>
                     <div className="toolRightWrapper">
-                        <img className="tool" src={require("../misc/trello.png")} />
-                        <img className="tool" src={require("../misc/git.svg")} />
-                        <img className="tool" id="flask" src={require("../misc/logo_flask.svg")} />
-                        <img className="tool" src={require("../misc/slack.svg")} />
-                        <img className="tool" src={require("../misc/black.png")} />
-                        <img className="tool" src={require("../misc/react.svg")} />
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Trello</Tooltip>}>
+                      <img className="tool" src={require("../misc/trello.png")} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Github</Tooltip>}>
+                      <img className="tool" src={require("../misc/git.svg")} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Flask</Tooltip>}>
+                      <img className="tool" id="flask" src={require("../misc/logo_flask.svg")} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Slack</Tooltip>}>
+                      <img className="tool" src={require("../misc/slack.svg")} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>React-Bootstrap</Tooltip>}>
+                      <img className="tool" src={require("../misc/black.png")} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>React</Tooltip>}>
+                      <img className="tool" src={require("../misc/react.svg")} />
+                    </OverlayTrigger>
                     </div>
                 </div>
            </div>
@@ -162,10 +173,10 @@
                                     <span className="pInfo"> Commits : {this.props.commits}</span>
                                     <p></p>
                                     <img className="infoIcon" src={require("../misc/warning.svg")} />
-                                    <span className="pInfo"> Issues : 4</span>
+                                    <span className="pInfo"> Issues : 25</span>
                                     <p></p>
                                     <img className="infoIcon" src={require("../misc/check.svg")} />
-                                    <span className="pInfo"> Unit Tests: 3</span> 
+                                    <span className="pInfo"> Unit Tests: 5</span> 
                                 </div>
                             </div>
                         </div>

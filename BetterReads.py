@@ -109,7 +109,52 @@ def get_db():
 
 @app.route('/api/books', methods = ['GET'])
 def get_all_books():
-    js = json.dumps([dict(b) for b in db.engine.execute("select * from books")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0 order by title")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null order by title")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by title")]
+        else:
+            items = [dict(b) for b in db.engine.execute("select * from books order by title")]
+    elif sort == "desc":
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0 order by title desc")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null order by title desc")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by title desc")]
+        else:
+            items = [dict(b) for b in db.engine.execute("select * from books order by title desc")]
+    else:
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by cast (published_year as int) desc")]
+        else:
+            items = [dict(b) for b in db.engine.execute("select * from books")]
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    items = tmp
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp

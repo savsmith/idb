@@ -91,3 +91,16 @@ margin: 0 auto;
 .fadeIn{
   animation: 1s ease fadeIn;
 }
+
+.noResults {
+  text-align:center;
+  font-family: 'PierSans';
+  font-size: 1.5em;
+}
+
+.noResultsImg {
+  height: 30vh;
+  width: auto;
+  margin: 0 auto;
+  display:block;
+}

@@ -100,6 +100,10 @@ handleSubmit(event){
     render() {
       let datas = this.state.currentData;
       var search = this.state.search;
+      console.log(datas.length)
+      if (datas.length > 0)
+      {
+
       datas = datas.map(function(item,index){
         var route = this.props.instance;
         var name = "";
@@ -169,6 +173,8 @@ handleSubmit(event){
           }
           attr2 = item["gender"];
         } 
+
+        if (datas.length !== 0)
         return (
           <div className= "resultItem" key={index}>
           <div className= "grow imagePortion">
@@ -184,6 +190,15 @@ handleSubmit(event){
         )
 
       }.bind(this));
+    }
+    
+    else if (datas.length === 0 && search){
+      datas = (<div>
+        <div className="noResults" >There's nothing here, please search again!</div>
+        <img className="noResultsImg" src="../static/misc/baby.png" />
+      </div>);
+    }
+    
       
       return (
          <div>

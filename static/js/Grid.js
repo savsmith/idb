@@ -18,7 +18,8 @@ var Grid = React.createClass({
       activePage:1,
       offset:0,
       value:"",
-      search:false
+      search:false,
+      isLoading: true
     }
   },
 
@@ -54,7 +55,8 @@ var Grid = React.createClass({
           this.setState({
           datas: dataArray,
           currentData: initialData,
-          search:false
+          search:false,
+          isLoading:false
         });
 
       }).catch(error => {
@@ -138,6 +140,7 @@ var Grid = React.createClass({
         document.getElementById("filterGroup").appendChild(lowRatings);
         document.getElementById("highratings").onclick = this.showHighRatings;
         document.getElementById("lowratings").onclick = this.showLowRatings;
+
      }
   },
 
@@ -592,7 +595,7 @@ var Grid = React.createClass({
   },
 
   render: function(){
-
+      var load = this.state.isLoading;
       let datas = this.state.currentData;
       datas = datas.map(function(item,index){
       var result = result = item["large_img"];
@@ -706,6 +709,7 @@ var Grid = React.createClass({
         );
       }.bind(this));
 
+
       return(
         <div className="gridwrapper">
         <div className="searchWrapper">
@@ -727,8 +731,27 @@ var Grid = React.createClass({
             <button id='descend' type="button" className="btn buttonColor" onClick={this.sortDescend}>Descending</button>
           </div>
           </div>
-          <Col md={12}>
+          {load ? (
+
+            <Col md={12}>
+            <h1 className="loadingText">loading...</h1>
+            <div>
+              <div id="loader">
+              <div id="shadow"></div>
+              <div id="box"></div>
+            </div>
+
+            </div>
+          
+          </Col>) :
+
+          (
+            <div>
+            <Col md={12}>
+            <div>
             {datas}
+            </div>
+          
           </Col>
           <Pagination 
           className="pagination"
@@ -738,6 +761,9 @@ var Grid = React.createClass({
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
           />
+          </div> 
+          )}
+
         </div>
       );
   }

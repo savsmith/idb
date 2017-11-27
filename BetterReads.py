@@ -201,7 +201,46 @@ def get_all_authors():
 
 @app.route('/api/series', methods = ['GET'])
 def get_all_series():
-    js = json.dumps([dict(s) for s in db.engine.execute("select * from series")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6 order by series_name")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6 order by series_name")]
+        else:
+            items = [dict(s) for s in db.engine.execute("select * from series order by series_name")]
+    elif sort == "desc":
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6 order by series_name desc")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6 order by series_name desc")]
+        else:
+            items = [dict(s) for s in db.engine.execute("select * from series order by series_name desc")]
+    else:
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6")]
+        else:
+            items = [dict(s) for s in db.engine.execute("select * from series")]
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    items = tmp
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp

@@ -34,8 +34,8 @@ class books(db.Model):
     published_year = db.Column(db.String(250), nullable=True)
     published_month = db.Column(db.String(250), nullable=True)
     published_date = db.Column(db.String(250), nullable=True)
+    work_id = db.Column(db.Integer, nullable=False)
     
-   
     rating = db.Column(db.Float, nullable=False)
 
     #db.relationships

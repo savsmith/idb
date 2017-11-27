@@ -26,7 +26,6 @@ def createdb():
 
 def populatedb():
     insertGRBooks(1, 50)
-    getReviewsForBooks()
 
 def cleardb():
     db.session.query(books).delete()
@@ -50,6 +49,10 @@ def getNyTimesBooks():
                     getGRBookByID(int(GRBook_req.text), list)
             except ExpatError as e:
                 print(e)
+
+def getGRBookByWorkID(id):
+    return User.query.filter_by(work_id=id).first()
+
 
 def getGRBookByID(id, list=None, prefix=""):
     book_entry = db.session.query(books).get(id)
@@ -79,6 +82,7 @@ def getGRBookByID(id, list=None, prefix=""):
             book['published_month'] = data['publication_month']
             book['published_year'] = data['publication_year']
             book['rating'] = data['average_rating']
+            book['work_id'] = int(data['work']['id']['#text'])
             isbn = data['isbn']
             
             if "nophoto" in book['large_img']:
@@ -102,7 +106,11 @@ def getGRBookByID(id, list=None, prefix=""):
                         match = True
             if match:
                 author_id = int(work['best_book']['author']['id']['#text'])
+
+                #TODO: Double Check Author doesn't already contain a book with the same work id
                 book['author'] = getGRAuthorByID(author_id, book_callee=id, prefix=prefix+"\t")
+                if book['work_id'] in [book['work_id'] for book in book['author'].books]:
+                    book['author'] = None 
             else:
                 book['author'] = None
                 
@@ -130,13 +138,16 @@ def getGRBookByID(id, list=None, prefix=""):
                 if series_request['GoodreadsResponse']['series_works'] is not None:
                     print("Error 01 in getGRBookById: "+str(e))
             else:
+                #TODO: Double Check Author doesn't already contain a book with the same work id
                 db.session.query(books).get(id).series = getGRSeriesByID(int(series_id), prefix=prefix+"\t")
+                if book['work_id'] in [book['work_id'] for book in db.session.query(books).get(id).series.books]:
+                    db.session.query(books).get(id).delete()
                 db.session.commit()
             
             if(printout):
                 print(prefix+book['title']+" added")
                 #print(prefix+str(book_entry)+" added")
-            
+        
     return book_entry
     
 def getGRAuthorByID(id, book_callee=None, series_callee=None, prefix=""):
@@ -336,6 +347,7 @@ def getReviewsForBooks():
 if __name__ == "__main__":
     print("Creating Betterreads Database")
     if '-clear' in sys.argv:
+        print("Clearing Database")
         cleardb()
         
     global printout

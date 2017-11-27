@@ -247,7 +247,46 @@ def get_all_series():
 
 @app.route('/api/reviews', methods = ['GET'])
 def get_all_reviews():
-    js = json.dumps([dict(r) for r in db.engine.execute("select * from reviews")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5 order by rating")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5 order by rating")]
+        else:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null order by rating")]
+    elif sort == "desc":
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5 order by rating desc")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5 order by rating desc")]
+        else:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null order by rating desc")]
+    else:
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5")]
+        else:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null")]
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    items = tmp
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp

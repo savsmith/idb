@@ -160,7 +160,7 @@ def get_all_books():
 
     if offset < 0:
         return bad_request("offset")
-    if limit and limit <= 0:
+    if limit is not None and limit <= 0:
         return bad_request("limit")
 
     tmp = []
@@ -216,7 +216,7 @@ def get_all_authors():
 
     if offset < 0:
         return bad_request("offset")
-    if limit and limit <= 0:
+    if limit is not None and limit <= 0:
         return bad_request("limit")
 
     tmp = []
@@ -278,7 +278,7 @@ def get_all_series():
 
     if offset < 0:
         return bad_request("offset")
-    if limit and limit <= 0:
+    if limit is not None and limit <= 0:
         return bad_request("limit")
 
     tmp = []
@@ -340,7 +340,7 @@ def get_all_reviews():
 
     if offset < 0:
         return bad_request("offset")
-    if limit and limit <= 0:
+    if limit is not None and limit <= 0:
         return bad_request("limit")
 
     tmp = []

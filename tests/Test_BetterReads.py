@@ -1,8 +1,11 @@
 import unittest
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BetterReads
 
 zero_to_five = ["zero.png", "one.png", "two.png", "three.png", "four.png", "five.png"]
 
+print("Testing BetterReads.py...")
 class TestHelperMethods(unittest.TestCase):
 
     def test_get_review_image(self):

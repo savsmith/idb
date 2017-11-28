@@ -2,6 +2,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+print("Testing GUI...")
 url = "https://betterreads.me/"
 class BetterReadsGUI(unittest.TestCase):
 

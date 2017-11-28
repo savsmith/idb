@@ -14,34 +14,33 @@
 <br>
 +++
 
-# Savannah Smith
+## Savannah Smith
 #### Responsibilites
 - Creating the database models
 - Scraping the Goodreads and Nytimes Best-Seller APIs
 +++
 
-# Kevin Vu
+## Kevin Vu
+#### Responsibilites
+- Managed website through GAE
+- Frontend with React
++++
+
+## Manasa Tipparam
 #### Responsibilites
 - A
 - B
 - C
 +++
 
-# Manasa Tipparam
+## Sabrina Reenan
 #### Responsibilites
 - A
 - B
 - C
 +++
 
-# Sabrina Reenan
-#### Responsibilites
-- A
-- B
-- C
-+++
-
-# Farnoud Faghihi
+## Farnoud Faghihi
 #### Responsibilites
 - A
 - B
@@ -51,22 +50,25 @@
 @title[Critque]
 
 ## What did we do well?
-- A
-
+- React
+- Pagination, Search, Filter
+- API
+- Backend (database)
 +++
 
 ## What did we learn?
-- A
+- CORS - cross domain requests
 
 +++
 
 ## What can we do better?
-- A
+- Mobile Compatibility
+- Code refactoring
 
 +++
 
 ## What puzzles us?
-- A
+- Book APIs, not many good concrete ones available.
 
 ---
 @title[VotingTrail]

@@ -1,3 +1,8 @@
+
+
+/* CSS FOR AN AUTHOR INSTANCE PAGE */
+
+
 h1 {
   display: block;
   font-size: 3em;
@@ -6,6 +11,8 @@ h2 {
   display: block;
   font-size: 1.7em;
 }
+
+/* links */
 a:visited, a:link {
   text-decoration: none;
   color: black;

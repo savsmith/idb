@@ -1,6 +1,10 @@
 import React from 'react';
 require('../css/styles.css');
 
+
+/* test page */
+
+
 var Visual = React.createClass({
   render: function(){
       return(

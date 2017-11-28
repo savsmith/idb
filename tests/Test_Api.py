@@ -1,9 +1,12 @@
 from unittest import main, TestCase
 import requests, simplejson
 
+testurl = "https://betterreads.me"
+print("Testing API...")
+
 class TestBetterReadsAPI(TestCase):
     def testGetAllAuthors(self):
-        url = "http://localhost:5000/api/authors"
+        url = testurl + "/api/authors"
         response = requests.get(url)
         data = response.content
         authors = simplejson.loads(data)
@@ -14,7 +17,7 @@ class TestBetterReadsAPI(TestCase):
             self.assertTrue(item["author"])
 
     def testGetAllBooks(self):
-        url = "http://localhost:5000/api/books"
+        url = testurl + "/api/books"
         response = requests.get(url)
         data = response.content
         books = simplejson.loads(data)
@@ -25,7 +28,7 @@ class TestBetterReadsAPI(TestCase):
             self.assertTrue(item["title"])
 
     def testGetAllSeries(self):
-        url = "http://localhost:5000/api/series"
+        url = testurl + "/api/series"
         response = requests.get(url)
         data = response.content
         series = simplejson.loads(data)
@@ -36,7 +39,7 @@ class TestBetterReadsAPI(TestCase):
             self.assertTrue(item["series_name"])
 
     def testGetAllReviews(self):
-        url = "http://localhost:5000/api/reviews"
+        url = testurl + "/api/reviews"
         response = requests.get(url)
         data = response.content
         reviews = simplejson.loads(data)
@@ -52,34 +55,34 @@ class TestBetterReadsAPI(TestCase):
             self.assertTrue(item["rating"] >= 0.0)
 
     def testAuthorById(self):
-        url = "http://localhost:5000/api/authors/1"
+        url = testurl + "/api/authors/1"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 404)
-        url = "http://localhost:5000/api/authors/4"
+        url = testurl + "/authors/4"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
 
     def testBookById(self):
-        url = "http://localhost:5000/api/books/61"
+        url = testurl + "/api/book/61"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
-        url = "http://localhost:5000/api/authors/20"
+        url = testurl + "/api/authors/20"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 404)
 
     def testSeriesById(self):
-        url = "http://localhost:5000/api/series/50296"
+        url = testurl + "/api/series/41759"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
-        url = "http://localhost:5000/api/series/1"
+        url = testurl + "/api/series/1"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 404)
 
     def testReviewById(self):
-        url = "http://localhost:5000/api/reviews/2"
+        url = testurl + "/api/reviews/2"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
-        url = "http://localhost:5000/api/reviews/1"
+        url = testurl + "/api/reviews/1"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 404)
 

@@ -20,4 +20,4 @@ var AuthorPage = React.createClass({
   }
 });
   
-export default BookPage; 
+export default AuthorPage; 

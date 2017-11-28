@@ -16,9 +16,8 @@
 
 # Savannah Smith
 #### Responsibilites
-- A
-- B
-- C
+- Creating the database models
+- Scraping the Goodreads and Nytimes Best-Seller APIs
 +++
 
 # Kevin Vu

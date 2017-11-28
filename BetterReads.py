@@ -112,30 +112,258 @@ def get_db():
 
     return resp
 
+def bad_request(errorStr):
+    error = {"error": "invalid value for " + errorStr + " parameter"}
+
+    resp = jsonify(error)
+    resp.status_code = 400
+
+    return resp
+
 @app.route('/api/books', methods = ['GET'])
 def get_all_books():
-    js = json.dumps([dict(b) for b in db.engine.execute("select * from books")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0 order by title")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null order by title")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by title")]
+        elif filtering == None:
+            items = [dict(b) for b in db.engine.execute("select * from books order by title")]
+        else:
+            return bad_request("filter")
+    elif sort == "desc":
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0 order by title desc")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null order by title desc")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by title desc")]
+        elif filtering == None:
+            items = [dict(b) for b in db.engine.execute("select * from books order by title desc")]
+        else:
+            return bad_request("filter")
+    elif sort == None:
+        if filtering == "top":
+            items = [dict(b) for b in db.engine.execute("select * from books where rating >= 4.0")]
+        elif filtering == "series":
+            items = [dict(b) for b in db.engine.execute("select * from books where series_id is not null")]
+        elif filtering == "recent":
+            items = [dict(b) for b in db.engine.execute("select * from books where published_year is not null and cast (published_year as int) <= cast (strftime('%Y', 'now') as int) and cast (published_year as int) > (cast (strftime('%Y', 'now') as int) - 10) order by cast (published_year as int) desc")]
+        elif filtering == None:
+            items = [dict(b) for b in db.engine.execute("select * from books")]
+        else:
+            return bad_request("filter")
+    else:
+        return bad_request("sort")
+
+    if offset < 0:
+        return bad_request("offset")
+    if limit is not None and limit <= 0:
+        return bad_request("limit")
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    if tmp:
+        items = tmp
+    else:
+        return bad_request("offset (out of range)")
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp
 
 @app.route('/api/authors', methods = ['GET'])
 def get_all_authors():
-    js = json.dumps([dict(a) for a in db.engine.execute("select * from author")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0) order by author")]
+        elif filtering == None:
+            items = [dict(a) for a in db.engine.execute("select * from author order by author")]
+        else:
+            return bad_request("filter")
+    elif sort == "desc":
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0) order by author desc")]
+        elif filtering == None:
+            items = [dict(a) for a in db.engine.execute("select * from author order by author desc")]
+        else:
+            return bad_request("filter")
+    elif sort == None:
+        if filtering == "top":
+            items = [dict(a) for a in db.engine.execute("select * from author where id in (select a.id from books as b inner join author as a on a.id = b.author_id group by a.id having avg(b.rating) >= 4.0)")]
+        elif filtering == None:
+            items = [dict(a) for a in db.engine.execute("select * from author")]
+        else:
+            return bad_request("filter")
+    else:
+        return bad_request("sort")
+
+    if offset < 0:
+        return bad_request("offset")
+    if limit is not None and limit <= 0:
+        return bad_request("limit")
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    if tmp:
+        items = tmp
+    else:
+        return bad_request("offset (out of range)")
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp
 
 @app.route('/api/series', methods = ['GET'])
 def get_all_series():
-    js = json.dumps([dict(s) for s in db.engine.execute("select * from series")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6 order by series_name")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6 order by series_name")]
+        elif filtering == None:
+            items = [dict(s) for s in db.engine.execute("select * from series order by series_name")]
+        else:
+            return bad_request("filter")
+    elif sort == "desc":
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6 order by series_name desc")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6 order by series_name desc")]
+        elif filtering == None:
+            items = [dict(s) for s in db.engine.execute("select * from series order by series_name desc")]
+        else:
+            return bad_request("filter")
+    elif sort == None:
+        if filtering == "low":
+            items = [dict(s) for s in db.engine.execute("select * from series where count < 6")]
+        elif filtering == "high":
+            items = [dict(s) for s in db.engine.execute("select * from series where count >= 6")]
+        elif filtering == None:
+            items = [dict(s) for s in db.engine.execute("select * from series")]
+        else:
+            return bad_request("filter")
+    else:
+        return bad_request("sort")
+
+    if offset < 0:
+        return bad_request("offset")
+    if limit is not None and limit <= 0:
+        return bad_request("limit")
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    if tmp:
+        items = tmp
+    else:
+        return bad_request("offset (out of range)")
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp
 
 @app.route('/api/reviews', methods = ['GET'])
 def get_all_reviews():
-    js = json.dumps([dict(r) for r in db.engine.execute("select * from reviews")], indent = 4)
+    limit = request.args.get('limit', default = None, type = int)
+    offset = request.args.get('offset', default = 0, type = int)
+    sort = request.args.get('sort', default = None, type = str)
+    filtering = request.args.get('filter', default = None, type = str)
+
+    if sort == "asc":
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5 order by rating")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5 order by rating")]
+        elif filtering == None:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null order by rating")]
+        else:
+            return bad_request("filter")
+    elif sort == "desc":
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5 order by rating desc")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5 order by rating desc")]
+        elif filtering == None:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null order by rating desc")]
+        else:
+            return bad_request("filter")
+    elif sort == None:
+        if filtering == "low":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating <= 2.5")]
+        elif filtering == "high":
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null and rating > 2.5")]
+        elif filtering == None:
+            items = [dict(r) for r in db.engine.execute("select * from reviews where review is not null")]
+        else:
+            return bad_request("filter")
+    else:
+        return bad_request("sort")
+
+    if offset < 0:
+        return bad_request("offset")
+    if limit is not None and limit <= 0:
+        return bad_request("limit")
+
+    tmp = []
+    idx = 0
+    for e in items:
+        if idx < offset:
+            idx += 1
+            continue
+        if limit is not None and idx == (limit + offset):
+            break
+        tmp.append(e)
+        idx += 1
+    if tmp:
+        items = tmp
+    else:
+        return bad_request("offset (out of range)")
+
+    js = json.dumps(items, indent = 4)
     resp = Response(js, status = 200, mimetype = 'application/json')
 
     return resp

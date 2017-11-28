@@ -5,47 +5,55 @@ HOST: http://betterreads.me/api/
 
 Betterreads is an API for scraping book related data
 
-## Book Collection [/books]
+## Book Collection [/books{?limit,offset,filter,sort}]
 
 ### List all Books [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `top`) ... three acceptable values for filter are: 'top', 'series', and 'recent', which respectively result in returning top rated books, books in a series, and most recent books (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting books by title (for no sorting, don't pass/set this parameter).
+    
 + Response 200 (application/json)
 
         [
             {
+                "author_id": 1077326,
                 "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com",
                 "id": 1,
                 "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg",
                 "list": null,
                 "published_date": "9",
+                "published_day": "16",
+                "published_month": "9",
+                "published_year": "2006",
                 "rating": 4.54,
-                "series_id": null,
+                "series_id": 45175,
                 "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg",
                 "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
             },
             {
+                "author_id": 1077326,
                 "description": "Harry Potter is due to start his fifth year at Hogwarts School of Witchcraft and Wizardry. His best friends Ron and Hermione have been very secretive all summer and he is desperate to get back to school and find out what has been going on. However, what Harry discovers is far more devastating than he could ever have expected...<br /><br />Suspense, secrets and thrilling action from the pen of J.K. Rowling ensure an electrifying adventure that is impossible to put down.",
                 "id": 2,
                 "large_img": "https://images.gr-assets.com/books/1507396732m/2.jpg",
-                "list": null,
+                "list": "1077326",
                 "published_date": "8",
+                "published_day": "10",
+                "published_month": "8",
+                "published_year": "2004",
                 "rating": 4.47,
-                "series_id": null,
+                "series_id": 45175,
                 "small_img": "https://images.gr-assets.com/books/1507396732s/2.jpg",
                 "title": "Harry Potter and the Order of the Phoenix (Harry Potter, #5)"
-            },
-            {
-                "description": "Harry Potter's life is miserable. His parents are dead and he's stuck with his heartless relatives, who force him to live in a tiny closet under the stairs. But his fortune changes when he receives a letter that tells him the truth about himself: he's a wizard. A mysterious visitor rescues him from his relatives and takes him to his new home, Hogwarts School of Witchcraft and Wizardry.<br /><br />After a lifetime of bottling up his magical powers, Harry finally feels like a normal kid. But even within the Wizarding community, he is special. He is the boy who lived: the only person to have ever survived a killing curse inflicted by the evil Lord Voldemort, who launched a brutal takeover of the Wizarding world, only to vanish after failing to kill Harry.<br /><br />Though Harry's first year at Hogwarts is the best of his life, not everything is perfect. There is a dangerous secret object hidden within the castle walls, and Harry believes it's his responsibility to prevent it from falling into evil hands. But doing so will bring him into contact with forces more terrifying than he ever could have imagined.<br /><br />Full of sympathetic characters, wildly imaginative situations, and countless exciting details, the first installment in the series assembles an unforgettable magical world and sets the stage for many high-stakes adventures to come.",
-                "id": 3,
-                "large_img": "https://images.gr-assets.com/books/1474154022m/3.jpg",
-                "list": null,
-                "published_date": "6",
-                "rating": 4.45,
-                "series_id": null,
-                "small_img": "https://images.gr-assets.com/books/1474154022s/3.jpg",
-                "title": "Harry Potter and the Sorcerer's Stone"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
 
 ## Book [/books/{id}]
 
@@ -57,15 +65,19 @@ Betterreads is an API for scraping book related data
 + Response 200 (application/json)
 
         {
-            "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com",
-            "id": 1,
-            "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg",
-            "list": null,
-            "published_date": "9",
-            "rating": 4.54,
-            "series_id": null,
-            "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg",
-            "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
+                "author_id": 1077326,
+                "description": "The war against Voldemort is not going well: even Muggle governments are noticing. Ron scans the obituary pages of The Daily Prophet looking for familiar names. Dumbledore is absent from Hogwarts for long stretches of time, and the Order of the Phoenix has already suffered losses. And yet... As in all wars, life goes on. Sixth-year students learn to Apparate, and lose a few eyebrows in the process. The Weasley twins expand their business. Teenagers flirt and fight and fall in love. Classes are never straightforward, though Harry receives some extraordinary help from the mysterious Half-Blood Prince. So it's the home front that takes center stage in the multilayered sixth installment of the story of Harry Potter. Harry struggles to uncover the identity of the Half-Blood Prince, the past owner of a potions textbook he now possesses that is filled with ingenious, potentially deadly, spells. But Harry's life is suddenly changed forever when someone close to him is heinously murdered right before his eyes. With Dumbledore's guidance, he seeks out the full, complex story of the boy who became Lord Voldemort, and thereby attempts to find what may be his only vulnerability.<br />--scholastic.com",
+                "id": 1,
+                "large_img": "https://images.gr-assets.com/books/1361039191m/1.jpg",
+                "list": null,
+                "published_date": "9",
+                "published_day": "16",
+                "published_month": "9",
+                "published_year": "2006",
+                "rating": 4.54,
+                "series_id": 45175,
+                "small_img": "https://images.gr-assets.com/books/1361039191s/1.jpg",
+                "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)"
         }
         
 + Response 404 (application/json)
@@ -74,16 +86,22 @@ Betterreads is an API for scraping book related data
             "error": "book id not found"
         }
 
-## Author Collection [/authors]
+## Author Collection [/authors{?limit,offset,filter,sort}]
 
 ### List all Authors [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `top`) ... the only acceptable value for filter is: 'top', which results in returning top rated authors (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting authors by name (for no sorting, don't pass/set this parameter).
+ 
 + Response 200 (application/json)
 
         [
             {
                 "author": "Douglas Adams",
                 "description": "Douglas No\u00ebl Adams was an English author, comic radio dramatist, and musician. He is best known as the author of the <i>\n  <a href=\"https://www.goodreads.com/book/show/11.Hitchhiker_s_Guide_to_the_Galaxy\" title=\"Hitchhiker's Guide to the Galaxy\" rel=\"nofollow\">Hitchhiker's Guide to the Galaxy</a>\n</i> series. Hitchhiker's began on radio, and developed into a \"trilogy\" of five books (which sold more than fifteen million copies during his lifetime) as well as a television series, a comic book series, a computer game, and a feature film that was completed after Adams' death. The series has also been adapted for live theatre using various scripts; the earliest such productions used material newly written by Adams. He was known to some fans as Bop Ad (after his illegible signature), or by his initials \"DNA\".<br /><br />In addition to <i>The Hitchhiker's Guide to the Galaxy</i>, Douglas Adams wrote or co-wrote three stories of the science fiction television series Doctor Who and served as Script Editor during the seventeenth season. His other written works include the Dirk Gently novels, and he co-wrote two Liff books and <i>Last Chance to See</i>, itself based on a radio series. Adams also originated the idea for the computer game <i>Starship Titanic</i>, which was produced by a company that Adams co-founded, and adapted into a novel by Terry Jones. A posthumous collection of essays and other material, including an incomplete novel, was published as <i>\n  <a href=\"https://www.goodreads.com/book/show/359.The_Salmon_of_Doubt\" title=\"The Salmon of Doubt\" rel=\"nofollow\">The Salmon of Doubt</a>\n</i> in 2002.<br /><br />His fans and friends also knew Adams as an environmental activist and a lover of fast cars, cameras, the Macintosh computer, and other \"techno gizmos\". <br /><br />Toward the end of his life he was a sought-after lecturer on topics including technology and the environment.",
+                "gender": "male",
                 "hometown": "Cambridge, England",
                 "id": 4,
                 "large_img": "https://images.gr-assets.com/authors/1189120061p5/4.jpg",
@@ -92,20 +110,19 @@ Betterreads is an API for scraping book related data
             {
                 "author": "Bill Bryson",
                 "description": "William McGuire \"Bill\" Bryson, OBE, FRS<br /><br />Bill Bryson was born in Des Moines, Iowa, in 1951. He settled in England in 1977, and worked in journalism until he became a full time writer. He lived for many years with his English wife and four children in North Yorkshire. He and his family then moved to New Hampshire in America for a few years, but they have now returned to live in the UK.<br /><br />In <i>The Lost Continent</i>, Bill Bryson's hilarious first travel book, he chronicled a trip in his mother's Chevy around small town America. It was followed by <i>Neither Here Nor There</i>, an account of his first trip around Europe. Other travel books include the massive bestseller <i>Notes From a Small Island</i>, which won the 2003 World Book Day National Poll to find the book which best represented modern England, followed by <i>A Walk in the Woods</i> (in which Stephen Katz, his travel companion from <i>Neither Here Nor There</i>, made a welcome reappearance), <i>Notes From a Big Country</i> and <i>Down Under</i>.<br /><br />Bill Bryson has also written several highly praised books on the English language, including <i>Mother Tongue</i> and <i>Made in America</i>. In his last book, he turned his attention to science. <i>A Short History of Nearly Everything</i> was lauded with critical acclaim, and became a huge bestseller. It was shortlisted for the Samuel Johnson Prize, before going on to win the Aventis Prize for Science Books and the Descartes Science Communication Prize. His next book, <i>The Life and Times of the Thunderbolt Kid</i>, is a memoir of growing up in 1950s America, featuring another appearance from his old friend Stephen Katz. October 8 sees the publication of <i>A Really Short History of Nearly Everything<i>.</i></i>",
+                "gender": "male",
                 "hometown": "Des Moines, Polk County, Iowa",
                 "id": 7,
                 "large_img": "https://images.gr-assets.com/authors/1189096502p5/7.jpg",
                 "small_img": "https://images.gr-assets.com/authors/1189096502p2/7.jpg"
-            },
-            {
-                "author": "James Hamilton-Paterson",
-                "description": "James Hamilton-Paterson's work has been translated into many languages. He is a highly acclaimed author of non-fiction books, including Seven-Tenths, Three Miles Down and Playing with Water, as well as America's Boy, a study of Ferdinand Marcos and the Philippines. Gerontius, his first novel, won the Whitbread Award, while his most recent, Loving Monsters (2001), was praised by the Sunday Telegraph as 'tantalising, erudite and ingenious'. He lives in Italy.",
-                "hometown": "London",
-                "id": 12,
-                "large_img": "https://images.gr-assets.com/authors/1270517383p5/12.jpg",
-                "small_img": "https://images.gr-assets.com/authors/1270517383p2/12.jpg"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
 
 ## Author [/authors/{id}]
 
@@ -117,12 +134,13 @@ Betterreads is an API for scraping book related data
 + Response 200 (application/json)
 
         {
-            "author": "James Hamilton-Paterson",
-            "description": "James Hamilton-Paterson's work has been translated into many languages. He is a highly acclaimed author of non-fiction books, including Seven-Tenths, Three Miles Down and Playing with Water, as well as America's Boy, a study of Ferdinand Marcos and the Philippines. Gerontius, his first novel, won the Whitbread Award, while his most recent, Loving Monsters (2001), was praised by the Sunday Telegraph as 'tantalising, erudite and ingenious'. He lives in Italy.",
-            "hometown": "London",
-            "id": 12,
-            "large_img": "https://images.gr-assets.com/authors/1270517383p5/12.jpg",
-            "small_img": "https://images.gr-assets.com/authors/1270517383p2/12.jpg"
+                "author": "Douglas Adams",
+                "description": "Douglas No\u00ebl Adams was an English author, comic radio dramatist, and musician. He is best known as the author of the <i>\n  <a href=\"https://www.goodreads.com/book/show/11.Hitchhiker_s_Guide_to_the_Galaxy\" title=\"Hitchhiker's Guide to the Galaxy\" rel=\"nofollow\">Hitchhiker's Guide to the Galaxy</a>\n</i> series. Hitchhiker's began on radio, and developed into a \"trilogy\" of five books (which sold more than fifteen million copies during his lifetime) as well as a television series, a comic book series, a computer game, and a feature film that was completed after Adams' death. The series has also been adapted for live theatre using various scripts; the earliest such productions used material newly written by Adams. He was known to some fans as Bop Ad (after his illegible signature), or by his initials \"DNA\".<br /><br />In addition to <i>The Hitchhiker's Guide to the Galaxy</i>, Douglas Adams wrote or co-wrote three stories of the science fiction television series Doctor Who and served as Script Editor during the seventeenth season. His other written works include the Dirk Gently novels, and he co-wrote two Liff books and <i>Last Chance to See</i>, itself based on a radio series. Adams also originated the idea for the computer game <i>Starship Titanic</i>, which was produced by a company that Adams co-founded, and adapted into a novel by Terry Jones. A posthumous collection of essays and other material, including an incomplete novel, was published as <i>\n  <a href=\"https://www.goodreads.com/book/show/359.The_Salmon_of_Doubt\" title=\"The Salmon of Doubt\" rel=\"nofollow\">The Salmon of Doubt</a>\n</i> in 2002.<br /><br />His fans and friends also knew Adams as an environmental activist and a lover of fast cars, cameras, the Macintosh computer, and other \"techno gizmos\". <br /><br />Toward the end of his life he was a sought-after lecturer on topics including technology and the environment.",
+                "gender": "male",
+                "hometown": "Cambridge, England",
+                "id": 4,
+                "large_img": "https://images.gr-assets.com/authors/1189120061p5/4.jpg",
+                "small_img": "https://images.gr-assets.com/authors/1189120061p2/4.jpg"
         }
         
 + Response 404 (application/json)
@@ -131,47 +149,58 @@ Betterreads is an API for scraping book related data
             "error": "author id not found"
         }
 
-## Series Collection [/series]
+## Series Collection [/series{?limit,offset,filter,sort}]
 
 ### List all Series [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `low`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning series with low # of volumes (less than 6) and series with high # of volumes (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting series by title (for no sorting, don't pass/set this parameter).
+ 
 + Response 200 (application/json)
 
         [
             {
-                "count": 5,
-                "description": "From Wikipedia: 'Dirk bills himself as a \"holistic detective\" who makes use of \"the fundamental interconnectedness of all things\" to solve the whole crime, and find the whole person. This involves running up large expense accounts and then claiming that every item (such as needing to go to a tropical beach in the Bahamas for three weeks) was, as a consequence of this \"fundamental interconnectedness\", actually a vital part of the investigation.'",
-                "id": 40335,
-                "series_name": "Dirk Gently"
+                "count": 16,
+                "description": "Each book in the series is (mostly) a whole story with a beginning and an end; however, the plot (and characters) of every book relies <i><b>very</b></i> heavily on the prior books in the series.\n    \n    Series also known as:\n    <i>* Guida galattica per gli autostoppisti</i> [Italian]\n    <i>* \u0160toparski vodnik po Galaksiji</i> [Slovenian]\n    <i>* Gu\u00eda del autoestopista gal\u00e1ctico</i> [Spanish]</i>\n    <i>* \u041f\u044a\u0442\u0435\u0432\u043e\u0434\u0438\u0442\u0435\u043b \u043d\u0430 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u044f \u0441\u0442\u043e\u043f\u0430\u0434\u0436\u0438\u044f</i> [Bulgarian]</i>\n    <i>* Le Guide du voyageur galactique</i> [French]\n    <i>* Linnunrata</i> [Finnish]\n    <i>* Otostop\u00e7unun Galaksi Rehberi</i> [Turkish]\n    <i>* Guia dos Mochileiros da Gal\u00e1xia</i> [Brazilian Portuguese]\n    <i>* Per Anhalter durch die Galaxis</i> [German]\n    <i>* Het Transgalactisch liftershandboek</i> [Dutch]\n    <i>* Stop\u00e1rov sprievodca galaxiou</i> [Slovak]",
+                "id": 40957,
+                "numbered": 1,
+                "primary_count": 5,
+                "series_name": "Hitchhiker's Guide to the Galaxy"
             },
             {
-                "count": 23,
-                "description": "Joanna Brady is Sheriff of Cochise County, Arizona and lives in the county seat of Bisbee.",
-                "id": 40431,
-                "series_name": "Joanna Brady"
-            },
-            {
-                "count": 36,
-                "description": "Dr. Alex Cross is a specialist in forensic psychology, originally working for the Washington DC police department and later as an FBI senior agent.\n    \n    Each book in the series is a whole story with a beginning and an ending, however there are references to prior stories in the series.\n    \n    Series also known as:\n    <i>* I casi di Alex Cross [Italian]</i>",
-                "id": 40543,
-                "series_name": "Alex Cross"
+                "count": 53,
+                "description": "Stone Barrington is an attorney in New York City.",
+                "id": 41374,
+                "numbered": 1,
+                "primary_count": 44,
+                "series_name": "Stone Barrington"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
 
 ## Series [/series/{id}]
 
 + Parameters
-    + id (required, Number, `40335`) ... `id` of a series to retrieve its data.
+    + id (required, Number, `40957`) ... `id` of a series to retrieve its data.
 
 ### Retrieve a Series [GET]
 
 + Response 200 (application/json)
 
         {
-            "count": 36,
-            "description": "Dr. Alex Cross is a specialist in forensic psychology, originally working for the Washington DC police department and later as an FBI senior agent.\n    \n    Each book in the series is a whole story with a beginning and an ending, however there are references to prior stories in the series.\n    \n    Series also known as:\n    <i>* I casi di Alex Cross [Italian]</i>",
-            "id": 40543,
-            "series_name": "Alex Cross"
+                "count": 16,
+                "description": "Each book in the series is (mostly) a whole story with a beginning and an end; however, the plot (and characters) of every book relies <i><b>very</b></i> heavily on the prior books in the series.\n    \n    Series also known as:\n    <i>* Guida galattica per gli autostoppisti</i> [Italian]\n    <i>* \u0160toparski vodnik po Galaksiji</i> [Slovenian]\n    <i>* Gu\u00eda del autoestopista gal\u00e1ctico</i> [Spanish]</i>\n    <i>* \u041f\u044a\u0442\u0435\u0432\u043e\u0434\u0438\u0442\u0435\u043b \u043d\u0430 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u044f \u0441\u0442\u043e\u043f\u0430\u0434\u0436\u0438\u044f</i> [Bulgarian]</i>\n    <i>* Le Guide du voyageur galactique</i> [French]\n    <i>* Linnunrata</i> [Finnish]\n    <i>* Otostop\u00e7unun Galaksi Rehberi</i> [Turkish]\n    <i>* Guia dos Mochileiros da Gal\u00e1xia</i> [Brazilian Portuguese]\n    <i>* Per Anhalter durch die Galaxis</i> [German]\n    <i>* Het Transgalactisch liftershandboek</i> [Dutch]\n    <i>* Stop\u00e1rov sprievodca galaxiou</i> [Slovak]",
+                "id": 40957,
+                "numbered": 1,
+                "primary_count": 5,
+                "series_name": "Hitchhiker's Guide to the Galaxy"
         }
 
         
@@ -181,41 +210,43 @@ Betterreads is an API for scraping book related data
             "error": "series id not found"
         }
         
-## Reviews Collection [/reviews]
+## Reviews Collection [/reviews{?limit,offset,filter,sort}]
 
 ### List all Reviews [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `low`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning reviews with low ratings (less than 2.5) and reviews with high ratings (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting reviews by rating (for no sorting, don't pass/set this parameter).
+ 
 + Response 200 (application/json)
 
         [
             {
-                "book_id": 12,
-                "date_added": "Sat Aug 19 19:10:46 -0700 2006",
-                "id": 2,
+                "book_id": 2,
+                "date_added": "Tue Aug 29 11:20:05 -0700 2006",
+                "id": 22,
                 "rating": 5.0,
-                "review": null,
+                "review": "After the first read, this book is the worst one in the Harry Potter series. Characters are not as likeable as they are in the other books. However, I recently reread it (after reading book 6), and found it to be a very good read.",
                 "spoiler_flag": "false",
                 "user": "Otis Chandler"
             },
             {
-                "book_id": 21,
-                "date_added": "Sat Aug 19 20:01:34 -0700 2006",
-                "id": 3,
+                "book_id": 6,
+                "date_added": "Tue Aug 29 11:20:10 -0700 2006",
+                "id": 23,
                 "rating": 5.0,
-                "review": "A fascinating history of science. Ever curious how everything we know about the world came to be - read this! I loved reading about what old greats like Darwin thought about the world - they were all right about most things, but also very wrong about some things - makes you wonder how much we are...",
-                "spoiler_flag": "false",
-                "user": "Otis Chandler"
-            },
-            {
-                "book_id": 30,
-                "date_added": "Sat Aug 19 20:04:10 -0700 2006",
-                "id": 4,
-                "rating": 5.0,
-                "review": null,
+                "review": "This is the best harry potter book so far, followed closely by book 6.",
                 "spoiler_flag": "false",
                 "user": "Otis Chandler"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
         
 ## Review [/reviews/{id}]
 
@@ -227,13 +258,13 @@ Betterreads is an API for scraping book related data
 + Response 200 (application/json)
 
         {
-            "book_id": 12,
-            "date_added": "Sat Aug 19 19:10:46 -0700 2006",
-            "id": 2,
-            "rating": 5.0,
-            "review": null,
-            "spoiler_flag": "false",
-            "user": "Otis Chandler"
+                "book_id": 2,
+                "date_added": "Tue Aug 29 11:20:05 -0700 2006",
+                "id": 22,
+                "rating": 5.0,
+                "review": "After the first read, this book is the worst one in the Harry Potter series. Characters are not as likeable as they are in the other books. However, I recently reread it (after reading book 6), and found it to be a very good read.",
+                "spoiler_flag": "false",
+                "user": "Otis Chandler"
         }
 
         

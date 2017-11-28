@@ -12,9 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betterreads.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-json_url = os.path.join(SITE_ROOT, "static/db", "bookDB.json")
-data = json.load(open(json_url))
-
 #----------#
 # Database #
 #----------#

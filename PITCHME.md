@@ -42,9 +42,8 @@
 
 ## Farnoud Faghihi
 #### Responsibilites
-- A
-- B
-- C
+- Implementation and documentation of the API
+- Sorting and filtering
 ---
 
 @title[Critque]
@@ -78,19 +77,22 @@
 +++
 
 ## What did they do well?
-- A
+- Sort and filter for all attributes
+- Twitter integration
 
 +++
 
 ## What did we learn from their website?
-- A
+- Possibility of better integration of online sources and documents into the website
 
 +++
 
 ## What can they do better?
-- A
+- Certain links on the instance pages break website functionality
+- Refining search functionality
 
 +++
 
 ## What puzzles us about thier website?
-- A
+- The angry/sad statue of liberty in the background
+- Not clear how the website helps with holding the representatives "accountable"

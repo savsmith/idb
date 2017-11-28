@@ -7,6 +7,9 @@ import sys
 from pprint import pprint
 from sqlalchemy.exc import IntegrityError
 import re
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from GetReviews import reviews
 
 class InvalidEntry(Exception):
     pass
@@ -36,6 +39,7 @@ def getNyTimesBooks():
     Adds books and their corresponding authors and series featured on NYTIMES lists to the database
     """
     lists = [lst['list_name_encoded'] for lst in requests.get('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=1bfa24a95061415dbc8d4a4f136329a5').json()['results']]
+    global printout
     for l in lists[:1]:
         results = requests.get('https://api.nytimes.com/svc/books/v3/lists.json?list='+l+'&api-key=1bfa24a95061415dbc8d4a4f136329a5').json()
         for r in results['results']:
@@ -63,12 +67,17 @@ def getGRBookByID(id, list=None, prefix=""):
             try:
                 data = xmltodict.parse(request.text)['GoodreadsResponse']['book']
             except ExpatError:
+                print(prefix+"book invalid due to ExpatError"+str(id))
                 return None
             
             book = {}
             book['id'] = int(data['id'])
             book['title'] = data['title']
-            book['description'] = re.sub("<.*?>", "",data['description'])
+
+            if(printout):
+                print(prefix+"|- book title: "+book['title'])
+
+            book['description'] = re.sub("<.*?>", "",data['description']) if data['description'] is not None else None
             book['small_img'] = data['small_image_url']
             book['large_img'] = data['image_url']
             book['published_date'] = (data['publication_month'] if data['publication_month'] is not None else "unknown_month"
@@ -81,8 +90,23 @@ def getGRBookByID(id, list=None, prefix=""):
             book['published_year'] = data['publication_year']
             book['rating'] = data['average_rating']
             book['work_id'] = int(data['work']['id']['#text'])
+            pages = data['num_pages']
+            book['num_pages'] = int(pages) if pages is not None else None
+            book['link'] = data['buy_links']['buy_link']
+            if book['link'] is not None and len(book['link']) > 0:
+                book['link'] = book['link'][0]['link']
+            else:
+                book['link'] = None
             isbn = data['isbn']
-            
+
+            try:
+                shelves = data['popular_shelves']['shelf']
+                if not isinstance(shelves, type([])):
+                    shelves = [shelves]
+                book['popular_shelves'] = [shelf['@name'] for shelf in shelves]
+            except TypeError:
+                book['popular_shelves'] = None
+
             if "nophoto" in book['large_img']:
                 book['large_img'] = None
                 
@@ -94,6 +118,8 @@ def getGRBookByID(id, list=None, prefix=""):
             # Look up the book's author
             book_search = requests.get('https://www.goodreads.com/search/index.xml?key='+API_KEY['GOODREADS']+'&q='+str(isbn))
             book_search = xmltodict.parse(book_search.text)
+            if book_search['GoodreadsResponse']['search']['results'] is None:
+                return None
             work = book_search['GoodreadsResponse']['search']['results']['work']
             match = True
             if isinstance(work, type([])):
@@ -107,8 +133,14 @@ def getGRBookByID(id, list=None, prefix=""):
 
                 #TODO: Double Check Author doesn't already contain a book with the same work id
                 book['author'] = getGRAuthorByID(author_id, book_callee=id, prefix=prefix+"\t")
-                if book['work_id'] in [book['work_id'] for book in book['author'].books]:
-                    book['author'] = None 
+                try:
+                    if book['author'] is not None and book['work_id'] in [author_book.work_id for author_book in book['author'].books]:
+                        print(prefix+str(book['author'])+" already contains: ")
+                        for b in book['author'].books:
+                            print(prefix+"\t"+str(b))
+                        print(prefix+"failed to add "+str(book['title']))
+                except TypeError:
+                    pass
             else:
                 book['author'] = None
                 
@@ -137,10 +169,16 @@ def getGRBookByID(id, list=None, prefix=""):
                     print("Error 01 in getGRBookById: "+str(e))
             else:
                 #TODO: Double Check Author doesn't already contain a book with the same work id
-                db.session.query(books).get(id).series = getGRSeriesByID(int(series_id), prefix=prefix+"\t")
-                if book['work_id'] in [book['work_id'] for book in db.session.query(books).get(id).series.books]:
-                    db.session.query(books).get(id).delete()
-                db.session.commit()
+                series = getGRSeriesByID(int(series_id), prefix=prefix+"\t")
+                if series is not None and series.books is not None and book['work_id'] in [book.work_id for book in series.books]:
+                    print(prefix+"Series "+str(series.series_name)+" already contains: ")
+                    for series_book in series.books:
+                        print(prefix+"\t"+str(series_book.title))
+                    print(prefix+"failed to add "+str(book['title']))
+                    print(prefix+"book invalid "+str(id))
+                else:
+                    db.session.query(books).get(id).series = series
+                    db.session.commit()
             
             if(printout):
                 print(prefix+book['title']+" added")
@@ -164,11 +202,16 @@ def getGRAuthorByID(id, book_callee=None, series_callee=None, prefix=""):
             auth = {}
             auth['id'] = int(data['id'])
             auth['author'] = data['name'] 
-            auth['description'] = re.sub("<.*?>", "", data['about'])
+            if(printout):
+                print(prefix+"|- author: "+auth['author'])
+            auth['description'] = re.sub("<.*?>", "", data['about']) if data['about'] is not None else None
             auth['hometown'] = data['hometown']
             auth['small_img'] = data['small_image_url']
             auth['large_img'] = data['image_url']  
             auth['gender'] = data['gender']
+            auth['fan_count'] = int(data['fans_count']['#text'])
+
+
             
             nullables = ['gender']
             if(all([key in nullables or item is not None for (key, item) in auth.items()])):
@@ -208,8 +251,10 @@ def getGRSeriesByID(id, prefix=""):
             ser = {}
             ser['id'] = int(data['id'])
             ser['series_name'] = data['title']
+            if(printout):
+                print(prefix+"|- series: "+ser['series_name'])
             ser['count'] = int(data['series_works_count'])
-            ser['description'] = re.sub("<.*?>", "", data['description'])
+            ser['description'] = re.sub("<.*?>", "", data['description']) if data['description'] is not None else None
             ser['primary_count'] = data['primary_work_count']
             ser['numbered'] = data['numbered']
             
@@ -267,7 +312,8 @@ def getGRReviewByID(id, prefix=""):
             review['review'] = data['body']
             review['spoiler_flag'] = data['spoiler_flag']
             review['date_added'] = data['date_added']
-            
+            review['votes'] = int(data['votes'])
+
             nullables = ['review']
             if(all([key in nullables or item is not None for (key, item) in review.items()])):
                 review_entry = reviews(**review)
@@ -340,7 +386,17 @@ def getReviewsForBooks():
                     
                         print(review_entry)
         
-    
+
+def addReviews():
+    review_engine = create_engine('sqlite:///reviews.db', echo=True)
+    Session = sessionmaker(bind=review_engine)
+    review_session = Session()
+    reviews = review_session.query(reviews).all()
+    book_ids = db.session.query(books.id).all()
+    for review in reviews:
+        if review.book_id in book_ids:
+            db.session.add(review)
+            db.session.commit()
     
 if __name__ == "__main__":
     print("Creating Betterreads Database")
@@ -352,5 +408,5 @@ if __name__ == "__main__":
     printout = '-print' in sys.argv
         
     createdb()
-    populatedb()
-    #insertGRBooks(1, 1)
+    #getNyTimesBooks()
+    addReviews()

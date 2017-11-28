@@ -37,7 +37,9 @@ class books(db.Model):
     published_month = db.Column(db.String(250), nullable=True)
     published_date = db.Column(db.String(250), nullable=True)
     work_id = db.Column(db.Integer, nullable=False)
-    
+    num_pages = db.Column(db.Integer, nullable=True)
+    popular_shelves = db.Column(db.PickleType())
+    link = db.Column(db.String(250), nullable=True)    
     rating = db.Column(db.Float, nullable=False)
 
     #db.relationships
@@ -54,6 +56,8 @@ class author(db.Model):
     small_img = db.Column(db.String(250), nullable=True)
     large_img = db.Column(db.String(250), nullable=False)
     gender = db.Column(db.String(250), nullable=True)
+    fan_count = db.Column(db.Integer(), nullable=True)
+
 
     #db.relationships
     books = db.relationship("books", backref="author")
@@ -80,6 +84,7 @@ class reviews(db.Model):
     review = db.Column(db.String(2500), nullable=True)
     spoiler_flag = db.Column(db.String(250), nullable=False)
     date_added = db.Column(db.String(250), nullable=False)
+    votes = db.Column(db.Integer(), nullable=True)
 
     #db.relationships
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)

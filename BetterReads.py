@@ -38,7 +38,6 @@ class books(db.Model):
     published_date = db.Column(db.String(250), nullable=True)
     work_id = db.Column(db.Integer, nullable=False)
     num_pages = db.Column(db.Integer, nullable=True)
-    popular_shelves = db.Column(db.PickleType())
     link = db.Column(db.String(250), nullable=True)    
     rating = db.Column(db.Float, nullable=False)
 

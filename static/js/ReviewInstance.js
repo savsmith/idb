@@ -93,6 +93,14 @@ var ReviewInstance = React.createClass({
       var imgType = "star.png"
       var review = Math.floor(reviewObj["rating"]);
       var result = location.concat(review,imgType);
+
+      var description;
+      if (reviewObj['review'] != null) {
+        description = reviewObj['review'];
+      } else {
+        description = "No written review.";
+      }
+
       console.log(reviewObj);
       console.log(authorObj);
       console.log(bookObj);
@@ -115,7 +123,7 @@ var ReviewInstance = React.createClass({
       <section className ="right">
         <div className="info">
           <h2><b>Rating: </b>{reviewObj['rating']}  <img id="stars" src={result} alt="rating" height="28"/></h2>
-          <h2 className = "review"><b>Review: </b>{reviewObj['review']}</h2>
+          <h2 className = "review"><b>Review: </b>{ description }</h2>
         </div>
       </section>
 

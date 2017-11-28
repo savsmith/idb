@@ -23,6 +23,7 @@ series_author_assoc_table = db.Table('series_author_assoc',
     db.Column('series_id', db.Integer, db.ForeignKey('series.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 
+## book table
 class books(db.Model):
     __tablename__ = 'books'
 
@@ -42,11 +43,12 @@ class books(db.Model):
     link = db.Column(db.String(250), nullable=True)    
     rating = db.Column(db.Float, nullable=False)
 
-    #db.relationships
+    #db.relationships for books
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
     reviews = db.relationship('reviews', backref='book')
 
+## author table
 class author(db.Model):
     __tablename__ = 'author'
     id = db.Column(db.Integer, primary_key=True)
@@ -63,6 +65,7 @@ class author(db.Model):
     books = db.relationship("books", backref="author")
     series = db.relationship("series", secondary=series_author_assoc_table, back_populates="authors")
 
+## series table
 class series(db.Model):
     __tablename__ = 'series'
     id = db.Column(db.Integer, primary_key=True)
@@ -72,10 +75,11 @@ class series(db.Model):
     primary_count = db.Column(db.Integer, nullable=False)
     numbered = db.Column(db.Boolean, nullable=False)
     
-    #db.relationships
+    #db.relationships for series
     books = db.relationship(books, backref='series')
     authors = db.relationship("author", secondary=series_author_assoc_table, back_populates="series")
 
+## reviews table
 class reviews(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
@@ -99,6 +103,7 @@ class reviews(db.Model):
 def home(path):
     return render_template("index.html")
 
+# all instances of all models
 @app.route('/all', methods = ['GET'])
 def get_db():
     book_list = [dict(b) for b in db.engine.execute("select * from books")]
@@ -120,6 +125,7 @@ def bad_request(errorStr):
 
     return resp
 
+# all instances of books
 @app.route('/api/books', methods = ['GET'])
 def get_all_books():
     limit = request.args.get('limit', default = None, type = int)
@@ -188,6 +194,7 @@ def get_all_books():
 
     return resp
 
+# all instances of authors
 @app.route('/api/authors', methods = ['GET'])
 def get_all_authors():
     limit = request.args.get('limit', default = None, type = int)
@@ -244,6 +251,7 @@ def get_all_authors():
 
     return resp
 
+#all instances of series
 @app.route('/api/series', methods = ['GET'])
 def get_all_series():
     limit = request.args.get('limit', default = None, type = int)
@@ -306,6 +314,7 @@ def get_all_series():
 
     return resp
 
+#all instances of reviews
 @app.route('/api/reviews', methods = ['GET'])
 def get_all_reviews():
     limit = request.args.get('limit', default = None, type = int)
@@ -430,6 +439,7 @@ def not_found_error(errorStr):
 
     return resp
 
+#book instance based on id
 @app.route('/api/books/<int:book_id>', methods = ['GET'])
 def get_book_instance(book_id):
     book_list = [dict(b) for b in db.engine.execute("select * from books where id = " + str(book_id))]
@@ -441,6 +451,7 @@ def get_book_instance(book_id):
 
     return resp
 
+#book instance based on id
 @app.route('/api/authors/<int:author_id>', methods = ['GET'])
 def get_author_instance(author_id):
     author_list = [dict(a) for a in db.engine.execute("select * from author where id = " + str(author_id))]
@@ -452,6 +463,7 @@ def get_author_instance(author_id):
 
     return resp
 
+#series instance based on id
 @app.route('/api/series/<int:series_id>', methods = ['GET'])
 def get_series_instance(series_id):
     series_list = [dict(s) for s in db.engine.execute("select * from series where id = " + str(series_id))]
@@ -463,6 +475,7 @@ def get_series_instance(series_id):
 
     return resp
 
+#review instance based on id
 @app.route('/api/reviews/<int:review_id>', methods = ['GET'])
 def get_review_instance(review_id):
     review_list = [dict(r) for r in db.engine.execute("select * from reviews where id = " + str(review_id))]

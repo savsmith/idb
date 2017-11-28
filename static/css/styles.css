@@ -1,3 +1,8 @@
+
+
+/* BASIC CSS FOR BETTERREADS */
+
+
 /* Font */
 @font-face {
   font-family: 'PierSans';
@@ -86,7 +91,6 @@
   transform: translate(-50%, -30%);
 }
 
-/* BookPage ... for now */
 .bookPageWrapper {
   position: relative;
 }

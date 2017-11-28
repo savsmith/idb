@@ -4,8 +4,13 @@ import Grid from './Grid'
 import Pagination from 'react-js-pagination';
 require('../css/styles.css');
 
-var BookPage = React.createClass({
+
+/* AUTHOR GRID PAGE */
+
+
+var AuthorPage = React.createClass({
   render: function(){
+  	  //renders the layout for the grid page
       return(
         <div className="bookPageWrapper">
           <BookNavbar/>
@@ -15,4 +20,4 @@ var BookPage = React.createClass({
   }
 });
   
-  export default BookPage; 
+export default BookPage; 

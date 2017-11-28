@@ -16,6 +16,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+
+/* ROUTER FOR PAGES */
+
+
 var App = React.createClass({
 
   render: function(){

@@ -11,8 +11,8 @@ Betterreads is an API for scraping book related data
 + Parameters
     + limit (optional, Number, `20`) ... max number of records to be returned.
     + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
-    + filter (optional, String, `top`) ... three acceptable values for filter are: 'top', 'series', and 'recent', which respectively result in returning top rated books, books in a series, and most recent books (don't set this parameter for no filtering).
-    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting books by title (don't set this parameter for not sorting).
+    + filter (optional, String, `top`) ... three acceptable values for filter are: 'top', 'series', and 'recent', which respectively result in returning top rated books, books in a series, and most recent books (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting books by title (for no sorting, don't pass/set this parameter).
     
 + Response 200 (application/json)
 
@@ -92,8 +92,8 @@ Betterreads is an API for scraping book related data
 + Parameters
     + limit (optional, Number, `20`) ... max number of records to be returned.
     + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
-    + filter (optional, String, `top`) ... the only acceptable value for filter is: 'top', which results in returning top rated authors (don't set this parameter for no filtering).
-    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting authors by name (don't set this parameter for not sorting).
+    + filter (optional, String, `top`) ... the only acceptable value for filter is: 'top', which results in returning top rated authors (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting authors by name (for no sorting, don't pass/set this parameter).
  
 + Response 200 (application/json)
 
@@ -149,47 +149,58 @@ Betterreads is an API for scraping book related data
             "error": "author id not found"
         }
 
-## Series Collection [/series]
+## Series Collection [/series{?limit,offset,filter,sort}]
 
 ### List all Series [GET]
-
++ Parameters
+    + limit (optional, Number, `20`) ... max number of records to be returned.
+    + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
+    + filter (optional, String, `top`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning series with low # of volumes (less than 6) and series with high # of volumes (for no filtering, don't pass/set this parameter).
+    + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting series by title (for no sorting, don't pass/set this parameter).
+ 
 + Response 200 (application/json)
 
         [
             {
-                "count": 5,
-                "description": "From Wikipedia: 'Dirk bills himself as a \"holistic detective\" who makes use of \"the fundamental interconnectedness of all things\" to solve the whole crime, and find the whole person. This involves running up large expense accounts and then claiming that every item (such as needing to go to a tropical beach in the Bahamas for three weeks) was, as a consequence of this \"fundamental interconnectedness\", actually a vital part of the investigation.'",
-                "id": 40335,
-                "series_name": "Dirk Gently"
+                "count": 16,
+                "description": "Each book in the series is (mostly) a whole story with a beginning and an end; however, the plot (and characters) of every book relies <i><b>very</b></i> heavily on the prior books in the series.\n    \n    Series also known as:\n    <i>* Guida galattica per gli autostoppisti</i> [Italian]\n    <i>* \u0160toparski vodnik po Galaksiji</i> [Slovenian]\n    <i>* Gu\u00eda del autoestopista gal\u00e1ctico</i> [Spanish]</i>\n    <i>* \u041f\u044a\u0442\u0435\u0432\u043e\u0434\u0438\u0442\u0435\u043b \u043d\u0430 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u044f \u0441\u0442\u043e\u043f\u0430\u0434\u0436\u0438\u044f</i> [Bulgarian]</i>\n    <i>* Le Guide du voyageur galactique</i> [French]\n    <i>* Linnunrata</i> [Finnish]\n    <i>* Otostop\u00e7unun Galaksi Rehberi</i> [Turkish]\n    <i>* Guia dos Mochileiros da Gal\u00e1xia</i> [Brazilian Portuguese]\n    <i>* Per Anhalter durch die Galaxis</i> [German]\n    <i>* Het Transgalactisch liftershandboek</i> [Dutch]\n    <i>* Stop\u00e1rov sprievodca galaxiou</i> [Slovak]",
+                "id": 40957,
+                "numbered": 1,
+                "primary_count": 5,
+                "series_name": "Hitchhiker's Guide to the Galaxy"
             },
             {
-                "count": 23,
-                "description": "Joanna Brady is Sheriff of Cochise County, Arizona and lives in the county seat of Bisbee.",
-                "id": 40431,
-                "series_name": "Joanna Brady"
-            },
-            {
-                "count": 36,
-                "description": "Dr. Alex Cross is a specialist in forensic psychology, originally working for the Washington DC police department and later as an FBI senior agent.\n    \n    Each book in the series is a whole story with a beginning and an ending, however there are references to prior stories in the series.\n    \n    Series also known as:\n    <i>* I casi di Alex Cross [Italian]</i>",
-                "id": 40543,
-                "series_name": "Alex Cross"
+                "count": 53,
+                "description": "Stone Barrington is an attorney in New York City.",
+                "id": 41374,
+                "numbered": 1,
+                "primary_count": 44,
+                "series_name": "Stone Barrington"
             }
         ]
+        
++ Response 400 (application/json)
+
+        {
+            "error": "invalid value for limit/offset/filter/sort parameter"
+        }
 
 ## Series [/series/{id}]
 
 + Parameters
-    + id (required, Number, `40335`) ... `id` of a series to retrieve its data.
+    + id (required, Number, `40957`) ... `id` of a series to retrieve its data.
 
 ### Retrieve a Series [GET]
 
 + Response 200 (application/json)
 
         {
-            "count": 36,
-            "description": "Dr. Alex Cross is a specialist in forensic psychology, originally working for the Washington DC police department and later as an FBI senior agent.\n    \n    Each book in the series is a whole story with a beginning and an ending, however there are references to prior stories in the series.\n    \n    Series also known as:\n    <i>* I casi di Alex Cross [Italian]</i>",
-            "id": 40543,
-            "series_name": "Alex Cross"
+                "count": 16,
+                "description": "Each book in the series is (mostly) a whole story with a beginning and an end; however, the plot (and characters) of every book relies <i><b>very</b></i> heavily on the prior books in the series.\n    \n    Series also known as:\n    <i>* Guida galattica per gli autostoppisti</i> [Italian]\n    <i>* \u0160toparski vodnik po Galaksiji</i> [Slovenian]\n    <i>* Gu\u00eda del autoestopista gal\u00e1ctico</i> [Spanish]</i>\n    <i>* \u041f\u044a\u0442\u0435\u0432\u043e\u0434\u0438\u0442\u0435\u043b \u043d\u0430 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u044f \u0441\u0442\u043e\u043f\u0430\u0434\u0436\u0438\u044f</i> [Bulgarian]</i>\n    <i>* Le Guide du voyageur galactique</i> [French]\n    <i>* Linnunrata</i> [Finnish]\n    <i>* Otostop\u00e7unun Galaksi Rehberi</i> [Turkish]\n    <i>* Guia dos Mochileiros da Gal\u00e1xia</i> [Brazilian Portuguese]\n    <i>* Per Anhalter durch die Galaxis</i> [German]\n    <i>* Het Transgalactisch liftershandboek</i> [Dutch]\n    <i>* Stop\u00e1rov sprievodca galaxiou</i> [Slovak]",
+                "id": 40957,
+                "numbered": 1,
+                "primary_count": 5,
+                "series_name": "Hitchhiker's Guide to the Galaxy"
         }
 
         

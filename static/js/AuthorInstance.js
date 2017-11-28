@@ -53,8 +53,8 @@ var AuthorInstance = React.createClass({
           var length = Object.keys(datas.data).length;
           var series = [];
           var seriesIds = this.state.seriesIdArray;
-          
-          for (var i = 0; i < length; i ++){
+          var i;
+          for (i = 0; i < length; i ++){
             if (seriesIds.includes(datas.data[i]["id"]) ) {
               series.push(datas.data[i]);        
             }
@@ -75,9 +75,9 @@ var AuthorInstance = React.createClass({
         var route = this.props.location.pathname;
         var authorId = parseInt(route.substring(route.lastIndexOf("/") + 1, route.length));
         var length = Object.keys(datas.data).length;
-        var author = 0;
-        
-        for (var i = 0; i < length; i ++){
+        var author = -1;
+        var i;
+        for (i = 0; i < length; i ++){
           if (datas.data[i]["id"] === authorId) {
             author = i;
           }
@@ -92,19 +92,30 @@ var AuthorInstance = React.createClass({
 
   render: function(){
     var authorObj = this.state.author;
+
+    var series;
+    if (this.state.seriesArray.length > 0 ) {
     //list of series
-    const series = (this.state.seriesArray).map((series) => (
+          series = (this.state.seriesArray).map((series) => (
             <li key={series['id']}>
               <h2> <a href= {"/series/"+ series['id']}>{series['series_name'] }</a></h2>
             </li>
           ));
+    } else {
+      series = <li><h2>No series available.</h2></li>;
+    }
           
     //list of books
-    const books = (this.state.booksArray).map((book) => (
+    var books;
+    if (this.state.booksArray.length > 0 ) {
+          books = (this.state.booksArray).map((book) => (
             <li key={book['id']}>
               <h2><img src={book["large_img"]} alt="Book Cover Art" width="100px"/><a href= {"/book/" + book['id']}>   { book['title'] }</a></h2>
             </li>
           ));
+    } else {
+       books = <li><h2>No books available.</h2></li>;
+    }
 
 
     console.log(authorObj);
@@ -120,8 +131,8 @@ var AuthorInstance = React.createClass({
         
       <section className="left">
       <div className="left-div">
-        <h1>{authorObj["gender"]}</h1>
         <h2><b>Hometown: </b>{authorObj['hometown']}</h2>
+        <h2><b>Gender: </b>{authorObj['gender']}</h2>
         <div className = "desc">
           <h2><p><b>Description: </b></p>{authorObj['description']}</h2>
         </div>

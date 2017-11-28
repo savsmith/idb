@@ -78,3 +78,12 @@ border-style: solid;
 border-top: thick solid #a59482;
 border-top-width: 8px
 }
+
+.reviewDescription {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    
+}

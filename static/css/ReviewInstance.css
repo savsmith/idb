@@ -1,3 +1,8 @@
+
+
+/* CSS FOR A REVIEW INSTANCE PAGE */
+
+
 .user {
   margin-top:70px;
   padding: 10px;
@@ -41,6 +46,7 @@ font-size: 1.7em;
   float: left;
 }
 
+/* links */
 a:visited, a:link {
   text-decoration: none;
   color: black;

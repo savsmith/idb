@@ -3,8 +3,13 @@ import BookNavbar from './BookNavbar';
 
 require('../css/styles.css');
 
+
+*/ AUTHOR GRID PAGE */
+
+
 var AuthorsPage = React.createClass({
   render: function(){
+  	//renders layout for grid page
     return(
       <div>
         <BookNavbar></BookNavbar>

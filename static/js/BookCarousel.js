@@ -5,8 +5,13 @@ import 'slick-carousel/slick/slick.css';
 
 require("../css/styles.css");
 
+
+/* BOOK CAROUSEL FOR HOME PAGE */
+
+
 var BookCarousel = React.createClass({
   render: function () {
+    //render book carousel with settings
     var settings = {
       className: 'center',
       centerMode: true,
@@ -16,6 +21,8 @@ var BookCarousel = React.createClass({
       autoPlay: true,
       focusOnSelect: true
     };
+
+    //insert images into the carousel
     return (
       <Slider {...settings} className="bookCarousel">
         <div><div><img width="100%" height="100%" src="../static/car_img/book1.png"/></div></div>

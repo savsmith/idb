@@ -57,14 +57,17 @@
 .buttonColor{
   background-color: #006258;
   color: white;
-  outline: none;
+  outline: 0;
   font-family: 'PierSans';
 }
 
 .buttonColor:hover {
   background-color: #006258;
+  outline: 0;
   color:black;
 }
+.buttonColor:focus {outline:0;}
+
 
 .pagination li:hover:not(.active) a {
   background-color: #ddd;

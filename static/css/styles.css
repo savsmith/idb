@@ -124,3 +124,36 @@ center-block {
   color: #ffffff;
   background-color: #006258;
 }
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.notfoundwrapper {
+  background: url("/static/misc/notfound.jpg"); 
+  animation: .5s ease fadeIn;
+  background-size: cover;
+  height:100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.notfoundh1{
+  color:white;
+  font-family: 'PierSans', serif;
+  font-size: 3em;
+}
+
+.notfoundp{
+  color:white;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1em;
+}
+

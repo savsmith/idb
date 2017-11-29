@@ -83,7 +83,8 @@
 +++
 
 ## What did we learn from their website?
-- Possibility of better integration of online sources and documents into the website
+- We learned about Ag-Grid
+- We learned about the party demographics among representatives
 
 +++
 
@@ -94,5 +95,5 @@
 +++
 
 ## What puzzles us about thier website?
-- The angry/sad statue of liberty in the background
-- Not clear how the website helps with holding the representatives "accountable"
+- No media
+- Information not displayed in a helpful and informative manner

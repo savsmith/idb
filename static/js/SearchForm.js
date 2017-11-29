@@ -224,7 +224,7 @@ var SearchForm = React.createClass({
               <h1 className="slogan">author, series, or review!</h1>
               <form onSubmit={this.handleSubmit}>
                 <label>
-                  <input className="searchSearchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
+                  <input className="searchSearchbar" type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try Harry Potter!" 
                   />
                 </label>
                 <Button className="buttonColor searchSearchbutton" type="submit">Search</Button>
@@ -237,7 +237,7 @@ var SearchForm = React.createClass({
             <BookNavbar></BookNavbar>
             <form className = "resultsSearchbar" onSubmit={this.handleSubmit}>
               <label>
-                <input className="searchbar " type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try J.K. Rowling!" 
+                <input className="searchbar " type="text" value={this.state.value} onChange={this.handleChange} placeholder = "Try Harry Potter!" 
                 />
               </label>
               <Button className="buttonColor " type="submit">Search</Button>

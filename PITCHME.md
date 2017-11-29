@@ -35,9 +35,8 @@
 
 ## Sabrina Reenan
 #### Responsibilites
-- A
-- B
-- C
+- Frontend of instance pages
+- Populate attributes using API
 +++
 
 ## Farnoud Faghihi
@@ -57,6 +56,8 @@
 
 ## What did we learn?
 - CORS - cross domain requests
+- Flask
+- React
 
 +++
 

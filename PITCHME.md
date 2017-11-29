@@ -28,15 +28,16 @@
 
 ## Manasa Tipparam
 #### Responsibilites
-- A
-- B
-- C
+- Design and Frontend with React
+- Data Visualization
+- API Testing
 +++
 
 ## Sabrina Reenan
 #### Responsibilites
-- Frontend of instance pages
-- Populate attributes using API
+- A
+- B
+- C
 +++
 
 ## Farnoud Faghihi
@@ -56,8 +57,6 @@
 
 ## What did we learn?
 - CORS - cross domain requests
-- Flask
-- React
 
 +++
 

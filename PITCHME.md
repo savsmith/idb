@@ -83,7 +83,7 @@
 +++
 
 ## What did we learn from their website?
-- We learned about Ad-Grid
+- We learned about Ag-Grid
 - We learned about the party demographics among representatives
 
 +++

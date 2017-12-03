@@ -4,6 +4,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import json
+from collections import Counter
 
 app = Flask(__name__)
 CORS(app)
@@ -97,7 +98,14 @@ def home(path):
 
 @app.route('/visualization')
 def visualization():
-    return render_template("visualization.html")
+    members_url = "http://104.154.65.204:5000/api/member_list"
+    response = requests.get(members_url).json()["result"]
+    states = set()
+    for mem in response:
+        states.add(mem["roles"][0]["state"])
+    partyCount = Counter(item["roles"][0]["party"] for item in response)
+    stateCount = Counter(item["roles"][0]["state"] for item in response)
+    return render_template("visualization.html", stateCount=stateCount)
 
 @app.route('/all', methods = ['GET'])
 def get_db():
@@ -477,14 +485,18 @@ def get_review_instance(review_id):
 @app.route('/viz/members', methods = ['GET'])
 def get_viz_members():
     members_url = "http://104.154.65.204:5000/api/member_list"
-    response = requests.get(members_url).json()
+    response = requests.get(members_url).json()["result"]
     states = set()
-    data = []
-    for mem in response["result"]:
+    for mem in response:
         states.add(mem["roles"][0]["state"])
+    stateCount = Counter(item["roles"][0]["state"] for item in response)
+    partyCount = Counter(item["roles"][0]["party"] for item in response)
 
-    print(list(states))
-    return json.dumps(list(states))
+    for state in states:
+        parties[state]["party"] = "R"
+
+    print(stateCount)
+    return json.dumps(stateCount, sort_keys=True)
 
 
 @app.errorhandler(404)

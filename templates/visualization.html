@@ -8,7 +8,7 @@
 
 </head>
 <body>
-  <h3>2017 Legislative Partisan Composition</h3>
+  <h1>Voting Group Data Visualization</h1>
   <div id="map" style="position: relative; width: 600px; height: 300px;">
     <!-- Map container -->
   </div>
@@ -43,7 +43,7 @@
       fills: {
         darkBlue: '#4b6ca3',
         medBlue: '#6688c1',
-        lightBlue: '#7995c6',
+        lightBlue: '#97b0db',
         yellow: '#ffd749',
         darkRed: '#a34444',
         medRed: '#c46060',
@@ -457,6 +457,19 @@
         }
       }
     });
+    var l = {
+      legendTitle: "2017 Legislative Partisan Composition",
+      labels: {
+         darkBlue: "Democrat",
+         yellow: "Split",
+         darkRed: "Republican",
+         medBlue: " ",
+         medRed: " ",
+         lightBlue: " ",
+         lightRed: " "
+      },
+    };
+    map.legend(l);
 
   </script>
 

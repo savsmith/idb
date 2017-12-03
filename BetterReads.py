@@ -100,12 +100,21 @@ def home(path):
 def visualization():
     members_url = "http://104.154.65.204:5000/api/member_list"
     response = requests.get(members_url).json()["result"]
+    partyCount = Counter(item["roles"][0]["party"] for item in response)
+    stateCount = Counter(item["roles"][0]["state"] for item in response)
+
     states = set()
     for mem in response:
         states.add(mem["roles"][0]["state"])
-    partyCount = Counter(item["roles"][0]["party"] for item in response)
-    stateCount = Counter(item["roles"][0]["state"] for item in response)
-    return render_template("visualization.html", stateCount=stateCount)
+    statesList = list(states)
+    parties = {}
+    for index, state in enumerate(statesList):
+        parties[state] = {}
+        parties[state]["democrats"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
+        parties[state]["republicans"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
+        parties[state]["independants"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
+
+    return render_template("visualization.html", stateCount=stateCount, parties=parties)
 
 @app.route('/all', methods = ['GET'])
 def get_db():
@@ -486,18 +495,29 @@ def get_review_instance(review_id):
 def get_viz_members():
     members_url = "http://104.154.65.204:5000/api/member_list"
     response = requests.get(members_url).json()["result"]
-    states = set()
-    for mem in response:
-        states.add(mem["roles"][0]["state"])
+
     stateCount = Counter(item["roles"][0]["state"] for item in response)
     partyCount = Counter(item["roles"][0]["party"] for item in response)
-
-    for state in states:
-        parties[state]["party"] = "R"
 
     print(stateCount)
     return json.dumps(stateCount, sort_keys=True)
 
+@app.route('/viz/parties', methods = ['GET'])
+def get_viz_mem_parties():
+    members_url = "http://104.154.65.204:5000/api/member_list"
+    response = requests.get(members_url).json()["result"]
+    states = set()
+    for mem in response:
+        states.add(mem["roles"][0]["state"])
+    statesList = list(states)
+    parties = {}
+    for index, state in enumerate(statesList):
+        parties[state] = {}
+        parties[state]["democrats"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
+        parties[state]["republicans"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
+        parties[state]["independants"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
+    print(states)
+    return json.dumps(parties, sort_keys=True)
 
 @app.errorhandler(404)
 def page_not_found(e):

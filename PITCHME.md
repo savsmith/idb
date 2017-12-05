@@ -56,19 +56,18 @@
 
 ## What did we learn?
 - CORS - cross domain requests
-- Flask
-- React
-
+- Teamwork
 +++
 
 ## What can we do better?
 - Mobile Compatibility
 - Code refactoring
-
+- UI: Some of it is a bit wonky, and can behave erratically.
 +++
 
 ## What puzzles us?
 - Book APIs, not many good concrete ones available.
+- React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
 
 ---
 @title[VotingTrail]

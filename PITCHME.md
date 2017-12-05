@@ -50,24 +50,28 @@
 ## What did we do well?
 - React
 - Pagination, Search, Filter
+- Fast
 - API
-- Backend (database)
 +++
 
 ## What did we learn?
 - CORS - cross domain requests
 - Teamwork
+- Website Tools - (Flask, React, API + Scraping)
+
 +++
 
 ## What can we do better?
 - Mobile Compatibility
 - Code refactoring
 - UI: Some of it is a bit wonky, and can behave erratically.
+- Filters and Search Reset
 +++
 
 ## What puzzles us?
 - Book APIs, not many good concrete ones available.
 - React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
+- How the frontend and backend connect.
 
 ---
 @title[VotingTrail]

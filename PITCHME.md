@@ -71,7 +71,8 @@
 ## What puzzles us?
 - Book APIs, not many good concrete ones available.
 - React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
-![Video](https://giphy.com/gifs/xT1Ra3elINQ8Dq4NHO/html5)
+![](https://media.giphy.com/media/xT1Ra3elINQ8Dq4NHO/giphy.gif)
+
 
 ---
 @title[VotingTrail]

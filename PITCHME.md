@@ -16,8 +16,8 @@
 
 ## Savannah Smith
 #### Responsibilites
-- Creating the database models
-- Scraping the Goodreads and Nytimes Best-Seller APIs
+- Backend
+- Database Management
 +++
 
 ## Kevin Vu
@@ -84,6 +84,8 @@
 ## What did they do well?
 - Sort and filter for all attributes
 - Twitter integration
+- Very Informative Vote Information Page
+- Clean Website
 
 +++
 
@@ -96,9 +98,10 @@
 ## What can they do better?
 - Certain links on the instance pages break website functionality
 - Refining search functionality
+- More Media
 
 +++
 
 ## What puzzles us about thier website?
-- No media
 - Information not displayed in a helpful and informative manner
+- Information isn't visible

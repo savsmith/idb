@@ -63,15 +63,15 @@ class TestBetterReadsAPI(TestCase):
         self.assertEqual(status_code, 200)
 
     def testBookById(self):
-        url = testurl + "/api/book/61"
+        url = testurl + "/api/books/1"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
-        url = testurl + "/api/authors/20"
+        url = testurl + "/api/books/20"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 404)
 
     def testSeriesById(self):
-        url = testurl + "/api/series/41759"
+        url = testurl + "/api/series/49075"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
         url = testurl + "/api/series/1"
@@ -79,7 +79,7 @@ class TestBetterReadsAPI(TestCase):
         self.assertEqual(status_code, 404)
 
     def testReviewById(self):
-        url = testurl + "/api/reviews/2"
+        url = testurl + "/api/reviews/22"
         status_code = requests.get(url).status_code
         self.assertEqual(status_code, 200)
         url = testurl + "/api/reviews/1"

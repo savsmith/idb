@@ -99,22 +99,27 @@ def home(path):
 @app.route('/visualization')
 def visualization():
     members_url = "http://104.154.65.204:5000/api/member_list"
-    response = requests.get(members_url).json()["result"]
-    partyCount = Counter(item["roles"][0]["party"] for item in response)
-    stateCount = Counter(item["roles"][0]["state"] for item in response)
+    bills_url = "http://104.154.65.204:5000/api/bill_list"
+
+    response1 = requests.get(members_url).json()["result"]
+    response2 = requests.get(bills_url).json()["result"]
+
+    partyCount = Counter(item["roles"][0]["party"] for item in response1)
+    stateCount = Counter(item["roles"][0]["state"] for item in response1)
+    billStateCount = Counter(item["sponsor_state"] for item in response2)
 
     states = set()
-    for mem in response:
+    for mem in response1:
         states.add(mem["roles"][0]["state"])
     statesList = list(states)
     parties = {}
     for index, state in enumerate(statesList):
         parties[state] = {}
-        parties[state]["democrats"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
-        parties[state]["republicans"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
-        parties[state]["independants"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
+        parties[state]["democrats"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
+        parties[state]["republicans"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
+        parties[state]["independants"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
 
-    return render_template("visualization.html", stateCount=stateCount, parties=parties)
+    return render_template("visualization.html", stateCount=stateCount, parties=parties, billStateCount=billStateCount)
 
 @app.route('/all', methods = ['GET'])
 def get_db():
@@ -518,6 +523,16 @@ def get_viz_mem_parties():
         parties[state]["independants"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
     print(states)
     return json.dumps(parties, sort_keys=True)
+
+@app.route('/viz/bill_state', methods = ['GET'])
+def get_viz_bill_state():
+    bills_url = "http://104.154.65.204:5000/api/bill_list"
+    response = requests.get(bills_url).json()["result"]
+
+    billStateCount = Counter(item["sponsor_state"] for item in response)
+
+
+    return json.dumps(billStateCount)
 
 @app.errorhandler(404)
 def page_not_found(e):

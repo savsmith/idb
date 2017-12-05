@@ -71,7 +71,7 @@
 ## What puzzles us?
 - Book APIs, not many good concrete ones available.
 - React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
-- How the frontend and backend connect.
+![Video](https://giphy.com/gifs/xT1Ra3elINQ8Dq4NHO/html5)
 
 ---
 @title[VotingTrail]

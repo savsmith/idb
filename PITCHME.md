@@ -111,5 +111,6 @@
 
 ---
 ## VISUALIZATION
+---?image=https://i.imgur.com/nqLyhJW.png
 ---
 ## Questions?

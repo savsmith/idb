@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Datamaps Testing</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+  <script  src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
+  <script src="../node_modules/chart.js/dist/Chart.js"></script>
+
+</head>
+<body>
+  <h1>Voting Group Data Visualization</h1>
+  <div id="map" style="float: left; position: relative; width: 80%; height: 80%;"></div>
+
+  <!-- JS libraries -->
+  <script>
+
+    function getShade(d,r,i) {
+      if (d == 0)
+        return 'darkRed';
+      if (r == 0)
+        return 'darkBlue';
+      if (d == r + 1 || d == r - 1)
+        return 'yellow';
+      if (r > d && d <= 0.25 * r)
+        return 'darkRed';
+      if (r > d && d >= 0.5 * r)
+        return 'lightRed';
+      if (r > d)
+        return 'medRed';
+      if (d > r && r <= 0.25 * d)
+        return 'darkBlue';
+      if (d > r && r >= 0.5 * d)
+        return 'lightBlue';
+      if (d > r)
+        return 'medBlue';
+    }
+
+
+    var map = new Datamap({
+      element: document.getElementById('map'),
+      responsive: true,
+      scope: 'usa',
+      fills: {
+        darkBlue: '#4b6ca3',
+        medBlue: '#6688c1',
+        lightBlue: '#97b0db',
+        yellow: '#ffd749',
+        darkRed: '#a34444',
+        medRed: '#c46060',
+        lightRed: '#c48787',
+        defaultFill: 'rgba(23,42,110,0.9)' // Any hex, color name or rgb/rgba value
+      },
+      data: {
+        CA: {
+          numThings: {{stateCount["CA"]}},
+          dems: {{parties["CA"]["democrats"]}},
+          reps: {{parties["CA"]["republicans"]}},
+          indeps: {{parties["CA"]["independants"]}},
+          fillKey: getShade({{parties["CA"]["democrats"]}},{{parties["CA"]["republicans"]}},{{parties["CA"]["independants"]}})
+        },
+        TX: {
+          numThings: {{stateCount["TX"]}},
+          dems: {{parties["TX"]["democrats"]}},
+          reps: {{parties["TX"]["republicans"]}},
+          indeps: {{parties["TX"]["independants"]}},
+          fillKey: getShade({{parties["TX"]["democrats"]}},{{parties["TX"]["republicans"]}},{{parties["TX"]["independants"]}})
+        },
+        FL: {
+          numThings: {{stateCount["FL"]}},
+          dems: {{parties["FL"]["democrats"]}},
+          reps: {{parties["FL"]["republicans"]}},
+          indeps: {{parties["FL"]["independants"]}},
+          fillKey: getShade({{parties["FL"]["democrats"]}},{{parties["FL"]["republicans"]}},{{parties["FL"]["independants"]}})
+        },
+        NY: {
+          numThings: {{stateCount["NY"]}},
+          dems: {{parties["NY"]["democrats"]}},
+          reps: {{parties["NY"]["republicans"]}},
+          indeps: {{parties["NY"]["independants"]}},
+          fillKey: getShade({{parties["NY"]["democrats"]}},{{parties["NY"]["republicans"]}},{{parties["NY"]["independants"]}})
+        },
+        PA: {
+          numThings: {{stateCount["PA"]}},
+          dems: {{parties["PA"]["democrats"]}},
+          reps: {{parties["PA"]["republicans"]}},
+          indeps: {{parties["PA"]["independants"]}},
+          fillKey: getShade({{parties["PA"]["democrats"]}},{{parties["PA"]["republicans"]}},{{parties["PA"]["independants"]}})
+        },
+        IL: {
+          numThings: {{stateCount["IL"]}},
+          dems: {{parties["IL"]["democrats"]}},
+          reps: {{parties["IL"]["republicans"]}},
+          indeps: {{parties["IL"]["independants"]}},
+          fillKey: getShade({{parties["IL"]["democrats"]}},{{parties["IL"]["republicans"]}},{{parties["IL"]["independants"]}})
+        },
+        OH: {
+          numThings: {{stateCount["OH"]}},
+          dems: {{parties["OH"]["democrats"]}},
+          reps: {{parties["OH"]["republicans"]}},
+          indeps: {{parties["OH"]["independants"]}},
+          fillKey: getShade({{parties["OH"]["democrats"]}},{{parties["OH"]["republicans"]}},{{parties["OH"]["independants"]}})
+        },
+        GA: {
+          numThings: {{stateCount["GA"]}},
+          dems: {{parties["GA"]["democrats"]}},
+          reps: {{parties["GA"]["republicans"]}},
+          indeps: {{parties["GA"]["independants"]}},
+          fillKey: getShade({{parties["GA"]["democrats"]}},{{parties["GA"]["republicans"]}},{{parties["GA"]["independants"]}})
+        },
+        MI: {
+          numThings: {{stateCount["MI"]}},
+          dems: {{parties["MI"]["democrats"]}},
+          reps: {{parties["MI"]["republicans"]}},
+          indeps: {{parties["MI"]["independants"]}},
+          fillKey: getShade({{parties["MI"]["democrats"]}},{{parties["MI"]["republicans"]}},{{parties["MI"]["independants"]}})
+        },
+        NC: {
+          numThings: {{stateCount["NC"]}},
+          dems: {{parties["NC"]["democrats"]}},
+          reps: {{parties["NC"]["republicans"]}},
+          indeps: {{parties["NC"]["independants"]}},
+          fillKey: getShade({{parties["NC"]["democrats"]}},{{parties["NC"]["republicans"]}},{{parties["NC"]["independants"]}})
+        },
+        NJ: {
+          numThings: {{stateCount["NJ"]}},
+          dems: {{parties["NJ"]["democrats"]}},
+          reps: {{parties["NJ"]["republicans"]}},
+          indeps: {{parties["NJ"]["independants"]}},
+          fillKey: getShade({{parties["NJ"]["democrats"]}},{{parties["NJ"]["republicans"]}},{{parties["NJ"]["independants"]}})
+        },
+        VA: {
+          numThings: {{stateCount["VA"]}},
+          dems: {{parties["VA"]["democrats"]}},
+          reps: {{parties["VA"]["republicans"]}},
+          indeps: {{parties["VA"]["independants"]}},
+          fillKey: getShade({{parties["VA"]["democrats"]}},{{parties["VA"]["republicans"]}},{{parties["VA"]["independants"]}})
+        },
+        WA: {
+          numThings: {{stateCount["WA"]}},
+          dems: {{parties["WA"]["democrats"]}},
+          reps: {{parties["WA"]["republicans"]}},
+          indeps: {{parties["WA"]["independants"]}},
+          fillKey: getShade({{parties["WA"]["democrats"]}},{{parties["WA"]["republicans"]}},{{parties["WA"]["independants"]}})
+        },
+        TN: {
+          numThings: {{stateCount["TN"]}},
+          dems: {{parties["TN"]["democrats"]}},
+          reps: {{parties["TN"]["republicans"]}},
+          indeps: {{parties["TN"]["independants"]}},
+          fillKey: getShade({{parties["TN"]["democrats"]}},{{parties["TN"]["republicans"]}},{{parties["TN"]["independants"]}})
+        },
+        IN: {
+          numThings: {{stateCount["IN"]}},
+          dems: {{parties["IN"]["democrats"]}},
+          reps: {{parties["IN"]["republicans"]}},
+          indeps: {{parties["IN"]["independants"]}},
+          fillKey: getShade({{parties["IN"]["democrats"]}},{{parties["IN"]["republicans"]}},{{parties["IN"]["independants"]}})
+        },
+        AZ: {
+          numThings: {{stateCount["AZ"]}},
+          dems: {{parties["AZ"]["democrats"]}},
+          reps: {{parties["AZ"]["republicans"]}},
+          indeps: {{parties["AZ"]["independants"]}},
+          fillKey: getShade({{parties["AZ"]["democrats"]}},{{parties["AZ"]["republicans"]}},{{parties["AZ"]["independants"]}})
+        },
+        MA: {
+          numThings: {{stateCount["MA"]}},
+          dems: {{parties["MA"]["democrats"]}},
+          reps: {{parties["MA"]["republicans"]}},
+          indeps: {{parties["MA"]["independants"]}},
+          fillKey: getShade({{parties["MA"]["democrats"]}},{{parties["MA"]["republicans"]}},{{parties["MA"]["independants"]}})
+        },
+        AL: {
+          numThings: {{stateCount["AL"]}},
+          dems: {{parties["AL"]["democrats"]}},
+          reps: {{parties["AL"]["republicans"]}},
+          indeps: {{parties["AL"]["independants"]}},
+          fillKey: getShade({{parties["AL"]["democrats"]}},{{parties["AL"]["republicans"]}},{{parties["AL"]["independants"]}})
+        },
+        MO: {
+          numThings: {{stateCount["MO"]}},
+          dems: {{parties["MO"]["democrats"]}},
+          reps: {{parties["MO"]["republicans"]}},
+          indeps: {{parties["MO"]["independants"]}},
+          fillKey: getShade({{parties["MO"]["democrats"]}},{{parties["MO"]["republicans"]}},{{parties["MO"]["independants"]}})
+        },
+        WI: {
+          numThings: {{stateCount["WI"]}},
+          dems: {{parties["WI"]["democrats"]}},
+          reps: {{parties["WI"]["republicans"]}},
+          indeps: {{parties["WI"]["independants"]}},
+          fillKey: getShade({{parties["WI"]["democrats"]}},{{parties["WI"]["republicans"]}},{{parties["WI"]["independants"]}})
+        },
+        MD: {
+          numThings: {{stateCount["MD"]}},
+          dems: {{parties["MD"]["democrats"]}},
+          reps: {{parties["MD"]["republicans"]}},
+          indeps: {{parties["MD"]["independants"]}},
+          fillKey: getShade({{parties["MD"]["democrats"]}},{{parties["MD"]["republicans"]}},{{parties["MD"]["independants"]}})
+        },
+        SC: {
+          numThings: {{stateCount["SC"]}},
+          dems: {{parties["SC"]["democrats"]}},
+          reps: {{parties["SC"]["republicans"]}},
+          indeps: {{parties["SC"]["independants"]}},
+          fillKey: getShade({{parties["SC"]["democrats"]}},{{parties["SC"]["republicans"]}},{{parties["SC"]["independants"]}})
+        },
+        MN: {
+          numThings: {{stateCount["MN"]}},
+          dems: {{parties["MN"]["democrats"]}},
+          reps: {{parties["MN"]["republicans"]}},
+          indeps: {{parties["MN"]["independants"]}},
+          fillKey: getShade({{parties["MN"]["democrats"]}},{{parties["MN"]["republicans"]}},{{parties["MN"]["independants"]}})
+        },
+        CO: {
+          numThings: {{stateCount["CO"]}},
+          dems: {{parties["CO"]["democrats"]}},
+          reps: {{parties["CO"]["republicans"]}},
+          indeps: {{parties["CO"]["independants"]}},
+          fillKey: getShade({{parties["CO"]["democrats"]}},{{parties["CO"]["republicans"]}},{{parties["CO"]["independants"]}})
+        },
+        LA: {
+          numThings: {{stateCount["LA"]}},
+          dems: {{parties["LA"]["democrats"]}},
+          reps: {{parties["LA"]["republicans"]}},
+          indeps: {{parties["LA"]["independants"]}},
+          fillKey: getShade({{parties["LA"]["democrats"]}},{{parties["LA"]["republicans"]}},{{parties["LA"]["independants"]}})
+        },
+        KY: {
+          numThings: {{stateCount["KY"]}},
+          dems: {{parties["KY"]["democrats"]}},
+          reps: {{parties["KY"]["republicans"]}},
+          indeps: {{parties["KY"]["independants"]}},
+          fillKey: getShade({{parties["KY"]["democrats"]}},{{parties["KY"]["republicans"]}},{{parties["KY"]["independants"]}})
+        },
+        OR: {
+          numThings: {{stateCount["OR"]}},
+          dems: {{parties["OR"]["democrats"]}},
+          reps: {{parties["OR"]["republicans"]}},
+          indeps: {{parties["OR"]["independants"]}},
+          fillKey: getShade({{parties["OR"]["democrats"]}},{{parties["OR"]["republicans"]}},{{parties["OR"]["independants"]}})
+        },
+        CT: {
+          numThings: {{stateCount["CT"]}},
+          dems: {{parties["CT"]["democrats"]}},
+          reps: {{parties["CT"]["republicans"]}},
+          indeps: {{parties["CT"]["independants"]}},
+          fillKey: getShade({{parties["CT"]["democrats"]}},{{parties["CT"]["republicans"]}},{{parties["CT"]["independants"]}})
+        },
+        OK: {
+          numThings: {{stateCount["OK"]}},
+          dems: {{parties["OK"]["democrats"]}},
+          reps: {{parties["OK"]["republicans"]}},
+          indeps: {{parties["OK"]["independants"]}},
+          fillKey: getShade({{parties["OK"]["democrats"]}},{{parties["OK"]["republicans"]}},{{parties["OK"]["independants"]}})
+        },
+        KS: {
+          numThings: {{stateCount["KS"]}},
+          dems: {{parties["KS"]["democrats"]}},
+          reps: {{parties["KS"]["republicans"]}},
+          indeps: {{parties["KS"]["independants"]}},
+          fillKey: getShade({{parties["KS"]["democrats"]}},{{parties["KS"]["republicans"]}},{{parties["KS"]["independants"]}})
+        },
+        NV: {
+          numThings: {{stateCount["NV"]}},
+          dems: {{parties["NV"]["democrats"]}},
+          reps: {{parties["NV"]["republicans"]}},
+          indeps: {{parties["NV"]["independants"]}},
+          fillKey: getShade({{parties["NV"]["democrats"]}},{{parties["NV"]["republicans"]}},{{parties["NV"]["independants"]}})
+        },
+        AR: {
+          numThings: {{stateCount["AR"]}},
+          dems: {{parties["AR"]["democrats"]}},
+          reps: {{parties["AR"]["republicans"]}},
+          indeps: {{parties["AR"]["independants"]}},
+          fillKey: getShade({{parties["AR"]["democrats"]}},{{parties["AR"]["republicans"]}},{{parties["AR"]["independants"]}})
+        },
+        UT: {
+          numThings: {{stateCount["UT"]}},
+          dems: {{parties["UT"]["democrats"]}},
+          reps: {{parties["UT"]["republicans"]}},
+          indeps: {{parties["UT"]["independants"]}},
+          fillKey: getShade({{parties["UT"]["democrats"]}},{{parties["UT"]["republicans"]}},{{parties["UT"]["independants"]}})
+        },
+        IA: {
+          numThings: {{stateCount["IA"]}},
+          dems: {{parties["IA"]["democrats"]}},
+          reps: {{parties["IA"]["republicans"]}},
+          indeps: {{parties["IA"]["independants"]}},
+          fillKey: getShade({{parties["IA"]["democrats"]}},{{parties["IA"]["republicans"]}},{{parties["IA"]["independants"]}})
+        },
+        MS: {
+          numThings: {{stateCount["MS"]}},
+          dems: {{parties["MS"]["democrats"]}},
+          reps: {{parties["MS"]["republicans"]}},
+          indeps: {{parties["MS"]["independants"]}},
+          fillKey: getShade({{parties["MS"]["democrats"]}},{{parties["MS"]["republicans"]}},{{parties["MS"]["independants"]}})
+        },
+        NE: {
+          numThings: {{stateCount["NE"]}},
+          dems: {{parties["NE"]["democrats"]}},
+          reps: {{parties["NE"]["republicans"]}},
+          indeps: {{parties["NE"]["independants"]}},
+          fillKey: getShade({{parties["NE"]["democrats"]}},{{parties["NE"]["republicans"]}},{{parties["NE"]["independants"]}})
+        },
+        WV: {
+          numThings: {{stateCount["WV"]}},
+          dems: {{parties["WV"]["democrats"]}},
+          reps: {{parties["WV"]["republicans"]}},
+          indeps: {{parties["WV"]["independants"]}},
+          fillKey: getShade({{parties["WV"]["democrats"]}},{{parties["WV"]["republicans"]}},{{parties["WV"]["independants"]}})
+        },
+        NM: {
+          numThings: {{stateCount["NM"]}},
+          dems: {{parties["NM"]["democrats"]}},
+          reps: {{parties["NM"]["republicans"]}},
+          indeps: {{parties["NM"]["independants"]}},
+          fillKey: getShade({{parties["NM"]["democrats"]}},{{parties["NM"]["republicans"]}},{{parties["NM"]["independants"]}})
+        },
+        ID: {
+          numThings: {{stateCount["ID"]}},
+          dems: {{parties["ID"]["democrats"]}},
+          reps: {{parties["ID"]["republicans"]}},
+          indeps: {{parties["ID"]["independants"]}},
+          fillKey: getShade({{parties["ID"]["democrats"]}},{{parties["ID"]["republicans"]}},{{parties["ID"]["independants"]}})
+        },
+        ME: {
+          numThings: {{stateCount["ME"]}},
+          dems: {{parties["ME"]["democrats"]}},
+          reps: {{parties["ME"]["republicans"]}},
+          indeps: {{parties["ME"]["independants"]}},
+          fillKey: getShade({{parties["ME"]["democrats"]}},{{parties["ME"]["republicans"]}},{{parties["ME"]["independants"]}})
+        },
+        RI: {
+          numThings: {{stateCount["RI"]}},
+          dems: {{parties["RI"]["democrats"]}},
+          reps: {{parties["RI"]["republicans"]}},
+          indeps: {{parties["RI"]["independants"]}},
+          fillKey: getShade({{parties["RI"]["democrats"]}},{{parties["RI"]["republicans"]}},{{parties["RI"]["independants"]}})
+        },
+        MT: {
+          numThings: {{stateCount["MT"]}},
+          dems: {{parties["MT"]["democrats"]}},
+          reps: {{parties["MT"]["republicans"]}},
+          indeps: {{parties["MT"]["independants"]}},
+          fillKey: getShade({{parties["MT"]["democrats"]}},{{parties["MT"]["republicans"]}},{{parties["MT"]["independants"]}})
+        },
+        HI: {
+          numThings: {{stateCount["HI"]}},
+          dems: {{parties["HI"]["democrats"]}},
+          reps: {{parties["HI"]["republicans"]}},
+          indeps: {{parties["HI"]["independants"]}},
+          fillKey: getShade({{parties["HI"]["democrats"]}},{{parties["HI"]["republicans"]}},{{parties["HI"]["independants"]}})
+        },
+        NH: {
+          numThings: {{stateCount["NH"]}},
+          dems: {{parties["NH"]["democrats"]}},
+          reps: {{parties["NH"]["republicans"]}},
+          indeps: {{parties["NH"]["independants"]}},
+          fillKey: getShade({{parties["NH"]["democrats"]}},{{parties["NH"]["republicans"]}},{{parties["NH"]["independants"]}})
+        },
+        WY: {
+          numThings: {{stateCount["WY"]}},
+          dems: {{parties["WY"]["democrats"]}},
+          reps: {{parties["WY"]["republicans"]}},
+          indeps: {{parties["WY"]["independants"]}},
+          fillKey: getShade({{parties["WY"]["democrats"]}},{{parties["WY"]["republicans"]}},{{parties["WY"]["independants"]}})
+        },
+        DE: {
+          numThings: {{stateCount["DE"]}},
+          dems: {{parties["DE"]["democrats"]}},
+          reps: {{parties["DE"]["republicans"]}},
+          indeps: {{parties["DE"]["independants"]}},
+          fillKey: getShade({{parties["DE"]["democrats"]}},{{parties["DE"]["republicans"]}},{{parties["DE"]["independants"]}})
+        },
+        ND: {
+          numThings: {{stateCount["ND"]}},
+          dems: {{parties["ND"]["democrats"]}},
+          reps: {{parties["ND"]["republicans"]}},
+          indeps: {{parties["ND"]["independants"]}},
+          fillKey: getShade({{parties["ND"]["democrats"]}},{{parties["ND"]["republicans"]}},{{parties["ND"]["independants"]}})
+        },
+        VT: {
+          numThings: {{stateCount["VT"]}},
+          dems: {{parties["VT"]["democrats"]}},
+          reps: {{parties["VT"]["republicans"]}},
+          indeps: {{parties["VT"]["independants"]}},
+          fillKey: getShade({{parties["VT"]["democrats"]}},{{parties["VT"]["republicans"]}},{{parties["VT"]["independants"]}})
+        },
+        AK: {
+          numThings: {{stateCount["AK"]}},
+          dems: {{parties["AK"]["democrats"]}},
+          reps: {{parties["AK"]["republicans"]}},
+          indeps: {{parties["AK"]["independants"]}},
+          fillKey: getShade({{parties["AK"]["democrats"]}},{{parties["AK"]["republicans"]}},{{parties["AK"]["independants"]}})
+        },
+        SD: {
+          numThings: {{stateCount["SD"]}},
+          dems: {{parties["SD"]["democrats"]}},
+          reps: {{parties["SD"]["republicans"]}},
+          indeps: {{parties["SD"]["independants"]}},
+          fillKey: getShade({{parties["SD"]["democrats"]}},{{parties["SD"]["republicans"]}},{{parties["SD"]["independants"]}})
+        },
+        GU: {
+          numThings: {{stateCount["GU"]}},
+          dems: {{parties["GU"]["democrats"]}},
+          reps: {{parties["GU"]["republicans"]}},
+          indeps: {{parties["GU"]["independants"]}},
+          fillKey: getShade({{parties["GU"]["democrats"]}},{{parties["GU"]["republicans"]}},{{parties["GU"]["independants"]}})
+        },
+        PR: {
+          numThings: {{stateCount["PR"]}},
+          dems: {{parties["PR"]["democrats"]}},
+          reps: {{parties["PR"]["republicans"]}},
+          indeps: {{parties["PR"]["independants"]}},
+          fillKey: getShade({{parties["PR"]["democrats"]}},{{parties["PR"]["republicans"]}},{{parties["PR"]["independants"]}})
+        },
+        DC: {
+          numThings: {{stateCount["DC"]}},
+          dems: {{parties["DC"]["democrats"]}},
+          reps: {{parties["DC"]["republicans"]}},
+          indeps: {{parties["DC"]["independants"]}},
+          fillKey: getShade({{parties["DC"]["democrats"]}},{{parties["DC"]["republicans"]}},{{parties["DC"]["independants"]}})
+        },
+        VI: {
+          numThings: {{stateCount["VI"]}},
+          dems: {{parties["VI"]["democrats"]}},
+          reps: {{parties["VI"]["republicans"]}},
+          indeps: {{parties["VI"]["independants"]}},
+          fillKey: getShade({{parties["VI"]["democrats"]}},{{parties["VI"]["republicans"]}},{{parties["VI"]["independants"]}})
+        },
+        AS: {
+          numThings: {{stateCount["AS"]}},
+          dems: {{parties["AS"]["democrats"]}},
+          reps: {{parties["AS"]["republicans"]}},
+          indeps: {{parties["AS"]["independants"]}},
+          fillKey: getShade({{parties["AS"]["democrats"]}},{{parties["AS"]["republicans"]}},{{parties["AS"]["independants"]}})
+        },
+        MP: {
+          numThings: {{stateCount["MP"]}},
+          dems: {{parties["MP"]["democrats"]}},
+          reps: {{parties["MP"]["republicans"]}},
+          indeps: {{parties["MP"]["independants"]}},
+          fillKey: getShade({{parties["MP"]["democrats"]}},{{parties["MP"]["republicans"]}},{{parties["MP"]["independants"]}})
+        }
+      },
+      geographyConfig: {
+        popupTemplate: function(geo, data) {
+
+          return ['<div class="hoverinfo"><strong>',
+                  'Members in ' + geo.properties.name,
+                  ': ' + data.numThings,'</strong>',
+                  '<p>', 'Democrats: ' + data.dems, '</p>',
+                  '<p>', 'Republicans: ' + data.reps, '</p>',
+                  '<p>', 'Independants: ' + data.indeps, '</p>',
+                  '</div>',
+                  ].join('');
+        }
+      },
+      done: function(datamap) {
+        datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+            alert(geography.properties.name);
+        });
+      }
+
+    });
+    var l = {
+      legendTitle: "2017 Legislative Partisan Composition",
+      labels: {
+         darkBlue: "Democrat",
+         yellow: "Split",
+         darkRed: "Republican",
+         medBlue: " ",
+         medRed: " ",
+         lightBlue: " ",
+         lightRed: " "
+      },
+    };
+    map.legend(l);
+    //{{billStateCount}};
+    var sponsoredBills = [
+  {
+    "name":"AK",
+    "count": {{billStateCount["AK"]}},
+    "radius": {{billStateCount["AK"] * 5}},
+    "latitude":61.3850,
+    "longitude":-152.2683
+  },
+  {
+    "name":"AL",
+    "count": {{billStateCount["AL"]}},
+    "radius": {{billStateCount["AL"] * 5}},
+    "latitude":32.7990,
+    "longitude":-86.8073
+  },
+  {
+    "name":"AR",
+    "count": {{billStateCount["AR"]}},
+    "radius": {{billStateCount["AR"] * 5}},
+    "latitude":34.9513,
+    "longitude":-92.3809
+  },
+  {
+    "name":"AZ",
+    "count": {{billStateCount["AZ"]}},
+    "radius": {{billStateCount["AZ"] * 5}},
+    "latitude":33.7712,
+    "longitude":-111.3877
+  },
+  {
+    "name":"CA",
+    "count": {{billStateCount["CA"]}},
+    "radius": {{billStateCount["CA"] * 5}},
+    "latitude":36.1700,
+    "longitude":-119.7462
+  },
+  {
+    "name":"CO",
+    "count": {{billStateCount["CO"]}},
+    "radius": {{billStateCount["CO"] * 5}},
+    "latitude":39.0646,
+    "longitude":-105.3272
+  },
+  {
+    "name":"CT",
+    "count": {{billStateCount["CT"]}},
+    "radius": {{billStateCount["CT"] * 5}},
+    "latitude":41.5834,
+    "longitude":-72.7622
+  },
+  {
+    "name":"DE",
+    "count": {{billStateCount["DE"]}},
+    "radius": {{billStateCount["DE"] * 5}},
+    "latitude":39.3498,
+    "longitude":-75.5148
+  },
+  {
+    "name":"FL",
+    "count": {{billStateCount["FL"]}},
+    "radius": {{billStateCount["FL"] * 5}},
+    "latitude":27.8333,
+    "longitude":-81.7170
+  },
+  {
+    "name":"GA",
+    "count": {{billStateCount["GA"]}},
+    "radius": {{billStateCount["GA"] * 5}},
+    "latitude":32.9866,
+    "longitude":-83.6487
+  },
+  {
+    "name":"HI",
+    "count": {{billStateCount["HI"]}},
+    "radius": {{billStateCount["HI"] * 5}},
+    "latitude":21.1098,
+    "longitude":-157.5311
+  },
+  {
+    "name":"IA",
+    "count": {{billStateCount["IA"]}},
+    "radius": {{billStateCount["IA"] * 5}},
+    "latitude":42.0046,
+    "longitude":-93.2140
+  },
+  {
+    "name":"ID",
+    "count": {{billStateCount["ID"]}},
+    "radius": {{billStateCount["ID"] * 5}},
+    "latitude":44.2394,
+    "longitude":-114.5103
+  },
+  {
+    "name":"IL",
+    "count": {{billStateCount["IL"]}},
+    "radius": {{billStateCount["IL"] * 5}},
+    "latitude":40.3363,
+    "longitude":-89.0022
+  },
+  {
+    "name":"IN",
+    "count": {{billStateCount["IN"]}},
+    "radius": {{billStateCount["IN"] * 5}},
+    "latitude":39.8647,
+    "longitude":-86.2604
+  },
+  {
+    "name":"KS",
+    "count": {{billStateCount["KS"]}},
+    "radius": {{billStateCount["KS"] * 5}},
+    "latitude":38.5111,
+    "longitude":-96.8005
+  },
+  {
+    "name":"KY",
+    "count": {{billStateCount["KY"]}},
+    "radius": {{billStateCount["KY"] * 5}},
+    "latitude":37.6690,
+    "longitude":-84.6514
+  },
+  {
+    "name":"LA",
+    "count": {{billStateCount["LA"]}},
+    "radius": {{billStateCount["LA"] * 5}},
+    "latitude":31.1801,
+    "longitude":-91.8749
+  },
+  {
+    "name":"MA",
+    "count": {{billStateCount["MA"]}},
+    "radius": {{billStateCount["MA"] * 5}},
+    "latitude":42.2373,
+    "longitude":-71.5314
+  },
+  {
+    "name":"MD",
+    "count": {{billStateCount["MD"]}},
+    "radius": {{billStateCount["MD"] * 5}},
+    "latitude":39.0724,
+    "longitude":-76.7902
+  },
+  {
+    "name":"ME",
+    "count": {{billStateCount["ME"]}},
+    "radius": {{billStateCount["ME"] * 5}},
+    "latitude":44.6074,
+    "longitude":-69.3977
+  },
+  {
+    "name":"MI",
+    "count": {{billStateCount["MI"]}},
+    "radius": {{billStateCount["MI"] * 5}},
+    "latitude":43.3504,
+    "longitude":-84.5603
+  },
+  {
+    "name":"MN",
+    "count": {{billStateCount["MN"]}},
+    "radius": {{billStateCount["MN"] * 5}},
+    "latitude":45.7326,
+    "longitude":-93.9196
+  },
+  {
+    "name":"MO",
+    "count": {{billStateCount["MO"]}},
+    "radius": {{billStateCount["MO"] * 5}},
+    "latitude":38.4623,
+    "longitude":-92.3020
+  },
+  {
+    "name":"MS",
+    "count": {{billStateCount["MS"]}},
+    "radius": {{billStateCount["MS"] * 5}},
+    "latitude":32.7673,
+    "longitude":-89.6812
+  },
+  {
+    "name":"MT",
+    "count": {{billStateCount["MT"]}},
+    "radius": {{billStateCount["MT"] * 5}},
+    "latitude":46.9048,
+    "longitude":-110.3261
+  },
+  {
+    "name":"NC",
+    "count": {{billStateCount["NC"]}},
+    "radius": {{billStateCount["NC"] * 5}},
+    "latitude":35.6411,
+    "longitude":-79.8431
+  },
+  {
+    "name":"ND",
+    "count": {{billStateCount["ND"]}},
+    "radius": {{billStateCount["ND"] * 5}},
+    "latitude":47.5362,
+    "longitude":-99.7930
+  },
+  {
+    "name":"NE",
+    "count": {{billStateCount["NE"]}},
+    "radius": {{billStateCount["NE"] * 5}},
+    "latitude":41.1289,
+    "longitude":-98.2883
+  },
+  {
+    "name":"NH",
+    "count": {{billStateCount["NH"]}},
+    "radius": {{billStateCount["NH"] * 5}},
+    "latitude":43.4108,
+    "longitude":-71.5653
+  },
+  {
+    "name":"NJ",
+    "count": {{billStateCount["NJ"]}},
+    "radius": {{billStateCount["NJ"] * 5}},
+    "latitude":40.3140,
+    "longitude":-74.5089
+  },
+  {
+    "name":"NM",
+    "count": {{billStateCount["NM"]}},
+    "radius": {{billStateCount["NM"] * 5}},
+    "latitude":34.8375,
+    "longitude":-106.2371
+  },
+  {
+    "name":"NV",
+    "count": {{billStateCount["NV"]}},
+    "radius": {{billStateCount["NV"] * 5}},
+    "latitude":38.4199,
+    "longitude":-117.1219
+  },
+  {
+    "name":"NY",
+    "count": {{billStateCount["NY"]}},
+    "radius": {{billStateCount["NY"] * 5}},
+    "latitude":42.1497,
+    "longitude":-74.9384
+  },
+  {
+    "name":"OH",
+    "count": {{billStateCount["OH"]}},
+    "radius": {{billStateCount["OH"] * 5}},
+    "latitude":40.3736,
+    "longitude":-82.7755
+  },
+  {
+    "name":"OK",
+    "count": {{billStateCount["OK"]}},
+    "radius": {{billStateCount["OK"] * 5}},
+    "latitude":35.5376,
+    "longitude":-96.9247
+  },
+  {
+    "name":"OR",
+    "count": {{billStateCount["OR"]}},
+    "radius": {{billStateCount["OR"] * 5}},
+    "latitude":44.5672,
+    "longitude":-122.1269
+  },
+  {
+    "name":"PA",
+    "count": {{billStateCount["PA"]}},
+    "radius": {{billStateCount["PA"] * 5}},
+    "latitude":40.5773,
+    "longitude":-77.2640
+  },
+  {
+    "name":"RI",
+    "count": {{billStateCount["RI"]}},
+    "radius": {{billStateCount["RI"] * 5}},
+    "latitude":41.6772,
+    "longitude":-71.5101
+  },
+  {
+    "name":"SC",
+    "count": {{billStateCount["SC"]}},
+    "radius": {{billStateCount["SC"] * 5}},
+    "latitude":33.8191,
+    "longitude":-80.9066
+  },
+  {
+    "name":"SD",
+    "count": {{billStateCount["SD"]}},
+    "radius": {{billStateCount["SD"] * 5}},
+    "latitude":44.2853,
+    "longitude":-99.4632
+  },
+  {
+    "name":"TN",
+    "count": {{billStateCount["TN"]}},
+    "radius": {{billStateCount["TN"] * 5}},
+    "latitude":35.7449,
+    "longitude":-86.7489
+  },
+  {
+    "name":"TX",
+    "count": {{billStateCount["TX"]}},
+    "radius": {{billStateCount["TX"] * 5}},
+    "latitude":31.1060,
+    "longitude":-97.6475
+  },
+  {
+    "name":"UT",
+    "count": {{billStateCount["UT"]}},
+    "radius": {{billStateCount["UT"] * 5}},
+    "latitude":40.1135,
+    "longitude":-111.8535
+  },
+  {
+    "name":"VA",
+    "count": {{billStateCount["VA"]}},
+    "radius": {{billStateCount["VA"] * 5}},
+    "latitude":37.7680,
+    "longitude":-78.2057
+  },
+  {
+    "name":"VT",
+    "count": {{billStateCount["VT"]}},
+    "radius": {{billStateCount["VT"] * 5}},
+    "latitude":44.0407,
+    "longitude":-72.7093
+  },
+  {
+    "name":"WI",
+    "count": {{billStateCount["WI"]}},
+    "radius": {{billStateCount["WI"] * 5}},
+    "latitude":47.3917,
+    "longitude":-121.5708
+  },
+  {
+    "name":"WA",
+    "count": {{billStateCount["WA"]}},
+    "radius": {{billStateCount["WA"] * 5}},
+    "latitude":44.2563,
+    "longitude":-89.6385
+  },
+  {
+    "name":"WV",
+    "count": {{billStateCount["WV"]}},
+    "radius": {{billStateCount["WV"] * 5}},
+    "latitude":38.4680,
+    "longitude":-80.9696
+  },
+  {
+    "name":"WY",
+    "count": {{billStateCount["WY"]}},
+    "radius": {{billStateCount["WY"] * 5}},
+    "latitude":42.7475,
+    "longitude":-107.2085
+  }
+];
+
+    map.bubbles(sponsoredBills, {
+      popupTemplate: function(geo, data) {
+        return ['<div class="hoverinfo"> <strong>Bills Sponsored: <strong>' + data.count,
+        '</div>'].join('');
+      }
+
+    });
+
+    window.addEventListener('resize', function() {
+        map.resize();
+    });
+
+  </script>
+
+</body>

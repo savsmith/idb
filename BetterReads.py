@@ -3,6 +3,8 @@ import requests
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import json
+from collections import Counter
 
 app = Flask(__name__)
 CORS(app)
@@ -16,7 +18,7 @@ db = SQLAlchemy(app)
 # Database #
 #----------#
 
-series_author_assoc_table = db.Table('series_author_assoc', 
+series_author_assoc_table = db.Table('series_author_assoc',
     db.Column('series_id', db.Integer, db.ForeignKey('series.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 
@@ -36,7 +38,7 @@ class books(db.Model):
     published_date = db.Column(db.String(250), nullable=True)
     work_id = db.Column(db.Integer, nullable=False)
     num_pages = db.Column(db.Integer, nullable=True)
-    link = db.Column(db.String(250), nullable=True)    
+    link = db.Column(db.String(250), nullable=True)
     rating = db.Column(db.Float, nullable=False)
 
     #db.relationships for books
@@ -70,8 +72,13 @@ class series(db.Model):
     description = db.Column(db.String(2500), nullable=False)
     primary_count = db.Column(db.Integer, nullable=False)
     numbered = db.Column(db.Boolean, nullable=False)
-    
+<<<<<<< HEAD
+
+    #db.relationships
+=======
+
     #db.relationships for series
+>>>>>>> 8a247eb15ee36d59c7bee6a85b4883d0856d6bde
     books = db.relationship(books, backref='series')
     authors = db.relationship("author", secondary=series_author_assoc_table, back_populates="series")
 
@@ -99,7 +106,31 @@ class reviews(db.Model):
 def home(path):
     return render_template("index.html")
 
-# all instances of all models
+@app.route('/visualization')
+def visualization():
+    members_url = "http://104.154.65.204:5000/api/member_list"
+    bills_url = "http://104.154.65.204:5000/api/bill_list"
+
+    response1 = requests.get(members_url).json()["result"]
+    response2 = requests.get(bills_url).json()["result"]
+
+    partyCount = Counter(item["roles"][0]["party"] for item in response1)
+    stateCount = Counter(item["roles"][0]["state"] for item in response1)
+    billStateCount = Counter(item["sponsor_state"] for item in response2)
+
+    states = set()
+    for mem in response1:
+        states.add(mem["roles"][0]["state"])
+    statesList = list(states)
+    parties = {}
+    for index, state in enumerate(statesList):
+        parties[state] = {}
+        parties[state]["democrats"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
+        parties[state]["republicans"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
+        parties[state]["independants"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
+
+    return render_template("visualization.html", stateCount=stateCount, parties=parties, billStateCount=billStateCount)
+
 @app.route('/all', methods = ['GET'])
 def get_db():
     book_list = [dict(b) for b in db.engine.execute("select * from books")]
@@ -374,59 +405,59 @@ def get_all_reviews():
     return resp
 
 #reviews for a book
-@app.route('/api/reviews/book/<int:book_id>', methods = ['GET'])    
-def get_book_reviews(book_id):    
+@app.route('/api/reviews/book/<int:book_id>', methods = ['GET'])
+def get_book_reviews(book_id):
     js = json.dumps([dict(r) for r in db.engine.execute("select * from reviews where book_id == "+str(book_id))], indent = 4)
     if len(js) == 0:
         return not_found_error("Book's reviews")
     resp = Response(js, status = 200, mimetype = 'application/json')
-    
+
     return resp
 
 #authors for a book
-@app.route('/api/book/<int:book_id>/authors', methods = ['GET'])    
+@app.route('/api/book/<int:book_id>/authors', methods = ['GET'])
 def get_book_authors(book_id):
     author_ids = db.engine.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == "+str(book_id))
     js = json.dumps([dict(a) for a in author_ids], indent = 4)
     if len(js) == 0:
         return not_found_error("Book's authors")
     resp = Response(js, status = 200, mimetype = 'application/json')
-    
+
     return resp
-  
-#books for a series  
-@app.route('/api/series/<int:series_id>/books', methods = ['GET'])    
-def get_series_books(series_id):    
+
+#books for a series
+@app.route('/api/series/<int:series_id>/books', methods = ['GET'])
+def get_series_books(series_id):
     books = db.engine.execute("select * from books where series_id == "+str(series_id))
     js = json.dumps([dict(a) for a in books], indent = 4)
     if len(js) == 0:
         return not_found_error("Series' books")
     resp = Response(js, status = 200, mimetype = 'application/json')
-    
+
     return resp
-   
-#series for an author 
-@app.route('/api/authors/<int:author_id>/series', methods = ['GET'])    
-def get_authors_series(author_id):    
+
+#series for an author
+@app.route('/api/authors/<int:author_id>/series', methods = ['GET'])
+def get_authors_series(author_id):
     series = db.engine.execute("select * from (series s join series_author_assoc saa on (s.id == saa.series_id) ) where author_id == "+str(author_id))
     js = json.dumps([dict(s) for s in series], indent = 4)
     if len(js) == 0:
         return not_found_error("Author's series")
     resp = Response(js, status = 200, mimetype = 'application/json')
-    
+
     return resp
 
-#author for a review 
-@app.route('/api/reviews/<int:review_id>/authors', methods = ['GET']) 
+#author for a review
+@app.route('/api/reviews/<int:review_id>/authors', methods = ['GET'])
 def get_reviews_authors(review_id):
     author_ids = db.engine.execute("select * from (author a join book_author_assoc baa on (a.id == baa.author_id) ) where book_id == (select book_id from reviews where id == "+str(review_id)+")")
     js = json.dumps([dict(a) for a in author_ids], indent = 4)
     if len(js) == 0:
         return not_found_error("Review's author")
     resp = Response(js, status = 200, mimetype = 'application/json')
-    
+
     return resp
-    
+
 def not_found_error(errorStr):
     error = {"error": errorStr + " not found"}
 
@@ -483,6 +514,43 @@ def get_review_instance(review_id):
 
     return resp
 
+@app.route('/viz/members', methods = ['GET'])
+def get_viz_members():
+    members_url = "http://104.154.65.204:5000/api/member_list"
+    response = requests.get(members_url).json()["result"]
+
+    stateCount = Counter(item["roles"][0]["state"] for item in response)
+    partyCount = Counter(item["roles"][0]["party"] for item in response)
+
+    print(stateCount)
+    return json.dumps(stateCount, sort_keys=True)
+
+@app.route('/viz/parties', methods = ['GET'])
+def get_viz_mem_parties():
+    members_url = "http://104.154.65.204:5000/api/member_list"
+    response = requests.get(members_url).json()["result"]
+    states = set()
+    for mem in response:
+        states.add(mem["roles"][0]["state"])
+    statesList = list(states)
+    parties = {}
+    for index, state in enumerate(statesList):
+        parties[state] = {}
+        parties[state]["democrats"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'D')])
+        parties[state]["republicans"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
+        parties[state]["independants"] = len([x for x in response if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
+    print(states)
+    return json.dumps(parties, sort_keys=True)
+
+@app.route('/viz/bill_state', methods = ['GET'])
+def get_viz_bill_state():
+    bills_url = "http://104.154.65.204:5000/api/bill_list"
+    response = requests.get(bills_url).json()["result"]
+
+    billStateCount = Counter(item["sponsor_state"] for item in response)
+
+
+    return json.dumps(billStateCount)
 
 @app.errorhandler(404)
 def page_not_found(e):

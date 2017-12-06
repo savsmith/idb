@@ -10,7 +10,6 @@ import ReviewInstance from './ReviewInstance';
 import SeriesPage from './SeriesPage'
 import SeriesInstance from './SeriesInstance'
 import NotFound from './NotFound'
-import Visual from './Visual'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -30,7 +29,6 @@ var App = React.createClass({
             <Route exact path = "/" component = {HomePage}></Route>
             <Route exact path = "/about" component = {About} ></Route>
             <Route exact path = "/search" component = {SearchForm} ></Route>
-            <Route exact path = "/visual" component = {Visual}></Route>
             <Route exact path = "/books" component = {BookPage}></Route>
             <Route exact path = "/book/:book_id" component={BookInstance} ></Route>
             <Route exact path = "/author" component = {AuthorPage}></Route>

@@ -104,6 +104,7 @@ def visualization():
     response1 = requests.get(members_url).json()["result"]
     response2 = requests.get(bills_url).json()["result"]
 
+    billData = response2
     partyCount = Counter(item["roles"][0]["party"] for item in response1)
     stateCount = Counter(item["roles"][0]["state"] for item in response1)
     billStateCount = Counter(item["sponsor_state"] for item in response2)
@@ -119,7 +120,7 @@ def visualization():
         parties[state]["republicans"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'R')])
         parties[state]["independants"] = len([x for x in response1 if (x["roles"][0]["state"] == state and x['roles'][0]["party"] == 'I')])
 
-    return render_template("visualization.html", stateCount=stateCount, parties=parties, billStateCount=billStateCount)
+    return render_template("visualization.html", stateCount=stateCount, parties=parties, billStateCount=billStateCount, billData=billData)
 
 @app.route('/all', methods = ['GET'])
 def get_db():

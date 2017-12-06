@@ -6,12 +6,14 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
   <script  src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
   <script src="../node_modules/chart.js/dist/Chart.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
 <body>
   <h1>Voting Group Data Visualization</h1>
-  <div id="map" style="float: left; position: relative; width: 80%; height: 80%;"></div>
-
+  <div id="map" style="position: relative; width: 80%; height: 80%;"></div>
+  <div> <h3>Test Header</h3> <p>{{ billData[0] }}</p></div>
+  <div id="example4.2" style="position: relative; height: 200px;"></div>
   <!-- JS libraries -->
   <script>
 
@@ -480,357 +482,357 @@
     map.legend(l);
     //{{billStateCount}};
     var sponsoredBills = [
-  {
-    "name":"AK",
-    "count": {{billStateCount["AK"]}},
-    "radius": {{billStateCount["AK"] * 5}},
-    "latitude":61.3850,
-    "longitude":-152.2683
-  },
-  {
-    "name":"AL",
-    "count": {{billStateCount["AL"]}},
-    "radius": {{billStateCount["AL"] * 5}},
-    "latitude":32.7990,
-    "longitude":-86.8073
-  },
-  {
-    "name":"AR",
-    "count": {{billStateCount["AR"]}},
-    "radius": {{billStateCount["AR"] * 5}},
-    "latitude":34.9513,
-    "longitude":-92.3809
-  },
-  {
-    "name":"AZ",
-    "count": {{billStateCount["AZ"]}},
-    "radius": {{billStateCount["AZ"] * 5}},
-    "latitude":33.7712,
-    "longitude":-111.3877
-  },
-  {
-    "name":"CA",
-    "count": {{billStateCount["CA"]}},
-    "radius": {{billStateCount["CA"] * 5}},
-    "latitude":36.1700,
-    "longitude":-119.7462
-  },
-  {
-    "name":"CO",
-    "count": {{billStateCount["CO"]}},
-    "radius": {{billStateCount["CO"] * 5}},
-    "latitude":39.0646,
-    "longitude":-105.3272
-  },
-  {
-    "name":"CT",
-    "count": {{billStateCount["CT"]}},
-    "radius": {{billStateCount["CT"] * 5}},
-    "latitude":41.5834,
-    "longitude":-72.7622
-  },
-  {
-    "name":"DE",
-    "count": {{billStateCount["DE"]}},
-    "radius": {{billStateCount["DE"] * 5}},
-    "latitude":39.3498,
-    "longitude":-75.5148
-  },
-  {
-    "name":"FL",
-    "count": {{billStateCount["FL"]}},
-    "radius": {{billStateCount["FL"] * 5}},
-    "latitude":27.8333,
-    "longitude":-81.7170
-  },
-  {
-    "name":"GA",
-    "count": {{billStateCount["GA"]}},
-    "radius": {{billStateCount["GA"] * 5}},
-    "latitude":32.9866,
-    "longitude":-83.6487
-  },
-  {
-    "name":"HI",
-    "count": {{billStateCount["HI"]}},
-    "radius": {{billStateCount["HI"] * 5}},
-    "latitude":21.1098,
-    "longitude":-157.5311
-  },
-  {
-    "name":"IA",
-    "count": {{billStateCount["IA"]}},
-    "radius": {{billStateCount["IA"] * 5}},
-    "latitude":42.0046,
-    "longitude":-93.2140
-  },
-  {
-    "name":"ID",
-    "count": {{billStateCount["ID"]}},
-    "radius": {{billStateCount["ID"] * 5}},
-    "latitude":44.2394,
-    "longitude":-114.5103
-  },
-  {
-    "name":"IL",
-    "count": {{billStateCount["IL"]}},
-    "radius": {{billStateCount["IL"] * 5}},
-    "latitude":40.3363,
-    "longitude":-89.0022
-  },
-  {
-    "name":"IN",
-    "count": {{billStateCount["IN"]}},
-    "radius": {{billStateCount["IN"] * 5}},
-    "latitude":39.8647,
-    "longitude":-86.2604
-  },
-  {
-    "name":"KS",
-    "count": {{billStateCount["KS"]}},
-    "radius": {{billStateCount["KS"] * 5}},
-    "latitude":38.5111,
-    "longitude":-96.8005
-  },
-  {
-    "name":"KY",
-    "count": {{billStateCount["KY"]}},
-    "radius": {{billStateCount["KY"] * 5}},
-    "latitude":37.6690,
-    "longitude":-84.6514
-  },
-  {
-    "name":"LA",
-    "count": {{billStateCount["LA"]}},
-    "radius": {{billStateCount["LA"] * 5}},
-    "latitude":31.1801,
-    "longitude":-91.8749
-  },
-  {
-    "name":"MA",
-    "count": {{billStateCount["MA"]}},
-    "radius": {{billStateCount["MA"] * 5}},
-    "latitude":42.2373,
-    "longitude":-71.5314
-  },
-  {
-    "name":"MD",
-    "count": {{billStateCount["MD"]}},
-    "radius": {{billStateCount["MD"] * 5}},
-    "latitude":39.0724,
-    "longitude":-76.7902
-  },
-  {
-    "name":"ME",
-    "count": {{billStateCount["ME"]}},
-    "radius": {{billStateCount["ME"] * 5}},
-    "latitude":44.6074,
-    "longitude":-69.3977
-  },
-  {
-    "name":"MI",
-    "count": {{billStateCount["MI"]}},
-    "radius": {{billStateCount["MI"] * 5}},
-    "latitude":43.3504,
-    "longitude":-84.5603
-  },
-  {
-    "name":"MN",
-    "count": {{billStateCount["MN"]}},
-    "radius": {{billStateCount["MN"] * 5}},
-    "latitude":45.7326,
-    "longitude":-93.9196
-  },
-  {
-    "name":"MO",
-    "count": {{billStateCount["MO"]}},
-    "radius": {{billStateCount["MO"] * 5}},
-    "latitude":38.4623,
-    "longitude":-92.3020
-  },
-  {
-    "name":"MS",
-    "count": {{billStateCount["MS"]}},
-    "radius": {{billStateCount["MS"] * 5}},
-    "latitude":32.7673,
-    "longitude":-89.6812
-  },
-  {
-    "name":"MT",
-    "count": {{billStateCount["MT"]}},
-    "radius": {{billStateCount["MT"] * 5}},
-    "latitude":46.9048,
-    "longitude":-110.3261
-  },
-  {
-    "name":"NC",
-    "count": {{billStateCount["NC"]}},
-    "radius": {{billStateCount["NC"] * 5}},
-    "latitude":35.6411,
-    "longitude":-79.8431
-  },
-  {
-    "name":"ND",
-    "count": {{billStateCount["ND"]}},
-    "radius": {{billStateCount["ND"] * 5}},
-    "latitude":47.5362,
-    "longitude":-99.7930
-  },
-  {
-    "name":"NE",
-    "count": {{billStateCount["NE"]}},
-    "radius": {{billStateCount["NE"] * 5}},
-    "latitude":41.1289,
-    "longitude":-98.2883
-  },
-  {
-    "name":"NH",
-    "count": {{billStateCount["NH"]}},
-    "radius": {{billStateCount["NH"] * 5}},
-    "latitude":43.4108,
-    "longitude":-71.5653
-  },
-  {
-    "name":"NJ",
-    "count": {{billStateCount["NJ"]}},
-    "radius": {{billStateCount["NJ"] * 5}},
-    "latitude":40.3140,
-    "longitude":-74.5089
-  },
-  {
-    "name":"NM",
-    "count": {{billStateCount["NM"]}},
-    "radius": {{billStateCount["NM"] * 5}},
-    "latitude":34.8375,
-    "longitude":-106.2371
-  },
-  {
-    "name":"NV",
-    "count": {{billStateCount["NV"]}},
-    "radius": {{billStateCount["NV"] * 5}},
-    "latitude":38.4199,
-    "longitude":-117.1219
-  },
-  {
-    "name":"NY",
-    "count": {{billStateCount["NY"]}},
-    "radius": {{billStateCount["NY"] * 5}},
-    "latitude":42.1497,
-    "longitude":-74.9384
-  },
-  {
-    "name":"OH",
-    "count": {{billStateCount["OH"]}},
-    "radius": {{billStateCount["OH"] * 5}},
-    "latitude":40.3736,
-    "longitude":-82.7755
-  },
-  {
-    "name":"OK",
-    "count": {{billStateCount["OK"]}},
-    "radius": {{billStateCount["OK"] * 5}},
-    "latitude":35.5376,
-    "longitude":-96.9247
-  },
-  {
-    "name":"OR",
-    "count": {{billStateCount["OR"]}},
-    "radius": {{billStateCount["OR"] * 5}},
-    "latitude":44.5672,
-    "longitude":-122.1269
-  },
-  {
-    "name":"PA",
-    "count": {{billStateCount["PA"]}},
-    "radius": {{billStateCount["PA"] * 5}},
-    "latitude":40.5773,
-    "longitude":-77.2640
-  },
-  {
-    "name":"RI",
-    "count": {{billStateCount["RI"]}},
-    "radius": {{billStateCount["RI"] * 5}},
-    "latitude":41.6772,
-    "longitude":-71.5101
-  },
-  {
-    "name":"SC",
-    "count": {{billStateCount["SC"]}},
-    "radius": {{billStateCount["SC"] * 5}},
-    "latitude":33.8191,
-    "longitude":-80.9066
-  },
-  {
-    "name":"SD",
-    "count": {{billStateCount["SD"]}},
-    "radius": {{billStateCount["SD"] * 5}},
-    "latitude":44.2853,
-    "longitude":-99.4632
-  },
-  {
-    "name":"TN",
-    "count": {{billStateCount["TN"]}},
-    "radius": {{billStateCount["TN"] * 5}},
-    "latitude":35.7449,
-    "longitude":-86.7489
-  },
-  {
-    "name":"TX",
-    "count": {{billStateCount["TX"]}},
-    "radius": {{billStateCount["TX"] * 5}},
-    "latitude":31.1060,
-    "longitude":-97.6475
-  },
-  {
-    "name":"UT",
-    "count": {{billStateCount["UT"]}},
-    "radius": {{billStateCount["UT"] * 5}},
-    "latitude":40.1135,
-    "longitude":-111.8535
-  },
-  {
-    "name":"VA",
-    "count": {{billStateCount["VA"]}},
-    "radius": {{billStateCount["VA"] * 5}},
-    "latitude":37.7680,
-    "longitude":-78.2057
-  },
-  {
-    "name":"VT",
-    "count": {{billStateCount["VT"]}},
-    "radius": {{billStateCount["VT"] * 5}},
-    "latitude":44.0407,
-    "longitude":-72.7093
-  },
-  {
-    "name":"WI",
-    "count": {{billStateCount["WI"]}},
-    "radius": {{billStateCount["WI"] * 5}},
-    "latitude":47.3917,
-    "longitude":-121.5708
-  },
-  {
-    "name":"WA",
-    "count": {{billStateCount["WA"]}},
-    "radius": {{billStateCount["WA"] * 5}},
-    "latitude":44.2563,
-    "longitude":-89.6385
-  },
-  {
-    "name":"WV",
-    "count": {{billStateCount["WV"]}},
-    "radius": {{billStateCount["WV"] * 5}},
-    "latitude":38.4680,
-    "longitude":-80.9696
-  },
-  {
-    "name":"WY",
-    "count": {{billStateCount["WY"]}},
-    "radius": {{billStateCount["WY"] * 5}},
-    "latitude":42.7475,
-    "longitude":-107.2085
-  }
-];
+      {
+        "name":"AK",
+        "count": {{billStateCount["AK"]}},
+        "radius": {{billStateCount["AK"] * 5}},
+        "latitude":61.3850,
+        "longitude":-152.2683
+      },
+      {
+        "name":"AL",
+        "count": {{billStateCount["AL"]}},
+        "radius": {{billStateCount["AL"] * 5}},
+        "latitude":32.7990,
+        "longitude":-86.8073
+      },
+      {
+        "name":"AR",
+        "count": {{billStateCount["AR"]}},
+        "radius": {{billStateCount["AR"] * 5}},
+        "latitude":34.9513,
+        "longitude":-92.3809
+      },
+      {
+        "name":"AZ",
+        "count": {{billStateCount["AZ"]}},
+        "radius": {{billStateCount["AZ"] * 5}},
+        "latitude":33.7712,
+        "longitude":-111.3877
+      },
+      {
+        "name":"CA",
+        "count": {{billStateCount["CA"]}},
+        "radius": {{billStateCount["CA"] * 5}},
+        "latitude":36.1700,
+        "longitude":-119.7462
+      },
+      {
+        "name":"CO",
+        "count": {{billStateCount["CO"]}},
+        "radius": {{billStateCount["CO"] * 5}},
+        "latitude":39.0646,
+        "longitude":-105.3272
+      },
+      {
+        "name":"CT",
+        "count": {{billStateCount["CT"]}},
+        "radius": {{billStateCount["CT"] * 5}},
+        "latitude":41.5834,
+        "longitude":-72.7622
+      },
+      {
+        "name":"DE",
+        "count": {{billStateCount["DE"]}},
+        "radius": {{billStateCount["DE"] * 5}},
+        "latitude":39.3498,
+        "longitude":-75.5148
+      },
+      {
+        "name":"FL",
+        "count": {{billStateCount["FL"]}},
+        "radius": {{billStateCount["FL"] * 5}},
+        "latitude":27.8333,
+        "longitude":-81.7170
+      },
+      {
+        "name":"GA",
+        "count": {{billStateCount["GA"]}},
+        "radius": {{billStateCount["GA"] * 5}},
+        "latitude":32.9866,
+        "longitude":-83.6487
+      },
+      {
+        "name":"HI",
+        "count": {{billStateCount["HI"]}},
+        "radius": {{billStateCount["HI"] * 5}},
+        "latitude":21.1098,
+        "longitude":-157.5311
+      },
+      {
+        "name":"IA",
+        "count": {{billStateCount["IA"]}},
+        "radius": {{billStateCount["IA"] * 5}},
+        "latitude":42.0046,
+        "longitude":-93.2140
+      },
+      {
+        "name":"ID",
+        "count": {{billStateCount["ID"]}},
+        "radius": {{billStateCount["ID"] * 5}},
+        "latitude":44.2394,
+        "longitude":-114.5103
+      },
+      {
+        "name":"IL",
+        "count": {{billStateCount["IL"]}},
+        "radius": {{billStateCount["IL"] * 5}},
+        "latitude":40.3363,
+        "longitude":-89.0022
+      },
+      {
+        "name":"IN",
+        "count": {{billStateCount["IN"]}},
+        "radius": {{billStateCount["IN"] * 5}},
+        "latitude":39.8647,
+        "longitude":-86.2604
+      },
+      {
+        "name":"KS",
+        "count": {{billStateCount["KS"]}},
+        "radius": {{billStateCount["KS"] * 5}},
+        "latitude":38.5111,
+        "longitude":-96.8005
+      },
+      {
+        "name":"KY",
+        "count": {{billStateCount["KY"]}},
+        "radius": {{billStateCount["KY"] * 5}},
+        "latitude":37.6690,
+        "longitude":-84.6514
+      },
+      {
+        "name":"LA",
+        "count": {{billStateCount["LA"]}},
+        "radius": {{billStateCount["LA"] * 5}},
+        "latitude":31.1801,
+        "longitude":-91.8749
+      },
+      {
+        "name":"MA",
+        "count": {{billStateCount["MA"]}},
+        "radius": {{billStateCount["MA"] * 5}},
+        "latitude":42.2373,
+        "longitude":-71.5314
+      },
+      {
+        "name":"MD",
+        "count": {{billStateCount["MD"]}},
+        "radius": {{billStateCount["MD"] * 5}},
+        "latitude":39.0724,
+        "longitude":-76.7902
+      },
+      {
+        "name":"ME",
+        "count": {{billStateCount["ME"]}},
+        "radius": {{billStateCount["ME"] * 5}},
+        "latitude":44.6074,
+        "longitude":-69.3977
+      },
+      {
+        "name":"MI",
+        "count": {{billStateCount["MI"]}},
+        "radius": {{billStateCount["MI"] * 5}},
+        "latitude":43.3504,
+        "longitude":-84.5603
+      },
+      {
+        "name":"MN",
+        "count": {{billStateCount["MN"]}},
+        "radius": {{billStateCount["MN"] * 5}},
+        "latitude":45.7326,
+        "longitude":-93.9196
+      },
+      {
+        "name":"MO",
+        "count": {{billStateCount["MO"]}},
+        "radius": {{billStateCount["MO"] * 5}},
+        "latitude":38.4623,
+        "longitude":-92.3020
+      },
+      {
+        "name":"MS",
+        "count": {{billStateCount["MS"]}},
+        "radius": {{billStateCount["MS"] * 5}},
+        "latitude":32.7673,
+        "longitude":-89.6812
+      },
+      {
+        "name":"MT",
+        "count": {{billStateCount["MT"]}},
+        "radius": {{billStateCount["MT"] * 5}},
+        "latitude":46.9048,
+        "longitude":-110.3261
+      },
+      {
+        "name":"NC",
+        "count": {{billStateCount["NC"]}},
+        "radius": {{billStateCount["NC"] * 5}},
+        "latitude":35.6411,
+        "longitude":-79.8431
+      },
+      {
+        "name":"ND",
+        "count": {{billStateCount["ND"]}},
+        "radius": {{billStateCount["ND"] * 5}},
+        "latitude":47.5362,
+        "longitude":-99.7930
+      },
+      {
+        "name":"NE",
+        "count": {{billStateCount["NE"]}},
+        "radius": {{billStateCount["NE"] * 5}},
+        "latitude":41.1289,
+        "longitude":-98.2883
+      },
+      {
+        "name":"NH",
+        "count": {{billStateCount["NH"]}},
+        "radius": {{billStateCount["NH"] * 5}},
+        "latitude":43.4108,
+        "longitude":-71.5653
+      },
+      {
+        "name":"NJ",
+        "count": {{billStateCount["NJ"]}},
+        "radius": {{billStateCount["NJ"] * 5}},
+        "latitude":40.3140,
+        "longitude":-74.5089
+      },
+      {
+        "name":"NM",
+        "count": {{billStateCount["NM"]}},
+        "radius": {{billStateCount["NM"] * 5}},
+        "latitude":34.8375,
+        "longitude":-106.2371
+      },
+      {
+        "name":"NV",
+        "count": {{billStateCount["NV"]}},
+        "radius": {{billStateCount["NV"] * 5}},
+        "latitude":38.4199,
+        "longitude":-117.1219
+      },
+      {
+        "name":"NY",
+        "count": {{billStateCount["NY"]}},
+        "radius": {{billStateCount["NY"] * 5}},
+        "latitude":42.1497,
+        "longitude":-74.9384
+      },
+      {
+        "name":"OH",
+        "count": {{billStateCount["OH"]}},
+        "radius": {{billStateCount["OH"] * 5}},
+        "latitude":40.3736,
+        "longitude":-82.7755
+      },
+      {
+        "name":"OK",
+        "count": {{billStateCount["OK"]}},
+        "radius": {{billStateCount["OK"] * 5}},
+        "latitude":35.5376,
+        "longitude":-96.9247
+      },
+      {
+        "name":"OR",
+        "count": {{billStateCount["OR"]}},
+        "radius": {{billStateCount["OR"] * 5}},
+        "latitude":44.5672,
+        "longitude":-122.1269
+      },
+      {
+        "name":"PA",
+        "count": {{billStateCount["PA"]}},
+        "radius": {{billStateCount["PA"] * 5}},
+        "latitude":40.5773,
+        "longitude":-77.2640
+      },
+      {
+        "name":"RI",
+        "count": {{billStateCount["RI"]}},
+        "radius": {{billStateCount["RI"] * 5}},
+        "latitude":41.6772,
+        "longitude":-71.5101
+      },
+      {
+        "name":"SC",
+        "count": {{billStateCount["SC"]}},
+        "radius": {{billStateCount["SC"] * 5}},
+        "latitude":33.8191,
+        "longitude":-80.9066
+      },
+      {
+        "name":"SD",
+        "count": {{billStateCount["SD"]}},
+        "radius": {{billStateCount["SD"] * 5}},
+        "latitude":44.2853,
+        "longitude":-99.4632
+      },
+      {
+        "name":"TN",
+        "count": {{billStateCount["TN"]}},
+        "radius": {{billStateCount["TN"] * 5}},
+        "latitude":35.7449,
+        "longitude":-86.7489
+      },
+      {
+        "name":"TX",
+        "count": {{billStateCount["TX"]}},
+        "radius": {{billStateCount["TX"] * 5}},
+        "latitude":31.1060,
+        "longitude":-97.6475
+      },
+      {
+        "name":"UT",
+        "count": {{billStateCount["UT"]}},
+        "radius": {{billStateCount["UT"] * 5}},
+        "latitude":40.1135,
+        "longitude":-111.8535
+      },
+      {
+        "name":"VA",
+        "count": {{billStateCount["VA"]}},
+        "radius": {{billStateCount["VA"] * 5}},
+        "latitude":37.7680,
+        "longitude":-78.2057
+      },
+      {
+        "name":"VT",
+        "count": {{billStateCount["VT"]}},
+        "radius": {{billStateCount["VT"] * 5}},
+        "latitude":44.0407,
+        "longitude":-72.7093
+      },
+      {
+        "name":"WI",
+        "count": {{billStateCount["WI"]}},
+        "radius": {{billStateCount["WI"] * 5}},
+        "latitude":47.3917,
+        "longitude":-121.5708
+      },
+      {
+        "name":"WA",
+        "count": {{billStateCount["WA"]}},
+        "radius": {{billStateCount["WA"] * 5}},
+        "latitude":44.2563,
+        "longitude":-89.6385
+      },
+      {
+        "name":"WV",
+        "count": {{billStateCount["WV"]}},
+        "radius": {{billStateCount["WV"] * 5}},
+        "latitude":38.4680,
+        "longitude":-80.9696
+      },
+      {
+        "name":"WY",
+        "count": {{billStateCount["WY"]}},
+        "radius": {{billStateCount["WY"] * 5}},
+        "latitude":42.7475,
+        "longitude":-107.2085
+      }
+    ];
 
     map.bubbles(sponsoredBills, {
       popupTemplate: function(geo, data) {
@@ -845,5 +847,52 @@
     });
 
   </script>
+
+
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["timeline"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var container = document.getElementById('example4.2');
+      var chart = new google.visualization.Timeline(container);
+      var dataTable = new google.visualization.DataTable();
+      var str = "somethin";
+      //var bData = {{billData[0]["number"]}};
+
+      dataTable.addColumn({ type: 'string', id: 'Role' });
+      dataTable.addColumn({ type: 'string', id: 'Name' });
+      dataTable.addColumn({ type: 'date', id: 'Start' });
+      dataTable.addColumn({ type: 'date', id: 'End' });
+      dataTable.addRows([
+        [ str, 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
+        [ 'President', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4) ],
+        [ 'President', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4) ]],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // [],
+        // []
+      );
+
+      var options = {
+        timeline: { groupByRowLabel: false }
+      };
+
+      chart.draw(dataTable, options);
+    }
+  </script>
+
 
 </body>

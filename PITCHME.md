@@ -73,7 +73,7 @@
 - React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
 
 +++
----?image=https://media.giphy.com/media/xT1Ra3elINQ8Dq4NHO/giphy.gif
+?image=https://media.giphy.com/media/xT1Ra3elINQ8Dq4NHO/giphy.gif
 
 
 ---

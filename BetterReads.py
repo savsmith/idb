@@ -72,13 +72,8 @@ class series(db.Model):
     description = db.Column(db.String(2500), nullable=False)
     primary_count = db.Column(db.Integer, nullable=False)
     numbered = db.Column(db.Boolean, nullable=False)
-<<<<<<< HEAD
-
-    #db.relationships
-=======
 
     #db.relationships for series
->>>>>>> 8a247eb15ee36d59c7bee6a85b4883d0856d6bde
     books = db.relationship(books, backref='series')
     authors = db.relationship("author", secondary=series_author_assoc_table, back_populates="series")
 

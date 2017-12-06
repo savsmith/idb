@@ -94,18 +94,18 @@
 ## What did we learn from their website?
 - We learned about Ag-Grid
 - We learned about the party demographics among representatives
-
+- PDF Integration
 +++
 
 ## What can they do better?
 - Refining search functionality
 - More Media
+- Information isn't visible
 
 +++
 
 ## What puzzles us about thier website?
 - Information not displayed in a helpful and informative manner
-- Information isn't visible
 - Certain links on the instance pages break website functionality
 
 

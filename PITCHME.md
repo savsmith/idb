@@ -14,59 +14,67 @@
 <br>
 +++
 
-# Savannah Smith
+## Savannah Smith
 #### Responsibilites
-- Creating the database models
-- Scraping the Goodreads and Nytimes Best-Seller APIs
+- Backend
+- Database Management
 +++
 
-# Kevin Vu
+## Kevin Vu
 #### Responsibilites
-- A
-- B
-- C
+- Managed website through GAE
+- Frontend with React
 +++
 
-# Manasa Tipparam
+## Manasa Tipparam
 #### Responsibilites
-- A
-- B
-- C
+- Design and Frontend with React
+- Data Visualization
+- API Testing
 +++
 
-# Sabrina Reenan
+## Sabrina Reenan
 #### Responsibilites
-- A
-- B
-- C
+- Frontend for instance pages
+- Populated attributes using API
 +++
 
-# Farnoud Faghihi
+## Farnoud Faghihi
 #### Responsibilites
-- A
-- B
-- C
+- Implementation and documentation of the API
+- Sorting and filtering
 ---
 
 @title[Critque]
 
 ## What did we do well?
-- A
-
+- React
+- Pagination, Search, Filter
+- Fast
+- API
 +++
 
 ## What did we learn?
-- A
+- Website Tools - (Flask, React, API + Scraping)
+- CORS - cross domain requests
+- GCP issues
 
 +++
 
 ## What can we do better?
-- A
-
+- Mobile Compatibility
+- Code refactoring
+- UI: Some of it is a bit wonky, and can behave erratically.
+- Filters and Search Reset
 +++
 
 ## What puzzles us?
-- A
+- Book APIs were confusing to use.
+- React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
+
+
+---?image=https://media.giphy.com/media/xT1Ra3elINQ8Dq4NHO/giphy.gif
+
 
 ---
 @title[VotingTrail]
@@ -76,19 +84,32 @@
 +++
 
 ## What did they do well?
-- A
+- Sort and filter for all attributes
+- Twitter integration
+- Very Informative Vote Information Page
+- Clean Website
 
 +++
 
 ## What did we learn from their website?
-- A
+- We learned about Ag-Grid
+- We learned about the party demographics among representatives
 
 +++
 
 ## What can they do better?
-- A
+- Refining search functionality
+- More Media
 
 +++
 
 ## What puzzles us about thier website?
-- A
+- Information not displayed in a helpful and informative manner
+- Information isn't visible
+- Certain links on the instance pages break website functionality
+
+
+---
+## VISUALIZATION
+---
+## Questions?

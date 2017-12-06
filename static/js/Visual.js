@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let members = []
 let votes = []
 let committees = []
@@ -56,3 +57,23 @@ function filterBills () {
   })
 
 }
+=======
+import React from 'react';
+require('../css/styles.css');
+
+
+/* test page */
+
+
+var Visual = React.createClass({
+  render: function(){
+      return(
+        <div>
+          <h1>test</h1>
+        </div>
+      );
+  }
+});
+  
+  export default Visual; 
+>>>>>>> 8a247eb15ee36d59c7bee6a85b4883d0856d6bde

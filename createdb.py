@@ -7,6 +7,9 @@ import sys
 from pprint import pprint
 from sqlalchemy.exc import IntegrityError
 import re
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from GetReviews import reviews
 
 class InvalidEntry(Exception):
     pass
@@ -23,20 +26,24 @@ def createdb():
     db.create_all()
 
 def populatedb():
-    insertGRBooks(1, 50)
-    getReviewsForBooks()
+    insertGRBooks(1, 10)
 
 def cleardb():
-    db.session.query(books).delete()
-    db.session.query(author).delete()
-    db.session.query(series).delete()
-    db.session.query(reviews).delete()
+    meta = db.metadata
+    for table in reversed(meta.sorted_tables):
+
+        print ('Clear table %s' % table)
+
+        db.session.execute(table.delete())
+
+    db.session.commit()
     
 def getNyTimesBooks():
     """
     Adds books and their corresponding authors and series featured on NYTIMES lists to the database
     """
     lists = [lst['list_name_encoded'] for lst in requests.get('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=1bfa24a95061415dbc8d4a4f136329a5').json()['results']]
+    global printout
     for l in lists[:1]:
         results = requests.get('https://api.nytimes.com/svc/books/v3/lists.json?list='+l+'&api-key=1bfa24a95061415dbc8d4a4f136329a5').json()
         for r in results['results']:
@@ -49,6 +56,10 @@ def getNyTimesBooks():
             except ExpatError as e:
                 print(e)
 
+def getGRBookByWorkID(id):
+    return User.query.filter_by(work_id=id).first()
+
+
 def getGRBookByID(id, list=None, prefix=""):
     book_entry = db.session.query(books).get(id)
     global printout
@@ -60,12 +71,17 @@ def getGRBookByID(id, list=None, prefix=""):
             try:
                 data = xmltodict.parse(request.text)['GoodreadsResponse']['book']
             except ExpatError:
+                print(prefix+"book invalid due to ExpatError"+str(id))
                 return None
             
             book = {}
             book['id'] = int(data['id'])
             book['title'] = data['title']
-            book['description'] = re.sub("<.*?>", "",data['description'])
+
+            if(printout):
+                print(prefix+"|- book title: "+book['title'])
+
+            book['description'] = re.sub("<.*?>", "",data['description']) if data['description'] is not None else None
             book['small_img'] = data['small_image_url']
             book['large_img'] = data['image_url']
             book['published_date'] = (data['publication_month'] if data['publication_month'] is not None else "unknown_month"
@@ -77,8 +93,16 @@ def getGRBookByID(id, list=None, prefix=""):
             book['published_month'] = data['publication_month']
             book['published_year'] = data['publication_year']
             book['rating'] = data['average_rating']
+            book['work_id'] = int(data['work']['id']['#text'])
+            pages = data['num_pages']
+            book['num_pages'] = int(pages) if pages is not None else None
+            book['link'] = data['buy_links']['buy_link']
+            if book['link'] is not None and len(book['link']) > 0:
+                book['link'] = book['link'][0]['link']
+            else:
+                book['link'] = None
             isbn = data['isbn']
-            
+
             if "nophoto" in book['large_img']:
                 book['large_img'] = None
                 
@@ -90,6 +114,8 @@ def getGRBookByID(id, list=None, prefix=""):
             # Look up the book's author
             book_search = requests.get('https://www.goodreads.com/search/index.xml?key='+API_KEY['GOODREADS']+'&q='+str(isbn))
             book_search = xmltodict.parse(book_search.text)
+            if book_search['GoodreadsResponse']['search']['results'] is None:
+                return None
             work = book_search['GoodreadsResponse']['search']['results']['work']
             match = True
             if isinstance(work, type([])):
@@ -100,12 +126,23 @@ def getGRBookByID(id, list=None, prefix=""):
                         match = True
             if match:
                 author_id = int(work['best_book']['author']['id']['#text'])
+
+                #TODO: Double Check Author doesn't already contain a book with the same work id
                 book['author'] = getGRAuthorByID(author_id, book_callee=id, prefix=prefix+"\t")
+                try:
+                    if book['author'] is not None and book['work_id'] in [author_book.work_id for author_book in book['author'].books]:
+                        print(prefix+str(book['author'])+" already contains: ")
+                        for b in book['author'].books:
+                            print(prefix+"\t"+str(b))
+                        print(prefix+"failed to add "+str(book['title']))
+                        return None
+                except TypeError:
+                    pass
             else:
                 book['author'] = None
                 
             nullables = ['published_date', 'published_day', 'published_month', 'published_year']
-            if(all([key in nullables or item is not None for (key, item) in book.items()])):
+            if(all([key in nullables or item is not None for (key, item) in book.items()]) and id not in db.session.query(books.id).all()):
                 book_entry = books(**book)
                 db.session.add(book_entry)
                 db.session.commit()
@@ -128,13 +165,22 @@ def getGRBookByID(id, list=None, prefix=""):
                 if series_request['GoodreadsResponse']['series_works'] is not None:
                     print("Error 01 in getGRBookById: "+str(e))
             else:
-                db.session.query(books).get(id).series = getGRSeriesByID(int(series_id), prefix=prefix+"\t")
-                db.session.commit()
+                #TODO: Double Check Author doesn't already contain a book with the same work id
+                series = getGRSeriesByID(int(series_id), prefix=prefix+"\t")
+                if series is not None and series.books is not None and book['work_id'] in [book.work_id for book in series.books]:
+                    print(prefix+"Series "+str(series.series_name)+" already contains: ")
+                    for series_book in series.books:
+                        print(prefix+"\t"+str(series_book.title))
+                    print(prefix+"failed to add "+str(book['title']))
+                    print(prefix+"book invalid "+str(id))
+                else:
+                    db.session.query(books).get(id).series = series
+                    db.session.commit()
             
             if(printout):
-                print(prefix+book['title']+" added")
+                print(prefix+book['title']+" added "+str(book_entry))
                 #print(prefix+str(book_entry)+" added")
-            
+        
     return book_entry
     
 def getGRAuthorByID(id, book_callee=None, series_callee=None, prefix=""):
@@ -153,14 +199,19 @@ def getGRAuthorByID(id, book_callee=None, series_callee=None, prefix=""):
             auth = {}
             auth['id'] = int(data['id'])
             auth['author'] = data['name'] 
-            auth['description'] = re.sub("<.*?>", "", data['about'])
+            if(printout):
+                print(prefix+"|- author: "+auth['author'])
+            auth['description'] = re.sub("<.*?>", "", data['about']) if data['about'] is not None else None
             auth['hometown'] = data['hometown']
             auth['small_img'] = data['small_image_url']
             auth['large_img'] = data['image_url']  
             auth['gender'] = data['gender']
+            auth['fan_count'] = int(data['fans_count']['#text'])
+
+
             
             nullables = ['gender']
-            if(all([key in nullables or item is not None for (key, item) in auth.items()])):
+            if(all([key in nullables or item is not None for (key, item) in auth.items()]) and id not in db.session.query(author.id).all()):
                 author_entry = author(**auth)
                 db.session.add(author_entry)
                 db.session.commit()
@@ -197,14 +248,16 @@ def getGRSeriesByID(id, prefix=""):
             ser = {}
             ser['id'] = int(data['id'])
             ser['series_name'] = data['title']
+            if(printout):
+                print(prefix+"|- series: "+ser['series_name'])
             ser['count'] = int(data['series_works_count'])
-            ser['description'] = re.sub("<.*?>", "", data['description'])
+            ser['description'] = re.sub("<.*?>", "", data['description']) if data['description'] is not None else None
             ser['primary_count'] = data['primary_work_count']
             ser['numbered'] = data['numbered']
             
             
             nullables = []
-            if(all([key in nullables or item is not None for (key, item) in ser.items()])):
+            if(all([key in nullables or item is not None for (key, item) in ser.items()]) and id not in db.session.query(series.id).all()):
                 series_entry = series(**ser)
                 db.session.add(series_entry)
                 db.session.commit()
@@ -214,19 +267,23 @@ def getGRSeriesByID(id, prefix=""):
             
             works = data['series_works']['series_work']
             for book in works:
-                while type(book) is list:
+                while isinstance(book, type([])):
                     book = book[0]
                 if type(book)is OrderedDict:
                     s_books = db.session.query(series).get(id).books
                     s_authors = db.session.query(series).get(id).authors
-                    s_b = getGRBookByID(int(book['id']), prefix=prefix+"\t")
-                    if s_b is not None:
-                        s_books.append(s_b)
-                        db.session.commit()
-                    s_a = getGRAuthorByID(int(book['work']['best_book']['author']['id']), prefix=prefix+"\t")
-                    if s_a is not None:
-                        s_authors.append(s_a)
-                        db.session.commit()
+                    book_id = int(book['work']['best_book']['id'])
+                    author_id = int(book['work']['best_book']['author']['id'])
+                    if book_id not in db.session.query(books.id):
+                        s_b = getGRBookByID(book_id, prefix=prefix+"\t")
+                        if s_b is not None:
+                            s_books.append(s_b)
+                            db.session.commit()
+                    if author_id not in db.session.query(author.id):
+                        s_a = getGRAuthorByID(author_id, prefix=prefix+"\t")
+                        if s_a is not None:
+                            s_authors.append(s_a)
+                            db.session.commit()
             
             
             if(printout):
@@ -256,7 +313,8 @@ def getGRReviewByID(id, prefix=""):
             review['review'] = data['body']
             review['spoiler_flag'] = data['spoiler_flag']
             review['date_added'] = data['date_added']
-            
+            review['votes'] = int(data['votes'])
+
             nullables = ['review']
             if(all([key in nullables or item is not None for (key, item) in review.items()])):
                 review_entry = reviews(**review)
@@ -286,8 +344,8 @@ def insertGRBooks(start, step):
     while i < (start + step):
         try:
             getGRBookByID(i)
-        except Exception:
-            pass
+        except Exception as e:
+            print(e)
         i += 1
         
 def insertGRAuthors(start, step):
@@ -329,16 +387,41 @@ def getReviewsForBooks():
                     
                         print(review_entry)
         
-    
+
+def addReviews():
+    review_engine = create_engine('sqlite:///reviews.db', echo=True)
+    Session = sessionmaker(bind=review_engine)
+    review_session = Session()
+    all_reviews = review_session.query(reviews).all()
+    book_ids = [b[0] for b in db.session.query(books.id).all()]
+    for rev in all_reviews:
+        if db.session.query(reviews).get(rev.id) is None and rev.book_id in book_ids:
+            r = {}
+            r['id'] = rev.id
+            r['user'] = rev.user
+            r['rating'] = rev.rating
+            r['book_id'] = rev.book_id
+            r['review'] = rev.review
+            r['spoiler_flag'] = rev.spoiler_flag
+            r['date_added'] = rev.date_added
+
+            print("Added review of book "+str(rev.book_id))
+            db.session.add(reviews(**r))
+            db.session.commit()
     
 if __name__ == "__main__":
     print("Creating Betterreads Database")
     if '-clear' in sys.argv:
+        print("Clearing Database")
         cleardb()
         
     global printout
     printout = '-print' in sys.argv
         
     createdb()
+    #getGRSeriesByID(49075)
     populatedb()
-    #insertGRBooks(1, 1)
+    getNyTimesBooks()
+    addReviews()
+    my_reviews = db.session.query(reviews).all()
+    print(reviews.review)

@@ -1,3 +1,8 @@
+
+
+/* CSS FOR THE ABOUT PAGE */
+
+
 @font-face {
   font-family: 'PierSans';
   src: url(../fonts/PierSans/PierSans-Regular.woff);
@@ -22,6 +27,7 @@
   background-color: #E0F2E9;
 }
 
+/* tools including API */
 .toolWrapper {
   width:100%;
   height:10vh;
@@ -39,9 +45,9 @@
 }
 
 .scrapeicon {
-height: 80%;
-display: block;
-margin-top: 5%;
+  height: 80%;
+  display: block;
+  margin-top: 5%;
 }
 
 .api {
@@ -61,8 +67,8 @@ margin-top: 5%;
  }
 
 .toolRightWrapper {
-width:35%;
-height:10vh;
+  width:35%;
+  height:10vh;
 }
 
 .dataRightWrapper {
@@ -114,7 +120,7 @@ height:10vh;
 .flipContainer:hover .hoverInfo{
   -webkit-transform: rotateY(180deg);  
   -ms-transform: rotateY(180deg);      
-      transform: rotateY(180deg);          
+  transform: rotateY(180deg);          
 }
 
 
@@ -130,6 +136,8 @@ height:10vh;
   width: 220px;
   cursor: pointer;
 }
+
+/* member cards */
 .backcard {
   height: 300px;
   width: 220px;

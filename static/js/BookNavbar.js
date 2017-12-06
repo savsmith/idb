@@ -5,44 +5,48 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom'
 require('../css/styles.css');
 
+
+/* NAVIGATION BAR */
+
+
 var BookNavbar = React.createClass({
+  //layout for the navigation bar
+  render() {
+    return (
+      <div>
+        <Navbar className="navbar-fixed-top" fluid collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="/">betterreads</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <LinkContainer to = "/search">
+                <MenuItem>search</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/books">
+                <MenuItem>books</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/series">
+                <MenuItem>series</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/author">
+                <MenuItem>authors</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/reviews">
+                <MenuItem>reviews</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/about">
+                <MenuItem>about</MenuItem>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
+    )
+  }
+});
 
-    render() {
-      return (
-        <div>
-            <Navbar className="navbar-fixed-top" fluid collapseOnSelect>
-              <Navbar.Header>
-                <Navbar.Brand>
-                  <a href="/">betterreads</a>
-                </Navbar.Brand>
-                <Navbar.Toggle />
-              </Navbar.Header>
-              <Navbar.Collapse>
-                <Nav pullRight>
-                  <LinkContainer to = "/search">
-                    <MenuItem>search</MenuItem>
-                  </LinkContainer>
-                  <LinkContainer to="/books">
-                    <MenuItem>books</MenuItem>
-                  </LinkContainer>
-                  <LinkContainer to="/series">
-                    <MenuItem>series</MenuItem>
-                  </LinkContainer>
-                  <LinkContainer to="/author">
-                    <MenuItem>authors</MenuItem>
-                  </LinkContainer>
-                  <LinkContainer to="/reviews">
-                    <MenuItem>reviews</MenuItem>
-                  </LinkContainer>
-                  <LinkContainer to="/about">
-                    <MenuItem>about</MenuItem>
-                  </LinkContainer>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
-        </div>
-      )
-    }
-  });
-
-  export default BookNavbar;
+export default BookNavbar;

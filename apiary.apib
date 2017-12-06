@@ -155,7 +155,7 @@ Betterreads is an API for scraping book related data
 + Parameters
     + limit (optional, Number, `20`) ... max number of records to be returned.
     + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
-    + filter (optional, String, `top`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning series with low # of volumes (less than 6) and series with high # of volumes (for no filtering, don't pass/set this parameter).
+    + filter (optional, String, `low`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning series with low # of volumes (less than 6) and series with high # of volumes (for no filtering, don't pass/set this parameter).
     + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting series by title (for no sorting, don't pass/set this parameter).
  
 + Response 200 (application/json)
@@ -216,7 +216,7 @@ Betterreads is an API for scraping book related data
 + Parameters
     + limit (optional, Number, `20`) ... max number of records to be returned.
     + offset (optional, Number, `0`) ... the starting point for retrieving data in the list.
-    + filter (optional, String, `top`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning reviews with low ratings (less than 2.5) and reviews with high ratings (for no filtering, don't pass/set this parameter).
+    + filter (optional, String, `low`) ... two acceptable values for filter are: 'low' and 'high', which respectively result in returning reviews with low ratings (less than 2.5) and reviews with high ratings (for no filtering, don't pass/set this parameter).
     + sort (optional, String,, `asc`) ... two acceptable values for sort are: 'asc' and 'desc', which result in sorting reviews by rating (for no sorting, don't pass/set this parameter).
  
 + Response 200 (application/json)

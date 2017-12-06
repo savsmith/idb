@@ -14,9 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betterreads.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-json_url = os.path.join(SITE_ROOT, "static/db", "bookDB.json")
-data = json.load(open(json_url))
-
 #----------#
 # Database #
 #----------#
@@ -25,6 +22,7 @@ series_author_assoc_table = db.Table('series_author_assoc',
     db.Column('series_id', db.Integer, db.ForeignKey('series.id')),
     db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 
+## book table
 class books(db.Model):
     __tablename__ = 'books'
 
@@ -38,15 +36,17 @@ class books(db.Model):
     published_year = db.Column(db.String(250), nullable=True)
     published_month = db.Column(db.String(250), nullable=True)
     published_date = db.Column(db.String(250), nullable=True)
-
-
+    work_id = db.Column(db.Integer, nullable=False)
+    num_pages = db.Column(db.Integer, nullable=True)
+    link = db.Column(db.String(250), nullable=True)
     rating = db.Column(db.Float, nullable=False)
 
-    #db.relationships
+    #db.relationships for books
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
     reviews = db.relationship('reviews', backref='book')
 
+## author table
 class author(db.Model):
     __tablename__ = 'author'
     id = db.Column(db.Integer, primary_key=True)
@@ -56,11 +56,14 @@ class author(db.Model):
     small_img = db.Column(db.String(250), nullable=True)
     large_img = db.Column(db.String(250), nullable=False)
     gender = db.Column(db.String(250), nullable=True)
+    fan_count = db.Column(db.Integer(), nullable=True)
+
 
     #db.relationships
     books = db.relationship("books", backref="author")
     series = db.relationship("series", secondary=series_author_assoc_table, back_populates="authors")
 
+## series table
 class series(db.Model):
     __tablename__ = 'series'
     id = db.Column(db.Integer, primary_key=True)
@@ -69,11 +72,17 @@ class series(db.Model):
     description = db.Column(db.String(2500), nullable=False)
     primary_count = db.Column(db.Integer, nullable=False)
     numbered = db.Column(db.Boolean, nullable=False)
+<<<<<<< HEAD
 
     #db.relationships
+=======
+
+    #db.relationships for series
+>>>>>>> 8a247eb15ee36d59c7bee6a85b4883d0856d6bde
     books = db.relationship(books, backref='series')
     authors = db.relationship("author", secondary=series_author_assoc_table, back_populates="series")
 
+## reviews table
 class reviews(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
@@ -82,6 +91,7 @@ class reviews(db.Model):
     review = db.Column(db.String(2500), nullable=True)
     spoiler_flag = db.Column(db.String(250), nullable=False)
     date_added = db.Column(db.String(250), nullable=False)
+    votes = db.Column(db.Integer(), nullable=True)
 
     #db.relationships
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
@@ -142,6 +152,7 @@ def bad_request(errorStr):
 
     return resp
 
+# all instances of books
 @app.route('/api/books', methods = ['GET'])
 def get_all_books():
     limit = request.args.get('limit', default = None, type = int)
@@ -210,6 +221,7 @@ def get_all_books():
 
     return resp
 
+# all instances of authors
 @app.route('/api/authors', methods = ['GET'])
 def get_all_authors():
     limit = request.args.get('limit', default = None, type = int)
@@ -266,6 +278,7 @@ def get_all_authors():
 
     return resp
 
+#all instances of series
 @app.route('/api/series', methods = ['GET'])
 def get_all_series():
     limit = request.args.get('limit', default = None, type = int)
@@ -328,6 +341,7 @@ def get_all_series():
 
     return resp
 
+#all instances of reviews
 @app.route('/api/reviews', methods = ['GET'])
 def get_all_reviews():
     limit = request.args.get('limit', default = None, type = int)
@@ -452,6 +466,7 @@ def not_found_error(errorStr):
 
     return resp
 
+#book instance based on id
 @app.route('/api/books/<int:book_id>', methods = ['GET'])
 def get_book_instance(book_id):
     book_list = [dict(b) for b in db.engine.execute("select * from books where id = " + str(book_id))]
@@ -463,6 +478,7 @@ def get_book_instance(book_id):
 
     return resp
 
+#book instance based on id
 @app.route('/api/authors/<int:author_id>', methods = ['GET'])
 def get_author_instance(author_id):
     author_list = [dict(a) for a in db.engine.execute("select * from author where id = " + str(author_id))]
@@ -474,6 +490,7 @@ def get_author_instance(author_id):
 
     return resp
 
+#series instance based on id
 @app.route('/api/series/<int:series_id>', methods = ['GET'])
 def get_series_instance(series_id):
     series_list = [dict(s) for s in db.engine.execute("select * from series where id = " + str(series_id))]
@@ -485,6 +502,7 @@ def get_series_instance(series_id):
 
     return resp
 
+#review instance based on id
 @app.route('/api/reviews/<int:review_id>', methods = ['GET'])
 def get_review_instance(review_id):
     review_list = [dict(r) for r in db.engine.execute("select * from reviews where id = " + str(review_id))]

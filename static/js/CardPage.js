@@ -8,8 +8,12 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 
+/* CARD FOR EACH INSTANCE ON A GRID PAGE */
+
+
 function SimpleMediaCard(props) {
   const { classes } = props;
+  //layout for a single card
   return (
     <div>
       <Card className={classes.card}>
@@ -22,9 +26,9 @@ function SimpleMediaCard(props) {
           <Typography type="headline" component="h2">
             Lizard
           </Typography>
-          <Typography component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            <Typography component="p">
+              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+              across all continents except Antarctica
           </Typography>
         </CardContent>
         <CardActions>

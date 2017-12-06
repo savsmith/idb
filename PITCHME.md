@@ -55,9 +55,9 @@
 +++
 
 ## What did we learn?
-- CORS - cross domain requests
-- Teamwork
 - Website Tools - (Flask, React, API + Scraping)
+- CORS - cross domain requests
+- GCP issues
 
 +++
 
@@ -69,8 +69,10 @@
 +++
 
 ## What puzzles us?
-- Book APIs, not many good concrete ones available.
+- Book APIs were confusing to use.
 - React States: On our domain, some connections do not populate correctly do to what we believe are race conditions.
+
++++
 ![](https://media.giphy.com/media/xT1Ra3elINQ8Dq4NHO/giphy.gif)
 
 
@@ -96,7 +98,6 @@
 +++
 
 ## What can they do better?
-- Certain links on the instance pages break website functionality
 - Refining search functionality
 - More Media
 
@@ -105,3 +106,10 @@
 ## What puzzles us about thier website?
 - Information not displayed in a helpful and informative manner
 - Information isn't visible
+- Certain links on the instance pages break website functionality
+
+
+---
+VISUALIZATION
+---
+Questions?
